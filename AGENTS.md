@@ -28,6 +28,7 @@ The scope of the research and content of this project includes but is not limite
 
 * Explanation of some common terms including:
   * AI software development agent
+  * Inference
 * Explanation of how to classify AI software development solutions where the nominal classification system is "AI software development agents", "AI-Native Integrated Development Environments (IDEs)", "IDE Extensions & Editor Companions" and "Hosted AI-Native IDEs.
 * Identification of the major AI software development agents includes, but is not limited to:
   * Atlassian Rovo Dev
