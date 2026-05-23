@@ -380,17 +380,24 @@ The USB-C analogy: before USB-C, every device had a different cable. Before MCP,
 
 ### Key MCP Servers for Forge Developers
 
-MCP servers extend what your AI agent can do. Here are the most important ones for Forge development:
+MCP servers extend what your AI agent can do. For Forge development, the relevant servers fall into two groups:
+
+**🔨 App development** — tools that help the agent *build* the app:
 
 | MCP Server | Provider | Key Capabilities |
 |---|---|---|
 | 🔶 **Forge MCP Server** | Atlassian | Forge how-to guides, module catalogs, manifest guidance, API search — Forge knowledge for any AI agent |
-| 🔷 **Atlassian MCP Server** | Atlassian | Jira, Confluence, Bitbucket, Compass read/write — permission-aware, enterprise-grade |
 | 🐙 **GitHub MCP Server** | GitHub | Repository management, PR creation, issue tracking, code review |
 | 📁 **Filesystem MCP** | Anthropic | Local file read/write for agents in sandboxed environments |
 | 🌐 **Playwright MCP** | Microsoft | Browser automation, web scraping, UI testing |
 | 🐘 **Postgres MCP** | Community | Natural language queries against PostgreSQL — useful for debugging |
-| 💬 **Slack MCP** | Community | Send messages, read channels, manage notifications from AI agents |
+
+**📋 Project context** — tools that help the agent *understand what to build and track progress*:
+
+| MCP Server | Provider | Key Capabilities |
+|---|---|---|
+| 🔷 **Atlassian MCP Server** | Atlassian | Jira, Confluence, Bitbucket, Compass read/write — reads requirements, updates issue status, links PRs |
+| 💬 **Slack MCP** | Community | Read channel discussions for context; post progress updates |
 
 **Add the Forge MCP Server to any AI tool:**
 ```json
