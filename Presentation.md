@@ -491,7 +491,7 @@ The open standard means: build a skill once, use it across Claude Code, Codex CL
 
 Skills are simple markdown files stored in your project repository. Agents discover and load them automatically.
 
-**Skill file structure:**
+**Skill file structure** (using the canonical `.agents/skills/` location):
 ```
 .agents/skills/
 ├── commit/
@@ -550,6 +550,79 @@ The beauty of skills is their simplicity. A skill is just a markdown file in a d
 **Real example from this project:** This very presentation was built with an agent using a `research` skill (for conducting research), a `changelog` skill (for recording version changes), and a `commit` skill (for formatting commits). The agent reads these skills from `.agents/skills/` and applies them automatically when the task calls for it.
 
 **Keep SKILL.md under 5,000 tokens** — the "load" step should be lean. Put long reference documents in a `references/` subfolder, loaded only when the agent explicitly needs them.
+
+</details>
+
+---
+
+### Where to Put Your Skills
+
+The SKILL.md format is a shared open standard — but each tool looks for skills in its own directory. The standard recommends `.agents/skills/` in your project root, but many tools use a tool-specific path instead.
+
+**Project-level skills** (checked into your repo — shareable with the team):
+
+| Tool | Project skills directory |
+|---|---|
+| **Codex CLI** | `.agents/skills/` ✅ standard |
+| **GitHub Copilot** | `.agents/skills/`, `.github/skills/`, or `.claude/skills/` |
+| **Claude Code** | `.claude/skills/` |
+| **Cursor** | `.cursor/skills/` |
+| **Windsurf** | `.windsurf/skills/` |
+| **Rovo Dev** | `.rovodev/skills/` |
+
+**Global skills** (personal, available across all your projects):
+
+| Tool | Global skills directory |
+|---|---|
+| **Codex CLI** | `~/.codex/skills/` |
+| **GitHub Copilot** | `~/.agents/skills/` or `~/.copilot/skills/` |
+| **Claude Code** | `~/.claude/skills/` |
+| **Windsurf** | `~/.codeium/windsurf/skills/` |
+| **Cursor** | ❌ No global skills support |
+| **Rovo Dev** | Not documented |
+
+> 💡 **Recommended approach:** Use `.agents/skills/` in your project root for maximum portability. For tools that don't recognise it natively (Claude Code, Cursor, Windsurf, Rovo Dev), create a symlink from their expected directory to `.agents/skills/`.
+
+#### Speaker notes
+
+<details>
+<summary>Speaker notes</summary>
+
+This is one of the messier corners of the agent skills ecosystem — the standard exists but compliance is inconsistent, and each tool carved out its own path.
+
+**The story of the standard:**
+The `.agents/skills/` path is the open standard defined at agentskills.io. Anthropic created both the Agent Skills open standard *and* Claude Code. Yet Claude Code itself uses `.claude/skills/` instead of `.agents/skills/` — the standard its own creators defined. This has caused real friction in the community since mid-2025.
+
+**Two levels of skills:**
+- **Project-level** — lives inside your repository, committed to git. When a teammate pulls the repo, they immediately have all the team's skills available. Perfect for encoding team standards (commit format, Forge app review checklist, etc.).
+- **Global / personal** — lives in your home directory. Available in every project on your machine. Good for personal preferences (preferred code style, language settings, tools you always use).
+
+Project skills take precedence over global skills when names conflict.
+
+**The symlink trick:**
+If you want to maintain one authoritative set of skills in `.agents/skills/` and have all tools see them, create symlinks:
+```bash
+# For Claude Code
+ln -s .agents/skills .claude/skills
+
+# For Cursor
+ln -s .agents/skills .cursor/skills
+
+# For Windsurf
+ln -s .agents/skills .windsurf/skills
+
+# For Rovo Dev
+ln -s .agents/skills .rovodev/skills
+```
+
+**The installer shortcut:**
+The `npx skills` CLI (and similar package managers) handles directory detection automatically — it detects which agents are installed and copies/symlinks skills to all the right places. For teams adopting skills for the first time, this is the lowest-friction path.
+
+**Cursor's global skills limitation:**
+Cursor is the only major tool with no global skills support. If you want a personal skill available in all your Cursor projects, you have to copy it into each project's `.cursor/skills/` directory manually (or use a setup script).
+
+**For Forge developers specifically:**
+If you're using Rovo Dev as your primary agent, put your skills in `.rovodev/skills/`. If you're using multiple agents (e.g., Rovo Dev in the terminal + Cursor in the IDE), use `.agents/skills/` with symlinks so everyone finds them.
 
 </details>
 
