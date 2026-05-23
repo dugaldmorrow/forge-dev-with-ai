@@ -565,10 +565,10 @@ The SKILL.md format is a shared open standard — but each tool looks for skills
 |---|---|
 | **Codex CLI** | `.agents/skills/` ✅ standard |
 | **GitHub Copilot** | `.agents/skills/`, `.github/skills/`, or `.claude/skills/` |
+| **Rovo Dev** | `.agents/skills/` or `.rovodev/skills/` |
 | **Claude Code** | `.claude/skills/` |
 | **Cursor** | `.cursor/skills/` |
 | **Windsurf** | `.windsurf/skills/` |
-| **Rovo Dev** | `.rovodev/skills/` |
 
 **Global skills** (personal, available across all your projects):
 
@@ -576,12 +576,12 @@ The SKILL.md format is a shared open standard — but each tool looks for skills
 |---|---|
 | **Codex CLI** | `~/.codex/skills/` |
 | **GitHub Copilot** | `~/.agents/skills/` or `~/.copilot/skills/` |
+| **Rovo Dev** | `~/.agents/skills/` or `~/.rovodev/skills/` |
 | **Claude Code** | `~/.claude/skills/` |
 | **Windsurf** | `~/.codeium/windsurf/skills/` |
 | **Cursor** | ❌ No global skills support |
-| **Rovo Dev** | Not documented |
 
-> 💡 **Recommended approach:** Use `.agents/skills/` in your project root for maximum portability. For tools that don't recognise it natively (Claude Code, Cursor, Windsurf, Rovo Dev), create a symlink from their expected directory to `.agents/skills/`.
+> 💡 **Recommended approach:** Use `.agents/skills/` in your project root for maximum portability. Rovo Dev, Codex CLI, and GitHub Copilot all recognise it natively. For Claude Code, Cursor, and Windsurf, create a symlink from their expected directory to `.agents/skills/`.
 
 #### Speaker notes
 
@@ -622,7 +622,7 @@ The `npx skills` CLI (and similar package managers) handles directory detection 
 Cursor is the only major tool with no global skills support. If you want a personal skill available in all your Cursor projects, you have to copy it into each project's `.cursor/skills/` directory manually (or use a setup script).
 
 **For Forge developers specifically:**
-If you're using Rovo Dev as your primary agent, put your skills in `.rovodev/skills/`. If you're using multiple agents (e.g., Rovo Dev in the terminal + Cursor in the IDE), use `.agents/skills/` with symlinks so everyone finds them.
+If you're using Rovo Dev as your primary agent, `.agents/skills/` is the recommended location — Rovo Dev recognises it natively alongside `.rovodev/skills/`. If you're also using Cursor or Windsurf, create symlinks from their expected directories to your `.agents/skills/` source of truth.
 
 </details>
 
