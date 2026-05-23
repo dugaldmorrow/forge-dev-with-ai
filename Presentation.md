@@ -80,7 +80,7 @@ For Forge developers: when using AI agents to build Forge apps, you will consume
 
 ### The AI Dev Tool Landscape
 
-Not all AI development tools are the same. The market has organised into four distinct categories based on depth of integration and degree of autonomy:
+Not all AI development tools are the same. For this presentation, we classify them into four categories based on depth of integration and degree of autonomy:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -132,14 +132,14 @@ There's no single right answer — it depends on the task, your team, and your c
 
 The most autonomous category — agents that independently plan, write, test, and ship code.
 
-| Agent | Creator | Type | Distinctive Feature |
-|---|---|---|---|
-| **Rovo Dev** | Atlassian | CLI + VS Code | Atlassian Teamwork Graph context; Forge-aware |
-| **Claude Code** | Anthropic | CLI | Agent View + /goal command; supervisor architecture |
-| **Codex CLI** | OpenAI | CLI + Cloud + App | ~4M weekly active users; open source; Goal mode |
-| **Google Antigravity 2.0** | Google | Desktop + CLI + SDK | Multi-agent orchestration; launched May 19 2026 |
-| **Devin** | Cognition AI | Cloud IDE | First "autonomous AI software engineer"; from $20/mo |
-| **Cline** | Community (MIT) | VS Code extension | 5M+ installs; bring your own API key; fully open source |
+| Agent | Creator | LLMs | Configurable? | Distinctive Feature |
+|---|---|---|---|---|
+| **Rovo Dev** | Atlassian | GPT, Claude, Gemini + open-source | Limited (switch with /model) | Atlassian Teamwork Graph; usage-based credits |
+| **Claude Code** | Anthropic | Claude only (Opus/Sonnet/Haiku) | Yes (/model command) | Agent View + /goal; locked to Anthropic ecosystem |
+| **Codex CLI** | OpenAI | GPT-5.x series; local via Ollama | Yes (/model command) | ~4M weekly users; open source; Goal mode |
+| **Google Antigravity 2.0** | Google | Gemini (default), Claude, GPT-OSS | Yes | Multi-model routing; launched May 19 2026 |
+| **Devin** | Cognition AI | Proprietary SWE-1 / SWE-1.5 | ❌ No | First "autonomous AI software engineer"; from $20/mo |
+| **Cline** | Community (MIT) | 200+ models (Claude, GPT, Gemini, Ollama…) | Yes — fully | 5M+ installs; bring your own API key; fully open source |
 
 > *Claude Code and Devin 2.0 lead SWE-bench Verified benchmarks at ~71–73% task completion (up from ~14% at Devin's 2024 launch).*
 
@@ -178,7 +178,7 @@ Rovo Dev is Atlassian's context-aware AI coding agent, built for the full softwa
 - 📋 **Skills-enabled** — teach it your team's workflows via reusable skill files
 - 🔶 **Forge-aware** — with the Forge MCP Server, understands Forge modules, manifests, and APIs
 
-**Availability:** Included with Standard, Premium, or Enterprise Cloud plans of Jira, Confluence, JSM, or Teamwork Collection — no additional licence required.
+**Availability:** Included with Standard, Premium, or Enterprise Cloud plans of Jira, Confluence, JSM, or Teamwork Collection — no additional licence required. Each plan includes **2,000 Rovo Dev credits per user/month**; usage beyond that incurs charges of $0.01 per credit. Admins can set per-user limits and enable or disable overage charges.
 
 ```
 Rovo Dev CLI ──► Forge MCP Server    (Forge knowledge)
@@ -212,18 +212,18 @@ The agent helps developers understand new codebases, implement features with web
 
 Full development environments rebuilt from the ground up around AI — not plugins added to existing tools.
 
-| IDE | Creator | Key Differentiator | Pricing (Pro) |
-|---|---|---|---|
-| **Cursor** | Anysphere | VS Code fork; background agents; $2B ARR; 50% Fortune 500 adoption | $20/mo |
-| **Windsurf** | Codeium / Cognition | Cascade agent; 40+ IDE plugins; proprietary SWE-1.5 model (13× faster); FedRAMP | $15/mo |
-| **Replit** | Replit Inc. | 100% cloud-based; Agent 3; full stack in browser; zero setup | $17/mo |
+| IDE | Creator | LLMs | Configurable? | Pricing (Pro) |
+|---|---|---|---|---|
+| **Cursor** | Anysphere | Claude, GPT, Gemini, Grok + proprietary Composer | Yes — per-conversation | $20/mo |
+| **Windsurf** | Codeium / Cognition | Proprietary SWE-1.5/1.6, Claude, GPT + BYOK | Yes — dropdown in Cascade | $15/mo |
+| **Replit** | Replit Inc. | Managed (not user-selectable) | ❌ No | $17/mo |
 
 **Cursor vs Windsurf (May 2026):**
 
 ```
 Both: ~$20/mo Pro | 200K token context | multi-file agentic editing
-Cursor:   VS Code familiarity · largest community · background cloud agents
-Windsurf: 40+ IDE plugins · FedRAMP/HIPAA/ITAR · proprietary fast model
+Cursor:   multi-model freedom · VS Code familiarity · largest community
+Windsurf: proprietary SWE-1.5 (13× faster) · 40+ IDE plugins · FedRAMP/HIPAA/ITAR
 ```
 
 #### Speaker notes
@@ -249,11 +249,11 @@ For Forge development: Cursor and Windsurf both work excellently with the Forge 
 
 AI capabilities added to your existing IDE — the lowest-friction path to AI-assisted development.
 
-| Extension | Creator | Key Feature | Pricing |
-|---|---|---|---|
-| **GitHub Copilot** | Microsoft / GitHub | Works in all major IDEs; agent mode; autonomous PR creation; 5-tier pricing | Free / $10 / $39 / mo |
-| **JetBrains AI Assistant** | JetBrains | Type-aware completion via syntax trees; Junie agent; native IDE integration | $10 / $20 / $30 / mo |
-| **Tabnine** | Tabnine | Privacy-first; self-hosted; never trains on your code; air-gapped deployment | $12–$39/mo |
+| Extension | Creator | LLMs | Configurable? | Pricing |
+|---|---|---|---|---|
+| **GitHub Copilot** | Microsoft / GitHub | GPT-5.5, GPT-5.4, Claude Sonnet 4.6, Claude Haiku 4.5 | Yes — user or admin selectable | Free / $10 / $39 / mo |
+| **JetBrains AI Assistant** | JetBrains | Claude (Anthropic), Gemini, GPT via BYOK; proprietary Mellum for completions | Yes — BYOK supported | $10 / $20 / $30 / mo |
+| **Tabnine** | Tabnine | Privacy-first; multiple models; self-hosted / air-gapped available | Yes — enterprise model config | $12–$39/mo |
 
 **GitHub Copilot in 2026:**
 - Autonomous PR creation agent
@@ -283,15 +283,19 @@ IDE Extensions are the most accessible entry point. You keep your existing edito
 
 Cloud-based platforms where the entire development experience — IDE, hosting, AI, and often database — is managed for you. Typically low-code or no-code.
 
-| Platform | Creator | Best For | Atlassian / Forge? |
-|---|---|---|---|
-| **Atlassian App Studio** | Atlassian | Building Forge apps via natural language; no code required | ✅ Forge-native |
-| **Lovable** | Lovable | Full-stack web app MVPs from prompts; $100M ARR in 8 months | ❌ |
-| **Bolt.new** | StackBlitz | Browser-based dev; visible code; zero local setup | ❌ |
-| **v0.dev** | Vercel | React/Tailwind UI component generation | ❌ |
-| **Replit** | Replit Inc. | Cloud coding + hosting + DB + AI agent | ❌ |
+All five platforms support MCP servers — meaning any of them can connect to the Forge MCP Server via a custom MCP configuration, giving their AI agents Forge knowledge.
+
+| Platform | Creator | Best For | MCP Support | Forge-native? |
+|---|---|---|---|---|
+| **Atlassian App Studio** | Atlassian | Building Forge apps via natural language; no code required | ✅ Native | ✅ Yes |
+| **Lovable** | Lovable | Full-stack web app MVPs from prompts; $100M ARR in 8 months | ✅ Custom MCP on paid plans | ⚙️ Via Forge MCP |
+| **Bolt.new** | StackBlitz | Browser-based dev; visible code; zero local setup | ✅ Custom MCP | ⚙️ Via Forge MCP |
+| **v0.dev** | Vercel | React/Tailwind UI component generation | ✅ Custom MCP | ⚙️ Via Forge MCP |
+| **Replit** | Replit Inc. | Cloud coding + hosting + DB + AI agent | ✅ 1-click + custom MCP | ⚙️ Via Forge MCP |
 
 > **The tradeoff:** Maximum speed to prototype — but general-purpose platforms often hit a "Technical Cliff" at production deployment. App Studio avoids this because Forge handles hosting, auth, and scaling automatically.
+>
+> ⚙️ *Via Forge MCP = can connect to the Forge MCP Server to gain Forge knowledge, but Forge app building is not a native, first-class workflow on that platform.*
 
 #### Speaker notes
 
