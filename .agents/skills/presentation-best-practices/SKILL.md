@@ -63,6 +63,24 @@ Slide titles should be **complete sentences that state the conclusion**, not gen
 
 Reading the titles alone should tell the story of the entire presentation.
 
+### Slide title length
+Keep titles **8–15 words** and **no more than 2 lines**. This is the range supported by Michael Alley's Assertion-Evidence model (Penn State), McKinsey consulting standards, and cognitive load research.
+
+| Constraint | Guideline |
+|---|---|
+| **Word count** | 8–15 words optimal; never exceed 15 |
+| **Line count** | 1–2 lines maximum |
+| **Character count** | 60–130 characters (aligns with working memory research) |
+
+**The tension between completeness and brevity** is real but resolvable:
+- If a title exceeds 15 words, the slide probably contains more than one idea — split the slide, not the title
+- Compress ruthlessly: cut filler words, use precise nouns, drop qualifiers that don't add meaning
+- If domain-specific technical terms are essential, allow up to 2 lines — but never sacrifice accuracy for false brevity
+
+> *"A specific 12-word title beats a vague 2-word label every time."* — Winning Presentations, 2026
+
+Research evidence: student recall was 63% when the key point was in the slide title vs. 46% when it was in the first bullet — a 37% improvement from action titles alone (Alley/Penn State).
+
 ### Minimise text on slides
 Slides support your spoken words — they are not a transcript. Guidelines:
 - **3–5 bullet points maximum** per slide; often fewer is better
