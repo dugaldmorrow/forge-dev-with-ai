@@ -443,26 +443,22 @@ Common gotcha: JSON doesn't allow trailing commas. Validate with jsonlint.com. A
 
 ---
 
-### What is an AI Agent Skill?
+### AI Agent Skills
 
 **Agent Skills** are reusable packages of instructions, scripts, and resources that teach an AI agent how to perform specific tasks consistently — like giving a new team member a standard operating procedure that they can refer to whenever they need it.
-
-**Skills vs. MCP Servers:**
-
-| | MCP Server | Agent Skill |
-|---|---|---|
-| **What it is** | A tool/API connector | A reusable instruction set |
-| **Provides** | Capabilities (can do things) | Knowledge (how to do things) |
-| **Format** | Running server process | Markdown file (SKILL.md) |
-| **Best for** | Accessing live external systems | Encoding repeatable workflows |
-| **Token cost** | Higher (live connections) | Lower (loaded on demand only) |
 
 **How skills work — Progressive Disclosure:**
 1. **Discover** (~100 tokens) — agent sees skill name + description at startup
 2. **Activate** — agent loads full SKILL.md when the task matches
 3. **Execute** — agent follows instructions, loads referenced files as needed
 
-> *"Skills are the agent's toolkit — the specific capabilities it can invoke to get things done. Instructions are the agent's mindset — what it knows and how it should behave."*
+**Examples of useful skills for Forge development:**
+- 📋 **Forge App Builder** — module selection, manifest setup, UI Kit patterns, deploy workflow
+- 📋 **Forge App Review** — pre-deploy checklist: security, cost efficiency, performance
+- 📋 **Commit** — commit message format, what to stage, PR structure
+- 📋 **Changelog** — how to record changes in your project's specific format
+
+> *Agent Skills are an open standard (agentskills.io, Apache 2.0), supported by Rovo Dev, Claude Code, GitHub Copilot, and Codex CLI.*
 
 #### Speaker notes
 
@@ -473,15 +469,74 @@ Agent Skills are a concept formalised as an open standard at agentskills.io (Apa
 
 The best analogy: if an MCP server is like giving the agent a phone to call external services, a skill is like giving the agent your team's runbook — the specific way your team does things.
 
-**Skills vs MCP in practice:**
-- MCP gives the agent *capabilities* (access to Jira, ability to run terminal commands, Forge documentation)
-- Skills give the agent *knowledge* (your commit message format, your pre-deploy checklist, your architectural standards)
-
-They complement each other: a Forge App Builder skill uses the Forge MCP Server under the hood to get up-to-date Forge knowledge, while the skill itself encodes your team's specific patterns and preferences.
-
 **Progressive disclosure** is efficient: skills don't load their full content into every prompt. Only ~100 tokens per skill at startup (name + description), then the full instructions load only when the task matches. This means you can have many skills without burning tokens unnecessarily.
 
 The open standard means: build a skill once, use it across Claude Code, Codex CLI, GitHub Copilot, and Rovo Dev — without modification.
+
+The Forge App Builder and Forge App Review skills are particularly valuable because they encode:
+- Which Forge module to use for which UI surface (jira:issuePanel, confluence:macro, etc.)
+- The correct manifest structure and required scopes for common API calls
+- UI Kit component patterns and best practices
+- Pre-deployment checks — security, cost, performance — so the agent doesn't miss anything before shipping
+
+This is institutional knowledge about Forge that would otherwise live in a developer's head, re-explained every session. With a skill, it's encoded once and reused forever.
+
+</details>
+
+---
+
+### Skills vs. MCP Servers
+
+Skills and MCP Servers are complementary — not alternatives. Together they give an agent both the *tools* to act and the *knowledge* of how to act correctly.
+
+| | MCP Server | Agent Skill |
+|---|---|---|
+| **What it is** | A tool / API connector | A reusable instruction set |
+| **Provides** | Capabilities — *can do things* | Knowledge — *how to do things* |
+| **Format** | Running server process | Markdown file (SKILL.md) |
+| **Best for** | Accessing live external systems | Encoding repeatable workflows |
+| **Token cost** | Higher (live connections) | Lower (loaded on demand only) |
+
+**They work together:**
+```
+Forge App Builder SKILL
+  └── instructs the agent to consult the Forge MCP Server
+        └── which provides up-to-date module catalogs & manifest guidance
+              └── agent generates correct, current Forge code
+```
+
+> *MCP Servers give the agent its tools. Skills give the agent its expertise.*
+
+#### Speaker notes
+
+<details>
+<summary>Speaker notes</summary>
+
+This distinction is important and worth dwelling on, because developers often wonder "should I use an MCP server or a skill?"
+
+The answer is almost always: both, for different reasons.
+
+**MCP gives the agent *capabilities*:**
+- Access to Jira (read issues, update status)
+- Access to Forge documentation (current module types, manifest syntax, API scopes)
+- Ability to run terminal commands
+- Ability to browse the web
+
+**Skills give the agent *knowledge*:**
+- Your commit message format
+- Your pre-deploy checklist
+- Your team's preferred Forge module patterns
+- Your architectural standards and coding conventions
+
+They complement each other beautifully. A Forge App Builder skill uses the Forge MCP Server under the hood:
+1. The skill instructs the agent: "When building a Forge app, first consult the Forge MCP Server for current module recommendations"
+2. The Forge MCP Server provides up-to-date docs (capability)
+3. The skill then tells the agent what patterns your team prefers (knowledge)
+4. Result: code that is both technically correct AND aligned with your team's standards
+
+Without the MCP Server, the skill's instructions to "check current Forge docs" would produce hallucinated answers. Without the skill, the MCP Server would give generic Forge guidance without your team's specific preferences. Together they produce consistently excellent output.
+
+**Token cost note:** Skills are much cheaper than MCP servers for encoding static knowledge. If the information doesn't change often (commit message format, Forge module patterns), use a skill. If the information changes frequently or requires live data (current Jira issue status, latest Forge API scopes), use an MCP server.
 
 </details>
 
