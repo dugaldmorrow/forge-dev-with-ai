@@ -572,7 +572,7 @@ The SKILL.md format is a shared open standard — but each tool looks for skills
 
 **Global skills** (personal, available across all your projects):
 
-| Tool | Global skills directory |
+| Tool | Global / personal skills directory |
 |---|---|
 | **Codex CLI** | `~/.codex/skills/` |
 | **GitHub Copilot** | `~/.agents/skills/` or `~/.copilot/skills/` |
@@ -793,7 +793,7 @@ A recommended stack for building Forge apps with AI assistance in 2026:
 │    │         MCP SERVERS (extend agent capabilities)│            │
 │    │  🔶 Forge MCP    ─ Forge knowledge & docs      │            │
 │    │  🔷 Atlassian MCP ─ Jira, Confluence, Bitbucket│            │
-│    │  🐙 GitHub MCP   ─ repos, PRs, issues          │            │
+│    │  + Other MCP Servers if necessary               │            │
 │    └────────────────────────────────────────────────┘           │
 │                                                                 │
 │    ┌────────────────────────────────────────────────┐           │
