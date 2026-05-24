@@ -492,7 +492,7 @@ Skills and MCP Servers are complementary — not alternatives. Together they giv
 | | MCP Server | Agent Skill |
 |---|---|---|
 | **What it is** | A tool / API connector | A reusable instruction set |
-| **Provides** | Remote knowledge and capabilities | Local knowledge and capabilities |
+| **Provides** | Live data and capabilities | Static data and workflow instructions |
 | **Format** | Running server process | Markdown file (SKILL.md) |
 | **Best for** | Accessing live external systems | Encoding repeatable workflows |
 | **Token cost** | Higher (live connections) | Lower (loaded on demand only) |
