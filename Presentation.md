@@ -1008,9 +1008,9 @@ The beauty of skills is their simplicity. A skill is just a markdown file in a d
 
 ---
 
-### Use .agents/skills/ — Rovo Dev, Codex CLI, and Copilot all recognise it natively
+### Use .agents/skills/ in your repo — it's the standard location recognised by most agents natively
 
-The SKILL.md format is a shared open standard — but each tool looks for skills in its own directory. The standard recommends `.agents/skills/` in your project root, but many tools use a tool-specific path instead.
+The SKILL.md format is a shared open standard — but each tool looks for skills in its own directory. The standard recommends `.agents/skills/` in your project root, checked into git and shared with the team.
 
 **Project-level skills** (checked into your repo — shareable with the team):
 
@@ -1023,7 +1023,28 @@ The SKILL.md format is a shared open standard — but each tool looks for skills
 | **Cursor** | `.cursor/skills/` |
 | **Windsurf** | `.windsurf/skills/` |
 
-**Global skills** (personal, available across all your projects):
+> 💡 **Recommended:** Put your team skills in `.agents/skills/` and symlink agent-specific directories to it — one source of truth, all agents see it. `npx skills add` handles this automatically.
+
+#### Speaker notes
+
+<details>
+<summary>Speaker notes</summary>
+
+- Project-level skills live inside your repository, committed to git — when a teammate pulls, they immediately have all team skills
+- `.agents/skills/` is the open standard path (agentskills.io). Rovo Dev, Codex CLI, and GitHub Copilot all recognise it natively
+- Irony worth mentioning: Anthropic created both the Agent Skills open standard *and* Claude Code — yet Claude Code uses `.claude/skills/` instead of the standard it defined; this has caused community friction
+- Symlink trick: `ln -s .agents/skills .claude/skills` — one source of truth for all agents
+- `npx skills add` handles directory detection automatically — detects which agents are installed and places files in the right locations; lowest-friction path for teams getting started
+
+</details>
+
+---
+
+### Global skills stay with you across every project — but Cursor is the exception
+
+Personal skills live in your home directory and are available in all your projects on that machine — ideal for preferences that follow you everywhere.
+
+**Global / personal skills** (available across all your projects):
 
 | Tool | Global / personal skills directory |
 |---|---|
@@ -1034,48 +1055,23 @@ The SKILL.md format is a shared open standard — but each tool looks for skills
 | **Windsurf** | `~/.codeium/windsurf/skills/` |
 | **Cursor** | ❌ No global skills support |
 
-> 💡 **Recommended approach:** Use `.agents/skills/` in your project root for maximum portability. Rovo Dev, Codex CLI, and GitHub Copilot all recognise it natively. For Claude Code, Cursor, and Windsurf, create a symlink from their expected directory to `.agents/skills/`.
+**Good candidates for global personal skills:**
+- Your preferred commit message format and PR conventions
+- Your coding style preferences (language, indentation, naming)
+- A "daily standup" skill that summarises your recent git activity
+
+> ⚠️ **Cursor limitation:** Cursor is the only major agent with no global skills support. Personal skills must be copied into each project's `.cursor/skills/` manually — or use a setup script.
 
 #### Speaker notes
 
 <details>
 <summary>Speaker notes</summary>
 
-This is one of the messier corners of the agent skills ecosystem — the standard exists but compliance is inconsistent, and each tool carved out its own path.
-
-**The story of the standard:**
-The `.agents/skills/` path is the open standard defined at agentskills.io. Anthropic created both the Agent Skills open standard *and* Claude Code. Yet Claude Code itself uses `.claude/skills/` instead of `.agents/skills/` — the standard its own creators defined. This has caused real friction in the community since mid-2025.
-
-**Two levels of skills:**
-- **Project-level** — lives inside your repository, committed to git. When a teammate pulls the repo, they immediately have all the team's skills available. Perfect for encoding team standards (commit format, Forge app review checklist, etc.).
-- **Global / personal** — lives in your home directory. Available in every project on your machine. Good for personal preferences (preferred code style, language settings, tools you always use).
-
-Project skills take precedence over global skills when names conflict.
-
-**The symlink trick:**
-If you want to maintain one authoritative set of skills in `.agents/skills/` and have all tools see them, create symlinks:
-```bash
-# For Claude Code
-ln -s .agents/skills .claude/skills
-
-# For Cursor
-ln -s .agents/skills .cursor/skills
-
-# For Windsurf
-ln -s .agents/skills .windsurf/skills
-
-# For Rovo Dev
-ln -s .agents/skills .rovodev/skills
-```
-
-**The installer shortcut:**
-The `npx skills` CLI (and similar package managers) handles directory detection automatically — it detects which agents are installed and copies/symlinks skills to all the right places. For teams adopting skills for the first time, this is the lowest-friction path.
-
-**Cursor's global skills limitation:**
-Cursor is the only major tool with no global skills support. If you want a personal skill available in all your Cursor projects, you have to copy it into each project's `.cursor/skills/` directory manually (or use a setup script).
-
-**For Forge developers specifically:**
-If you're using Rovo Dev as your primary agent, `.agents/skills/` is the recommended location — Rovo Dev recognises it natively alongside `.rovodev/skills/`. If you're also using Cursor or Windsurf, create symlinks from their expected directories to your `.agents/skills/` source of truth.
+- Global skills are personal — not committed to the repo, not shared with teammates; they follow the developer across all projects on their machine
+- Project skills take precedence over global skills when names conflict
+- Cursor's lack of global skills support is a genuine friction point — if your team uses Cursor alongside other agents, this is worth calling out so people aren't surprised
+- `npx skills add -g` installs globally (user-level) rather than project-level; `npx skills add` without `-g` is project-scoped by default
+- A useful pattern: global skill for personal style preferences + project skill for team Forge standards — layer them for maximum coverage
 
 </details>
 
@@ -1190,21 +1186,15 @@ Key moment: "When I added Jira API calls, the agent automatically updated the ma
 
 ---
 
-### Atlassian has opened its AI development stack — any agent can now connect to Forge and Atlassian data
+### The Forge MCP Server and Atlassian MCP Server open Atlassian data to any AI tool
 
-Atlassian has built a comprehensive AI development ecosystem — and opened it to any AI tool:
+Atlassian has built an open ecosystem — use whatever AI tool you want, and connect it securely to Forge and Atlassian data:
 
 **Forge MCP Server** *(GA February 2026)*
 Provides AI agents with deep Forge knowledge — how-to guides, module catalogs, manifest guidance, API search. Sourced from developer.atlassian.com. No authentication required. Any developer with any AI tool can use it.
 
 **Atlassian MCP Server** *(GA February 2026, expanded April 2026)*
 Connects any AI tool to Jira, Confluence, Bitbucket, and Compass with enterprise security. OAuth 2.1, full permission inheritance, admin whitelisting. Supported by 20+ AI clients including Claude, ChatGPT, Cursor, VS Code, Devin, GitHub, and more.
-
-**Atlassian App Studio / Rovo Studio** *(Open Beta March 2026)*
-No-code Forge app builder. Natural language to production Forge app in under 20 minutes. Enterprise governance built-in.
-
-**Volt Studio & Socrates** *(Internal)*
-Internal Atlassian tools for app building and data analytics that reflect the depth of Atlassian's internal AI investment.
 
 > *"Over a million people use AI on the Atlassian platform each month."*
 
@@ -1213,19 +1203,39 @@ Internal Atlassian tools for app building and data analytics that reflect the de
 <details>
 <summary>Speaker notes</summary>
 
-This slide shows that Atlassian is a serious player in the AI development ecosystem — not just talking about AI but actually building and shipping at scale.
+- The strategic insight: Atlassian isn't forcing everyone onto Rovo Dev — they say "use whatever AI tool you want, we'll connect it to your Atlassian data securely." This is an ecosystem play that benefits Atlassian customers regardless of which agent they prefer
+- Forge MCP Server: no auth required, zero install, sourced from developer.atlassian.com — any agent can use it immediately
+- Atlassian MCP Server security model: OAuth 2.1, respects existing Jira/Confluence permissions (agent only sees what the authenticated user can see), admin whitelisting of allowed MCP clients, TLS 1.2+
+- Bitbucket support added April 2026: AI clients can now browse repos, create commits, open PRs, and check pipeline results — closes the loop on the full development lifecycle
+- Supported clients: AWS, ChatGPT, Claude, Cursor, Devin, Docker, Figma, GitHub, Google, Lovable, Mistral, Postman, Resolve, VS Code, WRITER, and more
+- The 1 million monthly AI users figure: this is at production scale, not a prototype
 
-**The strategic insight in the Atlassian MCP Server:** Rather than trying to force everyone to use Rovo Dev, Atlassian says "use whatever AI tool you want — we'll connect it to your Atlassian data securely." This is an ecosystem play that benefits Atlassian customers regardless of which AI agent they prefer.
+</details>
 
-Supported clients for the Atlassian MCP Server: AWS, ChatGPT, Claude, Cursor, Devin, Docker, Figma, GitHub, Google, Lovable, Mistral, Postman, Resolve, VS Code, WRITER, and more.
+---
 
-**Bitbucket support** (added April 2026): AI clients can now browse repositories, create commits, open pull requests, and check pipeline results through the same MCP connection that already works with Jira and Confluence. This closes the loop on the full development lifecycle.
+### Atlassian's internal AI tools show the depth of investment — and what's coming next
 
-**Security model:** Enterprise-first. Atlassian-hosted (no separate infrastructure). OAuth 2.1. Respects existing Jira and Confluence permissions — the AI only sees what the authenticated user can see. Admins can whitelist which MCP clients are allowed. TLS 1.2+ for all traffic.
+Beyond the public MCP servers, Atlassian has built a deep internal AI development stack:
 
-**Volt Studio and Socrates:** These are internal Atlassian tools with limited public documentation. Volt Studio appears to be an internal tool for building apps and automations. Socrates is an internal MCP server for data and analytics capabilities. These demonstrate that Atlassian uses AI development tooling deeply internally — they're eating their own dog food.
+**Atlassian App Studio / Rovo Studio** *(Open Beta March 2026)*
+No-code Forge app builder. Describe your app in natural language — Rovo selects modules, generates UI Kit code, wires backend + permissions. Production Forge app in under 20 minutes. Enterprise governance built-in: org policies, roles, approvals, versioning, audit logs.
 
-The 1 million monthly AI users figure: this isn't a prototype number. This is at scale, in production.
+**Volt Studio** *(Internal)*
+An internal Atlassian tool for building apps and automations at scale. Demonstrates that Atlassian uses AI-assisted development tooling internally — not just for customers.
+
+**Socrates** *(Internal)*
+Atlassian's internal MCP server for data and analytics capabilities, used internally for data-driven decision making with AI assistance.
+
+#### Speaker notes
+
+<details>
+<summary>Speaker notes</summary>
+
+- App Studio is the most important product on this slide for the audience — it's the zero-code path to a deployed Forge app in under 20 minutes; worth a live demo if time allows
+- The governance story is compelling for enterprise: org policies, per-agent permissions, approvals, versioning, audit logs — this is enterprise-grade from day one, not bolted on later
+- Volt Studio and Socrates have limited public documentation; they signal that Atlassian is eating its own dog food — the same AI development patterns being recommended to customers are used internally at Atlassian
+- Transition to next slide: "All of these tools — agents, MCP servers, skills, App Studio — come together into a single coherent developer workflow. Let's see what that looks like end to end."
 
 </details>
 
@@ -1376,9 +1386,7 @@ If you're an Atlassian admin or building something relatively simple (an approva
 
 ---
 
-### The tools are ready — AI agents, MCP Servers, and skills can build Forge apps today
-
-> 💡 **Presenter note:** Conduct Q&A before advancing to this slide. End on the key message below, not on a question from the floor.
+### The AI dev tool landscape has crystallised into four categories — choose by autonomy level
 
 **The AI software development landscape — May 2026:**
 
@@ -1389,6 +1397,25 @@ If you're an Atlassian admin or building something relatively simple (an approva
 | **IDE Extensions** | GitHub Copilot, JetBrains AI Assistant, Tabnine | AI in your existing editor |
 | **Hosted AI IDEs** | Atlassian App Studio, Lovable, Bolt.new | No-code / low-code to production |
 
+The right choice depends on **how much autonomy you want the AI to have** — and how much control you want to retain.
+
+#### Speaker notes
+
+<details>
+<summary>Speaker notes</summary>
+
+- This is the summary of the landscape — four clear categories, each serving a different developer persona and level of AI autonomy
+- The key question to leave the audience with: "Where do you sit on the autonomy spectrum?" — most developers will start lower (extensions) and move higher (agents) as they build confidence
+- Transition: "The landscape is the context. Now here are the three specific enablers that make building Forge apps with AI practical today."
+
+</details>
+
+---
+
+### The tools are ready — AI agents, MCP Servers, and skills can build Forge apps today
+
+> 💡 **Presenter note:** Conduct Q&A before advancing to this slide. End on the key message below, not on a question from the floor.
+
 **Key enablers for Forge development:**
 
 | Enabler | What it does |
@@ -1398,31 +1425,20 @@ If you're an Atlassian admin or building something relatively simple (an approva
 | 📋 **Agent Skills** | Encodes your team's Forge workflows as reusable instructions |
 | 🔶 **Atlassian App Studio** | No-code path from natural language to deployed Forge app |
 
-> **The bottom line:** Building Forge apps with AI is not just about writing code faster — it's about describing what you want and letting AI figure out how to build it, with Forge, Rovo Dev, and MCP Servers handling the rest.
+> **The bottom line:** Building Forge apps with AI is not just about writing code faster — it's about describing what you want and letting AI handle the rest. The tools are ready. Start today.
 
 #### Speaker notes
 
 <details>
 <summary>Speaker notes</summary>
 
-**Closing talking points:**
-
-The landscape has crystallised into four clear categories. Each serves a different need and developer persona. The right choice depends on how much autonomy you want the AI to have and how much control you want to retain.
-
-MCP Servers are the glue — they let any agent connect to any tool through a standard protocol. The Forge MCP Server and Atlassian MCP Server make Atlassian a first-class citizen in every AI tool ecosystem. This is not lock-in — it's integration.
-
-Agent Skills are the team's institutional memory — encode your standards and workflows once, and every AI agent in every session benefits from them automatically.
-
-Forge is uniquely well-suited for AI-assisted development: constrained problem space, declarative configuration, rich up-to-date documentation, built-in security. The Forge MCP Server brings this to any AI agent.
-
-**The paradigm shift to leave them with:**
-We're moving from a world where developers write every line of code to a world where developers describe intent and orchestrate agents. The Forge platform — with its declarative manifests, module system, and built-in security — is exceptionally well-positioned for this shift. The tools are ready. The MCP servers are live. The skills framework is open standard.
-
-Start with Level 1. Add the Forge MCP Server to your current AI tool today.
-
-**Final questions to expect:**
-- "Which AI agent should I use?" — Start with what you have. If you're on Atlassian Cloud Standard/Premium/Enterprise, Rovo Dev is included. Otherwise, Claude Code (free tier) + Forge MCP is an excellent free starting point.
-- "How do I convince my team?" — Start with a demo. Take a real Jira issue, give it to an AI agent with the Forge MCP Server configured, and show the result. The proof is in the output.
-- "What about security and IP?" — All Forge code runs on Atlassian infrastructure. The Atlassian MCP Server uses your existing permissions. For code sent to external AI APIs, check each vendor's data retention policies. Tabnine and Windsurf (enterprise) offer self-hosted options for air-gapped environments.
+- MCP Servers are the glue — they let any agent connect to any tool through a standard protocol; the Forge MCP Server and Atlassian MCP Server make Atlassian a first-class citizen in every AI tool ecosystem — not lock-in, integration
+- Agent Skills are the team's institutional memory — encode standards and workflows once, every AI agent in every session benefits automatically
+- Forge is uniquely well-suited for AI-assisted development: constrained problem space, declarative configuration, rich up-to-date documentation, built-in security
+- **The paradigm shift to leave them with:** we're moving from writing every line of code to describing intent and orchestrating agents; Forge — with its declarative manifests, module system, and built-in security — is exceptionally well-positioned for this shift
+- **Final questions to expect:**
+  - "Which agent should I use?" — Start with what you have. Rovo Dev is included in Atlassian Cloud Standard/Premium/Enterprise. Otherwise, Claude Code (free tier) + Forge MCP is an excellent free starting point
+  - "How do I convince my team?" — Demo it. Take a real Jira issue, give it to an agent with the Forge MCP Server configured, show the result
+  - "What about security and IP?" — Forge code runs on Atlassian infrastructure; Atlassian MCP respects existing permissions; check each AI vendor's data retention policies for code sent to external APIs; Tabnine and Windsurf (enterprise) offer self-hosted options for air-gapped environments
 
 </details>
