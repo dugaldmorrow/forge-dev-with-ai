@@ -542,6 +542,77 @@ Without the MCP Server, the skill's instructions to "check current Forge docs" w
 
 ---
 
+### Agent Context Files Give Every Session a Standing Brief
+
+**Context files** are markdown files your agent reads automatically at the start of every session — before you type a single prompt. Think of them as a standing brief: project conventions, boundaries, key references, and personality that the agent inherits without you having to re-explain them.
+
+**The three-level hierarchy:**
+
+```
+~/.rovodev/AGENTS.md          ← Global / personal (all your projects)
+    └── ./AGENTS.md           ← Team (committed to repo, shared with teammates)
+        └── ./src/AGENTS.md   ← Subdirectory (specialist rules for that area)
+            └── AGENTS.local.md  ← Local override (gitignored, personal only)
+```
+
+**Context files vs. Skills:**
+
+| | Context file (AGENTS.md) | Agent Skill (SKILL.md) |
+|---|---|---|
+| **When loaded** | Always — every session | On demand — when task matches |
+| **Purpose** | Project identity & standards | Repeatable task workflows |
+| **Committed?** | Yes (except `.local`) | Yes |
+| **Typical size** | < 200 lines | < 5,000 tokens |
+
+**What to put in AGENTS.md:**
+- Project overview and directory structure
+- Build and test commands
+- Coding standards *specific to this project* (not general language basics)
+- Domain terminology and key references
+- Agent boundaries and constraints
+
+> *Including an AGENTS.md reduced agent task completion time by 28% in a controlled study (ETH Zurich, 2025).*
+
+#### Speaker notes
+
+<details>
+<summary>Speaker notes</summary>
+
+Context files are the "always-on" layer of agent configuration — as opposed to skills, which are "on-demand". The difference matters:
+
+- AGENTS.md is loaded at startup of every session. The agent always knows your project's name, structure, coding conventions, and what it's not allowed to do.
+- Skills are loaded only when the task matches. The Forge App Builder skill only loads when you ask the agent to build a Forge app — not when you ask it to write a commit message.
+
+**The three-level hierarchy in practice:**
+1. `~/.rovodev/AGENTS.md` (or `~/.agent.md`, `~/.claude/CLAUDE.md`, `~/.codex/AGENTS.md`) — your personal defaults. Things like your preferred language, timezone, coding style preferences. Applies to every project you work on.
+2. `./AGENTS.md` in the project root — team-wide conventions. Committed to git so every developer on the team benefits. Covers the project's architecture, build commands, coding standards specific to this codebase.
+3. `./src/AGENTS.md` or `./services/api/AGENTS.md` — subdirectory specialists. Rules that only apply when the agent is working in that part of the codebase. Not all tools support this — Codex CLI, Claude Code, and Rovo Dev do; Cursor applies project-level rules everywhere.
+4. `AGENTS.local.md` — personal overrides. Add to `.gitignore`. Lets you customise the agent's behaviour for your machine without polluting the shared team config.
+
+**Tool-specific naming:**
+- Rovo Dev: `AGENTS.md` and `AGENTS.local.md` (project); `~/.rovodev/AGENTS.md` (global)
+- Claude Code: `CLAUDE.md` and `CLAUDE.local.md` (project); `~/.claude/CLAUDE.md` (global)
+- Cursor: `.cursor/rules/*.mdc` (project); Settings > Rules for AI (global)
+- GitHub Copilot: `AGENTS.md` or `.github/copilot-instructions.md` (project)
+- Codex CLI: `AGENTS.md` with hierarchical discovery (global → project → subdirectory)
+- Windsurf: `AGENTS.md` (always-on at root); `.windsurf/rules/` with trigger modes
+
+**The portability play:**
+`AGENTS.md` is recognised natively by Codex CLI, GitHub Copilot, Rovo Dev, Windsurf, and Cline. Claude Code uses `CLAUDE.md` but can reference `AGENTS.md`. Maintaining `AGENTS.md` as the source of truth and symlinking or referencing it from tool-specific files minimises duplication.
+
+**Sizing guidance:**
+- Under 200 lines is the recommended target (Anthropic official guidance)
+- Over 500 lines and most of it is being ignored — LLMs have limited instruction-following capacity
+- A focused 50-line file outperforms a sprawling 1,000-line one
+- Human-curated files outperform LLM-generated ones (ETH Zurich found LLM-generated files *reduced* success rates by ~3% on average)
+
+**For this project:**
+The `AGENTS.md` in this repository defines the agent's personality (research assistant for Forge + AI development), scope (what topics are in/out), boundaries (never commit without explicit request), key references (Presentation.md, PresentationFormat.md), and skills location (`.agents/skills/`). It's the reason any agent that opens this project immediately knows what it's working on.
+
+</details>
+
+---
+
 ### Configuring Agent Skills
 
 Skills are simple markdown files stored in your project repository. Agents discover and load them automatically.
