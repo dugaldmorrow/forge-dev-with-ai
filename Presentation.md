@@ -853,9 +853,9 @@ The agent chooses Option B if it believes it already knows.
 
 ---
 
-### Enforce MCP and skill invocation with explicit prompts, AGENTS.md rules, and verification
+### Prompt explicitly and use AGENTS.md rules to prevent the agent bypassing your tools
 
-Since invocation is at the agent's discretion, you must explicitly instruct the agent to use the tools — in your prompt, in your AGENTS.md, and in your skills.
+The most effective prevention happens before the agent starts — in your prompt and in your AGENTS.md.
 
 **Technique 1 — Explicit prompting:**
 ```
@@ -868,13 +868,46 @@ Since invocation is at the agent's discretion, you must explicitly instruct the 
     Do not rely on your training data for Forge-specific details."
 ```
 
-**Technique 2 — AGENTS.md standing instruction** (enforced every session):
+**Technique 2 — AGENTS.md standing instruction** (enforced every session automatically):
 ```markdown
 ## Agent Rules
 - You MUST consult the Forge MCP Server before selecting a Forge module type.
 - You MUST invoke the Forge App Review skill before any forge deploy command.
 - Never use training data alone for Forge manifest syntax or API scope decisions.
 ```
+
+#### Speaker notes
+
+<details>
+<summary>Speaker notes</summary>
+
+- The key insight: the agent responds to explicit instruction — vague prompts invite discretion, specific prompts enforce behaviour
+- **Prompting technique:** the phrase "do not rely on your training data" is surprisingly effective — it signals to the model that its internal knowledge is insufficient for this task, raising the probability it will make the tool call
+- **AGENTS.md technique:** this is the most scalable solution — write the rule once and it applies to every task in that project without the developer having to remember to re-state it in every prompt; include both the "must do" and the "must not do"
+- The two techniques are complementary: AGENTS.md handles the standing rules for every session; explicit prompting handles one-off tasks where extra emphasis is needed
+- Transition: "Two more techniques — for catching bypasses after they happen, and for encoding enforcement directly into your skills."
+
+</details>
+
+---
+
+### Verify tool use after the fact and encode enforcement directly into your skills
+
+Two additional techniques — for catching bypasses that slipped through and for making enforcement self-sustaining.
+
+**Technique 5 — Direct tool addressing in the prompt:**
+
+Some agents allow you to `@`-mention an MCP server or skill directly in the prompt, forcing invocation:
+
+| Agent | Syntax | Example |
+|---|---|---|
+| **Cursor** | `@mcp-server-name` | `@forge What module for a Jira issue panel?` |
+| **Windsurf** | `@mcp-server-name` | `@forge scaffold a Jira issue panel app` |
+| **Claude Code** | `@tool-name` or slash command | `@forge-development-guide` |
+| **GitHub Copilot** | `#tool-name` | `#forge What manifest scope do I need?` |
+| **Rovo Dev** | `@skill-name` or `/skill` | `@forge-app-builder scaffold this app` |
+
+> ⚡ Direct addressing bypasses the agent's confidence heuristic entirely — the tool call is explicit, not inferred.
 
 **Technique 3 — Verification prompt after the fact:**
 ```
@@ -883,25 +916,26 @@ Since invocation is at the agent's discretion, you must explicitly instruct the 
 ```
 
 **Technique 4 — Skill-enforced invocation:**
-Write your `SKILL.md` to explicitly require MCP calls as named steps:
+Write your `SKILL.md` to require MCP calls as explicit, non-optional steps:
 ```markdown
 ## Step 2: Select the Module
 You MUST call the Forge MCP Server tool `forge-development-guide` now.
 Do not proceed based on prior knowledge.
 ```
 
+> 💡 The Forge App Builder skill in `atlassian/forge-skills` already does this — MCP invocation is baked into the step instructions.
+
 #### Speaker notes
 
 <details>
 <summary>Speaker notes</summary>
 
-- The key insight: the agent responds to explicit instruction; vague prompts invite discretion, specific prompts enforce behaviour
-- **Prompting technique:** the phrase "do not rely on your training data" is surprisingly effective — it signals to the model that its internal knowledge is insufficient for this task, raising the probability it will make the tool call
-- **AGENTS.md technique:** this is the most scalable solution — write the rule once in the project AGENTS.md and it applies to every task in that project without the developer having to remember to include it in every prompt; include both the "must do" and the "must not do"
-- **Verification prompt:** useful as an audit step, especially when you suspect the agent shortcut — ask it to name its source; if it cites "my knowledge" rather than a specific tool call, ask it to redo the step with the MCP
-- **Skill-enforced invocation:** the most robust technique — bake the explicit MCP call instruction into the SKILL.md itself so that when the skill is loaded, it mandates the tool call as a named, non-optional step; the Forge App Builder skill in `atlassian/forge-skills` already does this
+- **Direct tool addressing:** the most immediate technique — `@` or `#` mentions force the tool call rather than relying on the agent's judgement; ideal for one-off queries where you know exactly which MCP server or skill you need; syntax varies by agent so worth checking the docs for your specific tool
+- Rovo Dev note: `@skill-name` addressing behaviour should be verified against the current Rovo Dev release — the `/skill` slash command is the more reliably documented path; confirm before presenting to a technical audience
+- **Verification prompt:** useful as an audit step — ask the agent to name its source; if it cites "my knowledge" rather than a specific tool call, ask it to redo the step with the MCP; takes 5 seconds and catches silent bypasses
+- **Skill-enforced invocation:** the most robust long-term technique — bake the MCP call instruction into the SKILL.md step so the enforcement travels with the skill, not the prompt; every developer who uses the skill gets the enforcement automatically
 - **The honest reality:** no technique is 100% reliable — even with explicit instruction, agents occasionally skip tool calls under high context pressure (long sessions, large codebases); periodic verification prompts remain good practice
-- **This is not unique to Forge:** the same issue affects any domain where the agent has relevant training data — Forge is just particularly high-stakes because the APIs change frequently and the errors (wrong module, missing scope) only surface at deploy time
+- **This is not unique to Forge:** the same issue affects any domain where the agent has relevant training data — Forge is particularly high-stakes because APIs change frequently and errors (wrong module, missing scope) only surface at deploy time
 
 </details>
 
