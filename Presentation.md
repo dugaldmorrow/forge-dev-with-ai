@@ -613,6 +613,97 @@ The `AGENTS.md` in this repository defines the agent's personality (research ass
 
 ---
 
+### Agents Read Your Codebase on Demand — They Don't Load It All at Once
+
+AI agents don't read your entire codebase into memory when they start. They navigate the file system selectively — discovering structure, then reading only what's relevant to the current task.
+
+**How agents access file content:**
+
+```
+Agent receives task
+      │
+      ▼
+Lists directory structure (awareness of what exists)
+      │
+      ▼
+Selectively opens files using tools (open_files, grep, search...)
+      │
+      ▼
+Large files shown collapsed (signatures only) → expand on demand
+      │
+      ▼
+Acts on relevant content only
+```
+
+**Scoping vs. loading — an important distinction:**
+
+| | What it means |
+|---|---|
+| **Scoped to a directory** | The agent's sandbox — it can only read/write within this boundary |
+| **Context window** | What the agent actually has in memory right now — much smaller |
+| **Selective reading** | The agent decides which files to open based on the task |
+
+**Best practices for large codebases:**
+- 🎯 **Launch from the most specific relevant directory** — not the monorepo root
+- 🚫 **Use `.rovoignore` / `.gitignore`** to exclude `node_modules/`, `build/`, `dist/` etc. — reduces context pollution
+- 📁 **Use AGENTS.md to describe directory structure** — saves the agent from discovering it via tool calls
+
+> *Every file the agent opens costs tokens. A well-scoped launch and a good `.rovoignore` directly improve quality and reduce cost.*
+
+#### Speaker notes
+
+<details>
+<summary>Speaker notes</summary>
+
+This is one of the most practically important things to understand about working with AI coding agents — and it's counterintuitive for developers who are used to IDEs that index the entire project upfront.
+
+**The key mental model:**
+The agent's *working directory* defines what it's allowed to touch. But that's not the same as what it has read. The agent starts with awareness of the directory tree (like doing `ls -la` and `find .`) and then selectively opens files when it needs to understand them.
+
+For Rovo Dev specifically:
+- Files are opened on demand via tool calls: `open_files`, `grep`, `expand_code_chunks`, `expand_folder`
+- Large files are shown in a collapsed view (just function signatures and class definitions) — the agent has to explicitly expand sections it needs to read
+- This is a deliberate design choice: collapsed views give structural awareness without burning tokens on every line
+
+**Analogous behaviour in other agents:**
+- Claude Code: uses `read_file`, `list_files`, `search_files` tool calls similarly
+- Cursor / Windsurf: index the codebase for semantic search, but still read files on demand during agent tasks
+- Codex CLI: similar file tool architecture — reads selectively based on task needs
+
+**The launch directory matters:**
+If you run an agent from `/monorepo-root/` it will need to navigate a potentially enormous tree to find the 3 files it actually needs. If you run it from `/monorepo-root/services/payments/` it starts immediately oriented to the relevant code. Rovo Dev specifically supports `acli rovodev --dir <path>` to set the working directory without changing your shell's current directory.
+
+**`.rovoignore` and context hygiene:**
+Just like `.gitignore` tells git what to skip, `.rovoignore` tells Rovo Dev what to exclude from its view. Common candidates:
+- `node_modules/` — almost never relevant
+- `build/`, `dist/`, `.next/`, `target/` — generated output
+- Large data files, fixtures, or binary assets
+- Third-party vendor directories
+
+Other agents have equivalents: Claude Code respects `.gitignore` automatically and also reads `.claudeignore`; Cursor has its own ignore configuration.
+
+**The token economics:**
+Every `open_files` call, every `grep` result, every expanded code chunk costs input tokens. A well-scoped launch + good ignore file means the agent spends its token budget on the actual problem rather than navigating irrelevant structure. This directly translates to:
+- Better quality responses (more context window available for the task)
+- Lower cost per session
+- Faster task completion (fewer navigation steps)
+
+**What to put in AGENTS.md to help:**
+A brief directory structure map in AGENTS.md means the agent doesn't have to discover it via tool calls:
+```markdown
+## Directory Structure
+- `src/` — application source code
+- `src/components/` — React UI components
+- `src/resolvers/` — Forge resolver functions
+- `static/` — frontend assets
+- `test/` — Jest test suites
+```
+This alone can save 3–5 tool calls at the start of every session.
+
+</details>
+
+---
+
 ### Configuring Agent Skills
 
 Skills are simple markdown files stored in your project repository. Agents discover and load them automatically.
