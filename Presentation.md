@@ -7,7 +7,31 @@ A presentation about AI-assisted software development, with a focus on building 
 
 ## Slides
 
-### What is an AI Software Development Agent?
+### The AI revolution is here — and software development is its most definitive use case
+
+> *"In 2026, AI wrote more code than all human developers combined for the first time in history."*
+
+**How long did your last Forge app take to build from idea to deployed?**
+
+What if that was 20 minutes?
+
+This session covers the tools, standards, and patterns that make it possible today.
+
+#### Speaker notes
+
+<details>
+<summary>Speaker notes</summary>
+
+- Open with the statistic — let it land before moving on
+- Pose the question to the room: ask for a show of hands — who has built a Forge app? Who has used an AI agent to do it?
+- The goal of this session is practical: leave with something you can apply today, not just inspiration
+- Transition: "Let's start with the foundation — what exactly is an AI software development agent?"
+
+</details>
+
+---
+
+### AI agents pursue goals across many steps — they plan, execute, and iterate
 
 An AI software development agent is an autonomous system powered by a large language model (LLM) that can plan, reason, use tools, and execute multi-step coding tasks with minimal human intervention. Unlike a chatbot that answers one question at a time, an agent pursues a *goal* — reading your codebase, writing code, running tests, fixing failures, and iterating — until the job is done.
 
@@ -41,9 +65,11 @@ Software development is a particularly strong fit for AI agents because:
 
 ---
 
-### What is Inference?
+### Inference is AI in "execution" mode — what happens every time an LLM runs
 
 **Inference** is the execution phase of an AI model — when a trained model receives an input (a prompt) and generates an output (a response). Every time an LLM generates code, answers a question, or takes an action, it is performing inference.
+
+> 💡 **The cost story:** *By 2030, running inference on a 1-trillion-parameter model will cost over 90% less than in 2025.* Agentic AI is getting dramatically cheaper every year.
 
 **Why it matters for developers:**
 
@@ -53,8 +79,6 @@ Software development is a particularly strong fit for AI agents because:
 | **Agentic amplification** | Agents use 5–30× more tokens per task than a chatbot |
 | **Context window** | The "working memory" of a session — longer context = more tokens |
 | **LLMflation** | Inference costs drop ~10× per year — rapidly becoming cheaper |
-
-> *By 2030, running inference on a 1-trillion-parameter model will cost over 90% less than in 2025.*
 
 #### Speaker notes
 
@@ -78,7 +102,7 @@ For Forge developers: when using AI agents to build Forge apps, you will consume
 
 ---
 
-### The AI Dev Tool Landscape
+### AI development tools fall into four categories — each offering a different level of autonomy
 
 Not all AI development tools are the same. For this presentation, we classify them into four categories based on depth of integration and degree of autonomy:
 
@@ -128,20 +152,46 @@ There's no single right answer — it depends on the task, your team, and your c
 
 ---
 
-### AI Software Development Agents
+### Six major AI coding agents are available today — each with a different LLM and autonomy model
 
 The most autonomous category — agents that independently plan, write, test, and ship code.
 
-| Agent | Creator | LLMs | Configurable? | Distinctive Feature |
-|---|---|---|---|---|
-| **Rovo Dev** | Atlassian | GPT, Claude, Gemini + open-source | Limited (switch with /model) | Atlassian Teamwork Graph; usage-based credits |
-| **Claude Code** | Anthropic | Claude only (Opus/Sonnet/Haiku) | Yes (/model command) | Agent View + /goal; locked to Anthropic ecosystem |
-| **Codex CLI** | OpenAI | GPT-5.x series; local via Ollama | Yes (/model command) | ~4M weekly users; open source; Goal mode |
-| **Google Antigravity 2.0** | Google | Gemini (default), Claude, GPT-OSS | Yes | Multi-model routing; launched May 19 2026 |
-| **Devin** | Cognition AI | Proprietary SWE-1 / SWE-1.5 | ❌ No | First "autonomous AI software engineer"; from $20/mo |
-| **Cline** | Community (MIT) | 200+ models (Claude, GPT, Gemini, Ollama…) | Yes — fully | 5M+ installs; bring your own API key; fully open source |
+| Agent | Creator | Distinctive Feature |
+|---|---|---|
+| **Rovo Dev** | Atlassian | Atlassian Teamwork Graph — Jira, Confluence, Bitbucket, Compass context |
+| **Claude Code** | Anthropic | Agent View + /goal; supervisor Claude verifies results |
+| **Codex CLI** | OpenAI | ~4M weekly users; open source; Goal mode for multi-day tasks |
+| **Google Antigravity 2.0** | Google | Multi-model routing; launched May 19 2026 at Google I/O |
+| **Devin** | Cognition AI | First "autonomous AI software engineer"; Interactive Planning; from $20/mo |
+| **Cline** | Community (MIT) | 5M+ installs; bring your own API key; fully open source |
 
 > *Claude Code and Devin 2.0 lead SWE-bench Verified benchmarks at ~71–73% task completion (up from ~14% at Devin's 2024 launch).*
+
+---
+
+### LLM configurability varies widely — choose the agent that fits your model preferences
+
+| Agent | LLMs | Configurable? |
+|---|---|---|
+| **Rovo Dev** | GPT, Claude, Gemini + open-source | Limited (switch with /model) |
+| **Claude Code** | Claude only (Opus/Sonnet/Haiku) | Yes (/model command) |
+| **Codex CLI** | GPT-5.x series; local via Ollama | Yes (/model command) |
+| **Google Antigravity 2.0** | Gemini (default), Claude, GPT-OSS | Yes |
+| **Devin** | Proprietary SWE-1 / SWE-1.5 | ❌ No |
+| **Cline** | 200+ models (Claude, GPT, Gemini, Ollama…) | Yes — fully |
+
+#### Speaker notes
+
+<details>
+<summary>Speaker notes</summary>
+
+- Cline is the most flexible — bring your own API key for any model; ideal for teams with specific model requirements or cost constraints
+- Claude Code is locked to Anthropic models — a significant constraint if your organisation requires model diversity or has Anthropic API limits
+- Devin has no configurability — you use Cognition's proprietary SWE model; tradeoff is it's optimised specifically for software engineering tasks
+- Rovo Dev model switching is limited to /model command; enterprise customers can configure defaults via admin settings
+- For Forge development: model choice matters less than MCP + skills configuration — a well-configured smaller model often outperforms a frontier model without Forge context
+
+</details>
 
 #### Speaker notes
 
@@ -166,7 +216,7 @@ Let's look at each major agent:
 
 ---
 
-### Spotlight: Atlassian Rovo Dev
+### Rovo Dev is the only agent with full Atlassian context — Jira, Confluence, Bitbucket, and Forge
 
 Rovo Dev is Atlassian's context-aware AI coding agent, built for the full software development lifecycle and deeply integrated with the Atlassian ecosystem.
 
@@ -208,7 +258,7 @@ The agent helps developers understand new codebases, implement features with web
 
 ---
 
-### AI-Native IDEs
+### AI-native IDEs rebuild the entire editor around AI
 
 Full development environments rebuilt from the ground up around AI — not plugins added to existing tools.
 
@@ -245,7 +295,7 @@ For Forge development: Cursor and Windsurf both work excellently with the Forge 
 
 ---
 
-### IDE Extensions & Editor Companions
+### IDE extensions add AI to your existing editor — the lowest-friction path to AI-assisted development
 
 AI capabilities added to your existing IDE — the lowest-friction path to AI-assisted development.
 
@@ -267,19 +317,16 @@ AI capabilities added to your existing IDE — the lowest-friction path to AI-as
 <details>
 <summary>Speaker notes</summary>
 
-IDE Extensions are the most accessible entry point. You keep your existing editor, your existing workflow, and add AI capability on top. Lower disruption, lower switching cost.
-
-**GitHub Copilot** is the most widely adopted AI coding assistant on the planet. Plugin — works inside VS Code, JetBrains IDEs, Neovim, Visual Studio. Has evolved far beyond autocomplete: Copilot Chat, Copilot Workspace, agent mode, autonomous PR creation, GitHub Spark for natural language app building, semantic code search. 5-tier pricing: Free ($0), Pro ($10/mo, 300 premium requests), Pro+ ($39/mo, 1500 premium requests), Business ($19/user/mo), Enterprise ($39/user/mo). Warning: Microsoft is moving toward token billing in May–June 2026 — the "all you can eat" era is ending. Heavy agentic users will see cost increases.
-
-**JetBrains AI Assistant** is the natural choice for Java, Kotlin, Python developers on IntelliJ, PyCharm, WebStorm. Type-aware completion: the IDE already parses code into syntax trees, so AI suggestions are grounded in actual type information. Junie (launched January 2026) is their autonomous agent for full task execution. Pricing: AI Pro Individual $10/mo, AI Pro Business $20/mo, AI Ultimate $30/mo. Important: separate subscription from IDE licence — you need both.
-
-**Tabnine** (launched 2018, predating Copilot) is the privacy-first option. Zero code retention, no training on your code, self-hosted deployment available (VPC, on-premises, air-gapped). Enterprise: custom model training on your codebase, MCP integration, CLI access, unlimited codebase connections. $12/mo (Dev), $39/user/mo (Enterprise). Retired free plan in 2024. The right choice for regulated industries or organisations with strict IP protection requirements.
+- Extensions are the lowest-friction entry point — keep your existing editor and workflow, add AI on top
+- **GitHub Copilot** — most widely adopted AI coding assistant globally; works in VS Code, JetBrains, Neovim, Visual Studio; evolved far beyond autocomplete into agent mode, autonomous PR creation, and GitHub Spark; 5-tier pricing: Free → Pro ($10) → Pro+ ($39) → Business ($19/user) → Enterprise ($39/user); transitioning to token-based billing mid-2026 — heavy agentic users will see cost increases
+- **JetBrains AI Assistant** — natural choice for Java/Kotlin/Python on IntelliJ/PyCharm/WebStorm; type-aware completions grounded in actual syntax trees; Junie (Jan 2026) is their autonomous full-task agent; requires a separate subscription from the IDE licence; AI Pro $10/mo, AI Ultimate $30/mo
+- **Tabnine** — the privacy-first option; zero code retention, no training on your code; self-hosted deployment (VPC, on-premises, air-gapped); right choice for regulated industries; $12/mo (Dev), $39/user/mo (Enterprise); retired free plan in 2024
 
 </details>
 
 ---
 
-### Hosted AI-Native IDEs
+### All major hosted AI IDEs now support MCP — including the Forge MCP Server
 
 Cloud-based platforms where the entire development experience — IDE, hosting, AI, and often database — is managed for you. Typically low-code or no-code.
 
@@ -302,23 +349,18 @@ All five platforms support MCP servers — meaning any of them can connect to th
 <details>
 <summary>Speaker notes</summary>
 
-Hosted AI-Native IDEs remove all setup friction. Open a browser, describe what you want, and the AI builds it. No CLI, no npm install, no environment configuration.
-
-**Atlassian App Studio (Rovo Studio)** — Forge-specific. Describe the app in natural language, Rovo designs the spec, selects Forge modules, generates UI Kit code, wires backend, storage, and permissions. Open beta March 2026, auto-rolled out from May 2026. No code required. Agents can be built in under 20 minutes. Governance built-in: org policies, roles, per-agent permissions, approvals, versioning, audit logs. Uses consumption-based Forge pricing — mostly free for internal/single-site apps.
-
-**Lovable** — $100M ARR in 8 months (reportedly fastest-growing startup in history). Generates full-stack apps with Supabase integration, one-click deployment, GitHub sync. Feels like a product builder, not a code editor. Limitation: backend limited to Supabase. Real limitation: generates code but still requires user to configure auth, RLS policies, and deployment.
-
-**Bolt.new** — StackBlitz's WebContainer approach: full cloud IDE (you can see file tree, terminal, preview) with AI assistance. Token-based billing ($40–100/month for serious development). Some npm packages incompatible with browser sandbox.
-
-**v0.dev** — Vercel's frontend-only tool. Generates production-quality React/Tailwind components. No backend. Best for frontend developers already in the Vercel/Next.js ecosystem.
-
-The "Technical Cliff" refers to the moment vibe-coding tools produce a beautiful mockup that fails at production infrastructure. App Studio sidesteps this entirely — Forge is the production infrastructure, serverless, with auth and scaling handled.
+- All five platforms support MCP — any of them can connect to the Forge MCP Server for Forge-aware AI generation
+- **App Studio (Rovo Studio)** — Forge-specific; describe the app, Rovo selects modules, generates UI Kit code, wires backend + permissions; open beta March 2026, auto-rolled out May 2026; agents built in under 20 minutes; governance built-in; mostly free for internal/single-site apps
+- **Lovable** — $100M ARR in 8 months; full-stack apps with Supabase; one-click deployment; limitation: backend limited to Supabase; still requires user to configure auth and RLS policies
+- **Bolt.new** — StackBlitz WebContainer; full cloud IDE (file tree, terminal, preview) with AI; token-based billing ($40–100/mo for serious use); some npm packages incompatible with browser sandbox
+- **v0.dev** — Vercel's frontend-only tool; production-quality React/Tailwind components; no backend; best for Vercel/Next.js developers
+- **The "Technical Cliff"** — vibe-coding tools produce a beautiful mockup that fails at production infrastructure; App Studio sidesteps this entirely — Forge is the production infrastructure, serverless, with auth and scaling handled
 
 </details>
 
 ---
 
-### What is an MCP Server?
+### MCP is the universal adapter for AI agents — one standard, any tool
 
 **MCP (Model Context Protocol)** is an open standard created by Anthropic (November 2024) for connecting AI agents to external tools, data, and services. Think of it as a universal adapter — like USB-C, but for AI agents.
 
@@ -378,7 +420,7 @@ The USB-C analogy: before USB-C, every device had a different cable. Before MCP,
 
 ---
 
-### Key MCP Servers for Forge Developers
+### Two types of MCP servers power Forge development: app-building tools and project-context tools
 
 MCP servers extend what your AI agent can do. For Forge development, the relevant servers fall into two groups:
 
@@ -416,34 +458,19 @@ MCP servers extend what your AI agent can do. For Forge development, the relevan
 <details>
 <summary>Speaker notes</summary>
 
-The Forge MCP Server is the headline item for this audience. GA announced February 4, 2026; published March 2, 2026. It's a *remote* server — no local installation required, just add the URL to your MCP config.
-
-**What the Forge MCP Server specifically provides:**
-- **How-to guides** — information about building Forge apps with code snippets for common tasks
-- **Module catalogs** — recommends the right Forge module for your use case (jira:issuePanel, confluence:macro, etc.)
-- **Manifest guidance** — help with manifest structure, scopes, and permissions
-- **Forge document search** — searches developer.atlassian.com for Forge and Atlassian Cloud API documentation
-- **Agent-friendly responses** — structured so agents can turn guidance directly into working code
-
-Workflow: Agent calls `forge-development-guide` → then `forge-ui-kit-developer-guide` / `forge-modules-list` / `forge-app-manifest-guide` as needed → then `search-forge-docs` for specifics → generates correct Forge code.
-
-Note: The Forge MCP server only provides publicly available information, no auth required. Data is sourced from developer.atlassian.com. One limitation: information may become stale if the knowledge index is not refreshed regularly.
-
-**Atlassian MCP Server** (GA February 2026, Claude as first partner; expanded April 2026 to include Bitbucket): Supports Jira, Confluence, Compass, Bitbucket. Read and write operations. Supported by 20+ AI clients including Claude, ChatGPT, Cursor, VS Code, Devin, GitHub, Lovable, Figma, Mistral. Security: OAuth 2.1, HTTPS/TLS 1.2+, respects existing Atlassian permissions, admin whitelisting controls.
-
-**Configuration file locations by tool:**
-- Claude Desktop: `~/Library/Application Support/Claude/claude_desktop_config.json` (Mac)
-- Cursor: `~/.cursor/mcp.json`
-- Windsurf: `~/.codeium/windsurf/mcp_config.json`
-- VS Code: `settings.json` under the `mcp.servers` key
-
-Common gotcha: JSON doesn't allow trailing commas. Validate with jsonlint.com. Also: fully restart the app (not just the window) after config changes.
+- **Forge MCP Server** — GA February 2026; remote server, no local install; just add the URL to your MCP config
+- What it provides: how-to guides, module catalogs, manifest guidance, Forge doc search, agent-friendly structured responses
+- Workflow: `forge-development-guide` → `forge-ui-kit-developer-guide` / `forge-modules-list` / `forge-app-manifest-guide` → `search-forge-docs` → correct Forge code
+- Limitation: publicly available info only, no auth required; may become stale if knowledge index not refreshed
+- **Atlassian MCP Server** — GA February 2026 (Claude first); expanded April 2026 to include Bitbucket; supports Jira, Confluence, Compass, Bitbucket read/write; 20+ supported AI clients; OAuth 2.1 + respects existing permissions
+- **Config file locations:** Claude Desktop `~/Library/Application Support/Claude/claude_desktop_config.json` · Cursor `~/.cursor/mcp.json` · Windsurf `~/.codeium/windsurf/mcp_config.json` · VS Code `settings.json` (`mcp.servers` key)
+- Common gotcha: JSON doesn't allow trailing commas; fully restart the app (not just the window) after config changes
 
 </details>
 
 ---
 
-### AI Agent Skills
+### Agent skills are reusable instruction sets — they teach AI your team's specific way of working
 
 **Agent Skills** are reusable packages of instructions, scripts, and resources that teach an AI agent how to perform specific tasks consistently — like giving a new team member a standard operating procedure that they can refer to whenever they need it.
 
@@ -485,7 +512,102 @@ This is institutional knowledge about Forge that would otherwise live in a devel
 
 ---
 
-### Skills vs. MCP Servers
+### `atlassian/forge-skills` is Atlassian's official skill bundle — scaffold, review, debug, and connect in one install
+
+The Forge Skills Plugin bundles several Forge-focused skills plus MCP-backed tooling so your agent can scaffold apps, review them before deploy, debug production issues, and stay current on Forge APIs and the Atlassian Design System.
+
+**Included skills:**
+
+| Skill | What it does |
+|---|---|
+| 📋 **Forge App Builder** | Scaffolds Forge apps — module selection, manifest setup, UI Kit patterns, deploy workflow |
+| 📋 **Forge App Review** | Pre-deploy checklist: security, cost efficiency, performance, architectural patterns |
+| 📋 **Forge Debugger** | Traces production issues — blank panels, failed deploys, API errors |
+| 📋 **Forge Connector** | Guides building `graph:connector` apps that ingest external data into Atlassian's Teamwork Graph, making it searchable in Rovo Search and surfaced in Rovo Chat. |
+
+**MCP tooling included:**
+- Gives your agent access to up-to-date Forge documentation, template registries, module configuration, manifest syntax, and UI Kit/backend API guides — so its knowledge stays current rather than relying on training data.
+- Provides Atlassian Design System lookup for Custom UI apps: component discovery, token reference, and icon search via the @atlaskit library.
+
+```bash
+# Install via the Skills CLI
+npx skills add atlassian/forge-skills
+
+# For Rovo Dev (manual steps — plugin install not yet supported):
+# acli rovodev mcp   (add .mcp.json entries, then restart Rovo Dev)
+```
+
+> 🔗 `github.com/atlassian/forge-skills` — works with Rovo Dev, Claude Code, Cursor, GitHub Copilot, and Codex CLI
+
+#### Speaker notes
+
+<details>
+<summary>Speaker notes</summary>
+
+- This is the official Atlassian-published skill bundle — not a community project; maintained by Atlassian
+- It's the fastest way to get a fully configured Forge development environment for any AI agent
+- **Four skills in one install:** Builder (scaffold), Review (pre-deploy QA), Debugger (production tracing), Connector (Rovo Search integration)
+- **MCP tooling bundled:** the installer also wires up the Forge MCP Server and the Atlassian Design System MCP — so you get live, up-to-date Forge docs and ADS component lookup in one step
+- Rovo Dev doesn't currently support plugin installations but you can install the skills and MCP servers separately. The README explains how to do this step by step
+- **Quick-check prompts after install:** "What Forge modules are available for Jira?" (tests Forge MCP) · "Review my Forge app for security issues before I deploy." (tests Forge App Review skill) · "My Forge issue panel is blank after deploy — help me trace it." (tests Forge Debugger)
+- The **Forge Connector skill** is worth calling out separately: it's for teams that want to surface external data (e.g. a project management tool, a support system) inside Rovo Search and Rovo Chat — a powerful use case that goes beyond app-building
+
+</details>
+
+---
+
+### `npx skills` is the package manager for agent skills — install once, update manually to stay current
+
+`npx skills` (by Vercel Labs) is the npm equivalent for agent skills — it uses GitHub as its registry. Any public GitHub repo with a `SKILL.md` at the root is a valid skill source.
+
+**What happens when you run `npx skills add atlassian/forge-skills`:**
+
+```
+1. Downloads the atlassian/forge-skills GitHub repo
+2. Detects which agents are installed on your machine
+3. Copies the SKILL.md files into each agent's skills directory:
+   - Universal:  .agents/skills/         (Rovo Dev, Codex, Copilot, Cursor…)
+   - Claude Code: .claude/skills/
+   - Antigravity: .agent/skills/
+4. Creates a skills-lock.json for reproducibility
+```
+
+**⚠️ Skills are a snapshot — they do not auto-update:**
+
+| Need | Command |
+|---|---|
+| Check what updates are available | `npx skills check` |
+| Update all installed skills | `npx skills update` |
+| Update one skill | `npx skills update forge-skills` |
+
+**Auto-update on every session start** (Claude Code):
+```json
+// ~/.claude/settings.json
+{ "hooks": { "SessionStart": [{ "type": "command",
+  "command": "npx skills update -g -y 2>/dev/null" }] } }
+```
+> Runs before context loads — zero token cost. Each session starts with current skills.
+
+**Team consistency** — commit `skills-lock.json` and restore with `npx skills experimental_install` in CI.
+
+#### Speaker notes
+
+<details>
+<summary>Speaker notes</summary>
+
+- The key mental model: `npx skills` is to agent skills what `npm` is to JavaScript packages — same concepts of install, update, lock file, and registry
+- GitHub is the registry — `atlassian/forge-skills` maps directly to `github.com/atlassian/forge-skills`; any public repo with a SKILL.md is installable
+- **Skills are static files on disk** — unlike MCP servers (which are always live), skills are a snapshot; if Atlassian updates the Forge App Review skill with new checks, you won't get those improvements until you run `npx skills update`
+- The `skills-lock.json` file pins exact versions — commit it to your repo and teammates get identical skills via `npx skills experimental_install`; useful in CI too
+- The `SessionStart` hook is the most practical approach for individuals: skills update silently before each session, zero friction, zero tokens
+- `npx skills` supports 51+ agents — the universal `.agents/skills/` location works for most; agent-specific paths (`.claude/skills/`, etc.) are also handled automatically
+- This is worth calling out because it's a common source of confusion: "why is the agent giving me outdated Forge module advice?" — answer: your skills are stale, run `npx skills update`
+
+</details>
+
+---
+
+### MCP servers give agents live capabilities; skills give agents your team's static expertise
 
 Skills and MCP Servers are complementary — not alternatives. Together they give an agent both the *tools* to act and the *knowledge* of how to act correctly.
 
@@ -704,7 +826,7 @@ This alone can save 3–5 tool calls at the start of every session.
 
 ---
 
-### Configuring Agent Skills
+### A skill is just a SKILL.md file — version-controlled, portable, and team-shareable
 
 Skills are simple markdown files stored in your project repository. Agents discover and load them automatically.
 
@@ -772,7 +894,7 @@ The beauty of skills is their simplicity. A skill is just a markdown file in a d
 
 ---
 
-### Where to Put Your Skills
+### Use .agents/skills/ — Rovo Dev, Codex CLI, and Copilot all recognise it natively
 
 The SKILL.md format is a shared open standard — but each tool looks for skills in its own directory. The standard recommends `.agents/skills/` in your project root, but many tools use a tool-specific path instead.
 
@@ -845,7 +967,7 @@ If you're using Rovo Dev as your primary agent, `.agents/skills/` is the recomme
 
 ---
 
-### Forge: The Ideal Platform for AI-Built Atlassian Apps
+### Forge's constrained, declarative architecture makes it the ideal target for AI-assisted development
 
 **Forge** is Atlassian's serverless app development platform — the foundation for building custom apps inside Jira, Confluence, and other Atlassian products. It is uniquely well-suited for AI-assisted development.
 
@@ -893,7 +1015,7 @@ The April 2026 sandbox exemption is developer-friendly: usage from customers tes
 
 ---
 
-### Building Forge Apps with AI: Two Paths
+### Choose App Studio for a simpler setup
 
 There are two AI-assisted paths to building a Forge app — choose based on technical comfort and the complexity of what you're building:
 
@@ -954,7 +1076,7 @@ Key moment: "When I added Jira API calls, the agent automatically updated the ma
 
 ---
 
-### Atlassian's AI Development Stack
+### Atlassian has opened its AI development stack — any agent can now connect to Forge and Atlassian data
 
 Atlassian has built a comprehensive AI development ecosystem — and opened it to any AI tool:
 
@@ -995,7 +1117,7 @@ The 1 million monthly AI users figure: this isn't a prototype number. This is at
 
 ---
 
-### Putting It All Together: The AI Forge Developer Stack
+### Agent + MCP Servers + Skills + Forge CLI = a complete AI-driven Forge development workflow
 
 A recommended stack for building Forge apps with AI assistance in 2026:
 
@@ -1030,35 +1152,19 @@ A recommended stack for building Forge apps with AI assistance in 2026:
 <details>
 <summary>Speaker notes</summary>
 
-This is the synthesis slide — showing how all the pieces fit together into a coherent, practical workflow.
-
-**The complete workflow in practice:**
-
-1. **Configure once:** Add Forge MCP Server + Atlassian MCP Server to your AI agent config. Add Forge App Builder, Forge App Review, Commit, and Changelog skills to `.agents/skills/`.
-
-2. **Start a session:** Launch Rovo Dev (or Claude Code / Cursor with MCP configured)
-
-3. **Give a goal:** "Build a Jira issue panel that shows related Confluence pages and allows linking them. See the spec in PROJ-123."
-
-4. **Agent reads context:** Checks Jira issue PROJ-123 via Atlassian MCP for requirements. Calls Forge MCP to understand which module to use, what scopes are needed, what UI Kit components are available.
-
-5. **Agent builds:** Scaffolds the app with `forge create`, writes the component code, sets up backend functions, wires permissions in the manifest (including correct API scopes — automatically).
-
-6. **Agent tests:** Uses `forge tunnel` to test in real Atlassian instance; reads error output and iterates until tests pass.
-
-7. **Agent reviews:** Runs the Forge App Review skill — checks security, cost efficiency, performance, architectural patterns.
-
-8. **Developer reviews:** You look at the generated code and the review report. Make any adjustments.
-
-9. **Agent deploys:** `forge deploy` → `forge install` → updates Jira issue PROJ-123 status to Done via Atlassian MCP.
-
-**The bottom line:** A developer who previously spent a week learning Forge module types, manifest syntax, API scopes, and UI Kit components can now start building productively on day one. The AI agent — equipped with the Forge MCP Server, Atlassian MCP Server, and appropriate skills — handles the platform knowledge, letting the developer focus on what matters: the unique business logic of their app.
+- This is the synthesis slide — show how all pieces click together into one practical workflow
+- **Configure once:** Forge MCP + Atlassian MCP in agent config; Forge App Builder, Forge App Review, Commit, Changelog skills in `.agents/skills/`
+- **Give a goal:** "Build a Jira issue panel that shows related Confluence pages. See PROJ-123." — the agent reads the Jira issue, selects the right Forge module, writes and wires the code
+- **Agent tests:** runs `forge tunnel`, reads error output, iterates until tests pass — no human intervention needed
+- **Agent reviews:** Forge App Review skill checks security, cost efficiency, performance, architectural patterns
+- **Agent deploys:** `forge deploy` → `forge install` → marks PROJ-123 Done via Atlassian MCP
+- **The bottom line:** a developer new to Forge can be productive on day one — the agent handles platform knowledge, the developer focuses on business logic
 
 </details>
 
 ---
 
-### Getting Started Today
+### Start in minutes: add the Forge MCP Server to your current AI tool
 
 You don't need to adopt everything at once. Here's a practical progression:
 
@@ -1122,7 +1228,9 @@ If you're an Atlassian admin or building something relatively simple (an approva
 
 ---
 
-### Summary
+### The tools are ready — AI agents, MCP Servers, and skills can build Forge apps today
+
+> 💡 **Presenter note:** Conduct Q&A before advancing to this slide. End on the key message below, not on a question from the floor.
 
 **The AI software development landscape — May 2026:**
 
