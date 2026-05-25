@@ -21,6 +21,7 @@ Agents must never commit code or push changes to remote repositories unless a us
 
 - **Presentation**: [Presentation.md](./Presentation.md) — this file summarises the research in the form of a presentation. 
 - **Presentation Format**: [PresentationFormat.md](./PresentationFormat.md) — this file explains the formatting and conventions used in [Presentation.md](./Presentation.md) so that it is consistently formatted and interpreted.
+- **Presentation Metadata**: [PresentationMetadata.md](./PresentationMetadata.md) — this file documents the audience profile and preferences for the deck, including tone, technical depth, pacing, key messages, and known audience concerns. Consult this before making any changes to [Presentation.md](./Presentation.md).
 
 ## Scope
 
