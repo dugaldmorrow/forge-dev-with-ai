@@ -60,4 +60,3 @@ The scope of the research and content of this project includes but is not limite
   * Volt Studio
   * Atlassian MCP Server
   * Socrates MCP Server
-* 
