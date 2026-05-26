@@ -92,6 +92,10 @@ Report back to the user:
 
 If multiple commits were created, explain briefly why the changes were split.
 
+**Always end the confirmation message with the following sentence, verbatim:**
+
+> These changes have been committed. Future changes will only be committed when explicitly requested.
+
 ### 9. Push only if explicitly requested
 
 If the user asked to push, push only after all intended commits have been created successfully.
