@@ -529,6 +529,7 @@ MCP servers extend what your AI agent can do. For Forge development, the relevan
 | MCP Server | Provider | Key Capabilities |
 |---|---|---|
 | 🔶 **Forge MCP Server** | Atlassian | Forge how-to guides, module catalogs, manifest guidance, API search — Forge knowledge for any AI agent |
+| 🎨 **ADS MCP Server** | Atlassian | ADS components, design tokens, icons, and accessibility guidelines — ensures generated UI code matches the Atlassian Design System |
 | 🐙 **GitHub MCP Server** | GitHub | Repository management, PR creation, issue tracking, code review |
 | 📁 **Filesystem MCP** | Anthropic | Local file read/write for agents in sandboxed environments |
 | 🌐 **Playwright MCP** | Microsoft | Browser automation, web scraping, UI testing |
@@ -587,6 +588,7 @@ The Forge MCP Server is a remote server — no local install, no dependencies. J
 - Workflow: `forge-development-guide` → `forge-ui-kit-developer-guide` / `forge-modules-list` / `forge-app-manifest-guide` → `search-forge-docs` → correct Forge code
 - Limitation: publicly available info only, no auth required; may become stale if knowledge index not refreshed
 - **Atlassian MCP Server** — GA February 2026 (Claude first); expanded April 2026 to include Bitbucket; supports Jira, Confluence, Compass, Bitbucket read/write; 20+ supported AI clients; OAuth 2.1 + respects existing permissions
+- **ADS MCP Server** (`@atlaskit/ads-mcp`) — available via `npx -y @atlaskit/ads-mcp` or the remote URL `https://mcp.atlassian.com/v1/ads/public/mcp`; provides component catalogs, design tokens, icons, and full WCAG 2.1 AA accessibility analysis; particularly valuable for Custom UI apps where the agent needs to know which ADS component and token to use before writing a single line of code
 - **Config file locations:** Claude Desktop `~/Library/Application Support/Claude/claude_desktop_config.json` · Cursor `~/.cursor/mcp.json` · Windsurf `~/.codeium/windsurf/mcp_config.json` · VS Code `settings.json` (`mcp.servers` key)
 - Common gotcha: JSON doesn't allow trailing commas; fully restart the app (not just the window) after config changes
 
