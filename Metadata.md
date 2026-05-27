@@ -1,4 +1,4 @@
 # Metadata
 
-**Version:** 1.8.1  
-**Date:** 27-May-2026, 15:33 AEST
+**Version:** 1.8.2  
+**Date:** 27-May-2026, 16:24 AEST

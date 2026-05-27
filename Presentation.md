@@ -202,8 +202,6 @@ The most autonomous category — agents that independently plan, write, test, an
 | **Devin** | Cognition AI | First "autonomous AI software engineer"; Interactive Planning; from $20/mo |
 | **Cline** | Community (MIT) | 5M+ installs; bring your own API key; fully open source |
 
-> *Claude Code and Devin 2.0 lead SWE-bench Verified benchmarks at ~71–73% task completion (up from ~14% at Devin's 2024 launch).*
-
 ---
 
 ### LLM configurability varies widely — choose the agent that fits your model preferences
