@@ -1372,6 +1372,54 @@ Key moment: "When I added Jira API calls, the agent automatically updated the ma
 
 ---
 
+### The ideal Forge + AI setup combines an agent, two MCP servers, and a skill bundle
+
+**🤖 Agent** — pick one to drive your workflow:
+- Rovo Dev CLI (best Atlassian context out of the box)
+- Claude Code, Cursor, or Windsurf (fully compatible via MCP)
+
+**🔌 MCP Servers** — connect the agent to Forge and Atlassian knowledge:
+- 🔶 **Forge MCP Server** — accurate Forge docs, module catalogs, manifest guidance
+- 🔷 **Atlassian MCP Server** — live Jira issues, Confluence pages, Bitbucket PRs
+
+**📋 Skills** — encode your team's Forge workflow:
+- `atlassian/forge-skills` — scaffold, review, debug, and connect, all in one install
+
+**🖥️ Editor** — your existing editor works fine:
+- VS Code, Cursor, Windsurf, or JetBrains — add MCP config and go
+
+**📦 Forge CLI** — the only required install:
+- `npm install -g @forge/cli` — deploy, tunnel, and manage from the terminal
+
+#### Speaker notes
+
+<details>
+<summary>Speaker notes</summary>
+
+This slide is the "shopping list" — the concrete answer to "OK, what do I actually need to set this up?" It should feel reassuring: the list is short, most items are zero-install remote URLs, and your existing editor almost certainly already works.
+
+**Agent — why these four?**
+Rovo Dev is the natural first choice for Atlassian developers because it has native access to the Teamwork Graph (your Jira, Confluence, and Bitbucket data) without any MCP configuration. Claude Code, Cursor, and Windsurf are the other high-quality options — all support MCP natively and work equally well with the Forge MCP Server.
+
+**MCP Servers — two is the sweet spot:**
+- Forge MCP Server: zero-install, remote URL (`https://mcp.atlassian.com/v1/forge/mcp`), gives the agent accurate Forge knowledge so it stops hallucinating outdated APIs
+- Atlassian MCP Server: gives the agent live read/write access to your actual Jira tickets, Confluence docs, and Bitbucket PRs — so it can understand the real project context, not just the code
+
+**Skills — one bundle covers everything:**
+`atlassian/forge-skills` (installed via `npx skills add atlassian/forge-skills`) covers the four core workflows: scaffold a new app, review code before deploy, debug tunnel errors, and connect external APIs. That's enough to handle the full development lifecycle.
+
+**Editor — no replacement needed:**
+This is an important reassurance point for the audience. You do not need to switch editors. Add an MCP config block (one JSON snippet), and your existing editor becomes an AI-powered Forge development environment.
+
+**Forge CLI — the one non-negotiable:**
+Everything else can be configured remotely, but you still need the Forge CLI locally for `forge create`, `forge tunnel` (real-time error feedback), `forge deploy`, and `forge install`. It's the only required local install beyond the agent itself.
+
+**Transition:** "Let's look at how the Forge MCP Server and Atlassian MCP Server specifically open up Atlassian data to any AI tool you're using."
+
+</details>
+
+---
+
 ### The Forge MCP Server and Atlassian MCP Server open Atlassian data to any AI tool
 
 Atlassian has built an open ecosystem — use whatever AI tool you want, and connect it securely to Forge and Atlassian data:
