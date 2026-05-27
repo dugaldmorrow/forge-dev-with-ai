@@ -25,7 +25,7 @@ Agents must never commit code or push changes to remote repositories unless a us
 
 ## Scope
 
-The scope of the research and content of this project includes but is not limited to:
+The initial scope of the research and content of this project includes but is not limited to the following outline, however, the scope may change over time as the presentation takes shape:
 
 * Explanation of some common terms including:
   * AI software development agent

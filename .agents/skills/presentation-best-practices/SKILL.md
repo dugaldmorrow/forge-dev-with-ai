@@ -87,6 +87,9 @@ Slides support your spoken words — they are not a transcript. Guidelines:
 - Bullets are **fragments, not paragraphs** — one idea per bullet
 - If the audience is reading, they are not listening
 - Favour visuals, diagrams, and tables over walls of text
+- **No prose paragraphs on slides** — if content reads like flowing sentences, it belongs in speaker notes, not on the slide
+- **One primary element per slide** — a table, a code block, a diagram, or a bullet list; combining two or more of these almost always overloads the slide
+- **Move definitions to speaker notes** — introductory "what is X" paragraphs belong in the notes; the title states the conclusion, the body provides evidence
 
 ### The "So What?" test
 After every slide, ask: *"So what? Why does this matter to my audience?"* If you cannot immediately answer, revise or cut the slide.
