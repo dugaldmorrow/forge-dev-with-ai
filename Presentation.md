@@ -14,8 +14,6 @@ Principal Developer Advocate, Atlassian
 
 *A practical guide to building Forge apps with AI agents, MCP servers, and agent skills — from idea to deployed.*
 
-#### Speaker notes
-
 <details>
 <summary>Speaker notes</summary>
 
@@ -34,8 +32,6 @@ Principal Developer Advocate, Atlassian
 3. **The Standards** — MCP Servers and Agent Skills
 4. **Forge as an AI Build Target** — why Forge is uniquely suited
 5. **Getting Started** — three levels of adoption you can start today
-
-#### Speaker notes
 
 <details>
 <summary>Speaker notes</summary>
@@ -56,8 +52,6 @@ Principal Developer Advocate, Atlassian
 What if that was 20 minutes?
 
 This session covers the tools, standards, and patterns that make it possible today.
-
-#### Speaker notes
 
 <details>
 <summary>Speaker notes</summary>
@@ -103,8 +97,6 @@ Style: clean diagrammatic, Atlassian blue primary colour, minimal text on diagra
 
 > *In August 2025, New York Magazine described software development as the most definitive use case of AI agents.*
 
-#### Speaker notes
-
 <details>
 <summary>Speaker notes</summary>
 
@@ -137,8 +129,6 @@ Software development is a particularly strong fit for AI agents because:
 
 > The shift from autocomplete to agents is not incremental — it is a fundamentally different relationship with AI.
 
-#### Speaker notes
-
 <details>
 <summary>Speaker notes</summary>
 
@@ -146,43 +136,6 @@ Software development is a particularly strong fit for AI agents because:
 - Autocomplete is not obsolete — it's a different tool for a different job; agents are for multi-step, goal-directed work; autocomplete is for in-the-moment code suggestions
 - The key mental shift: autocomplete augments the developer's typing; agents augment the developer's *thinking and execution*
 - Transition: "Before we go further into agents, let's quickly cover inference — the underlying mechanism that makes all of this possible."
-
-</details>
-
----
-
-### Inference is AI in "execution" mode — what happens every time an LLM runs
-
-**Inference** is the execution phase of an AI model — when a trained model receives an input (a prompt) and generates an output (a response). Every time an LLM generates code, answers a question, or takes an action, it is performing inference.
-
-> 💡 **The cost story:** *By 2030, running inference on a 1-trillion-parameter model will cost over 90% less than in 2025.* Agentic AI is getting dramatically cheaper every year.
-
-**Why it matters for developers:**
-
-| Concept | What it means |
-|---|---|
-| **Token-based billing** | You pay per token — every word in and out has a cost |
-| **Agentic amplification** | Agents use 5–30× more tokens per task than a chatbot |
-| **Context window** | The "working memory" of a session — longer context = more tokens |
-| **LLMflation** | Inference costs drop ~10× per year — rapidly becoming cheaper |
-
-#### Speaker notes
-
-<details>
-<summary>Speaker notes</summary>
-
-Inference is the "using" phase of an AI model — as opposed to training, which is the "learning" phase. When you type a prompt and get a response, that's inference.
-
-Why this matters: inference costs money. Every token (roughly ¾ of a word) that flows in or out of the model is billed. This becomes very significant in agentic workflows because:
-
-1. The agent reads your entire codebase (many input tokens)
-2. The agent has long multi-step conversations (context grows with each step)
-3. Each step re-feeds the full history into the model
-4. Agentic models use 5–30× more tokens than a standard chatbot per task
-
-The good news: "LLMflation" — the a16z term for the rapid decline in inference costs — is real. What cost $10 per million tokens in 2023 costs a fraction of that today. The trend is accelerating.
-
-For Forge developers: when using AI agents to build Forge apps, you will consume tokens. Understanding this helps you choose the right model (cheaper models for simple tasks, frontier models for complex reasoning) and use skills to avoid re-explaining context every session.
 
 </details>
 
@@ -216,8 +169,6 @@ Not all AI development tools are the same. For this presentation, we classify th
 ```
 
 **The key question when choosing:** *How much autonomy do you want the AI to have?*
-
-#### Speaker notes
 
 <details>
 <summary>Speaker notes</summary>
@@ -266,8 +217,6 @@ The most autonomous category — agents that independently plan, write, test, an
 | **Devin** | Proprietary SWE-1 / SWE-1.5 | ❌ No |
 | **Cline** | 200+ models (Claude, GPT, Gemini, Ollama…) | Yes — fully |
 
-#### Speaker notes
-
 <details>
 <summary>Speaker notes</summary>
 
@@ -312,8 +261,6 @@ Rovo Dev CLI ──► Forge MCP Server    (Forge knowledge)
              ──► Agent Skills         (team workflows)
 ```
 
-#### Speaker notes
-
 <details>
 <summary>Speaker notes</summary>
 
@@ -345,8 +292,6 @@ Full development environments rebuilt from the ground up around AI — not plugi
 
 **Cursor vs Windsurf:** Both ~$20/mo · 200K token context · multi-file agentic editing. Cursor leads on model flexibility and community; Windsurf on speed (SWE-1.5, 13× faster) and compliance (FedRAMP/HIPAA/ITAR).
 
-#### Speaker notes
-
 <details>
 <summary>Speaker notes</summary>
 
@@ -374,8 +319,6 @@ For Forge development: Cursor and Windsurf both work excellently with the Forge 
 
 > 💡 Copilot has evolved well beyond autocomplete: autonomous PR creation, agentic code review, and GitHub Spark (natural language app building) — now moving to token-based billing in mid-2026.
 
-#### Speaker notes
-
 <details>
 <summary>Speaker notes</summary>
 
@@ -399,8 +342,6 @@ For Forge development: Cursor and Windsurf both work excellently with the Forge 
 | **Replit** | Replit Inc. | Cloud coding + hosting + DB + AI agent | ✅ 1-click + custom MCP | ⚙️ Via Forge MCP |
 
 > **The tradeoff:** Maximum speed to prototype — but general-purpose platforms often hit a "Technical Cliff" at production deployment. App Studio avoids this because Forge handles hosting, auth, and scaling automatically.
-
-#### Speaker notes
 
 <details>
 <summary>Speaker notes</summary>
@@ -466,8 +407,6 @@ Style: split-panel layout, high contrast between the messy left and clean right,
 
 </details>
 
-#### Speaker notes
-
 <details>
 <summary>Speaker notes</summary>
 
@@ -505,8 +444,6 @@ The USB-C analogy: before USB-C, every device had a different cable. Before MCP,
 | 📁 **Filesystem MCP** | Anthropic | Local file read/write for agents in sandboxed environments |
 | 🌐 **Playwright MCP** | Microsoft | Browser automation, web scraping, UI testing |
 
-#### Speaker notes
-
 <details>
 <summary>Speaker notes</summary>
 
@@ -528,8 +465,6 @@ The USB-C analogy: before USB-C, every device had a different cable. Before MCP,
 |---|---|---|
 | 🔷 **Atlassian MCP Server** | Atlassian | Jira, Confluence, Bitbucket, Compass read/write — reads requirements, updates issue status, links PRs |
 | 💬 **Slack MCP** | Community | Read channel discussions for context; post progress updates |
-
-#### Speaker notes
 
 <details>
 <summary>Speaker notes</summary>
@@ -567,8 +502,6 @@ The Forge MCP Server is a remote server — no local install, no dependencies. J
 | **Rovo Dev** | `acli rovodev mcp` (opens config in default editor) |
 
 > ⚠️ JSON doesn't allow trailing commas. Validate with `jsonlint.com`. Always fully restart the app (not just the window) after config changes.
-
-#### Speaker notes
 
 <details>
 <summary>Speaker notes</summary>
@@ -630,8 +563,6 @@ Style: left-to-right flow with expanding/contracting card metaphor, Atlassian bl
 
 > *Agent Skills are an open standard (agentskills.io, Apache 2.0), supported by Rovo Dev, Claude Code, GitHub Copilot, and Codex CLI.*
 
-#### Speaker notes
-
 <details>
 <summary>Speaker notes</summary>
 
@@ -680,8 +611,6 @@ npx skills add atlassian/forge-skills
 
 > 🔗 `github.com/atlassian/forge-skills` — works with Rovo Dev, Claude Code, Cursor, GitHub Copilot, and Codex CLI
 
-#### Speaker notes
-
 <details>
 <summary>Speaker notes</summary>
 
@@ -717,8 +646,6 @@ npx skills add atlassian/forge-skills
 | Check what updates are available | `npx skills check` |
 | Update all installed skills | `npx skills update` |
 | Update one skill | `npx skills update forge-skills` |
-
-#### Speaker notes
 
 <details>
 <summary>Speaker notes</summary>
@@ -756,8 +683,6 @@ Forge App Builder SKILL
 ```
 
 > *MCP Servers give the agent its tools. Skills give the agent its expertise.*
-
-#### Speaker notes
 
 <details>
 <summary>Speaker notes</summary>
@@ -818,8 +743,6 @@ The agent chooses Option B if it believes it already knows.
 
 > ⚠️ *Presence in the config is not the same as guaranteed invocation. The agent's internal confidence is the deciding factor.*
 
-#### Speaker notes
-
 <details>
 <summary>Speaker notes</summary>
 
@@ -858,8 +781,6 @@ The most effective prevention happens before the agent starts — in your prompt
 - Never use training data alone for Forge manifest syntax or API scope decisions.
 ```
 
-#### Speaker notes
-
 <details>
 <summary>Speaker notes</summary>
 
@@ -886,8 +807,6 @@ Some agents allow you to `@`-mention an MCP server or skill directly in the prom
 | **Rovo Dev** | `@skill-name` or `/skill` | `@forge-app-builder scaffold this app` |
 
 > ⚡ Direct addressing bypasses the agent's confidence heuristic entirely — the tool call is explicit, not inferred.
-
-#### Speaker notes
 
 <details>
 <summary>Speaker notes</summary>
@@ -918,8 +837,6 @@ Do not proceed based on prior knowledge.
 ```
 
 > 💡 The Forge App Builder skill in `atlassian/forge-skills` already does this — MCP invocation is baked into every step.
-
-#### Speaker notes
 
 <details>
 <summary>Speaker notes</summary>
@@ -974,8 +891,6 @@ Style: layered/stacked card metaphor, each layer a different colour, clean label
 - Agent boundaries and constraints
 
 > *Including an AGENTS.md reduced agent task completion time by 28% in a controlled study (ETH Zurich, 2025).*
-
-#### Speaker notes
 
 <details>
 <summary>Speaker notes</summary>
@@ -1051,8 +966,6 @@ Acts on relevant content only
 - 📁 **Use AGENTS.md to describe directory structure** — saves the agent from discovering it via tool calls
 
 > *Every file the agent opens costs tokens. A well-scoped launch and a good `.rovoignore` directly improve quality and reduce cost.*
-
-#### Speaker notes
 
 <details>
 <summary>Speaker notes</summary>
@@ -1147,8 +1060,6 @@ Consult the Forge MCP Server for module recommendations...
 - ✅ **Team-shareable** — check into your repo; every developer benefits
 - ✅ **Lightweight** — loaded on demand, not burning tokens every session
 
-#### Speaker notes
-
 <details>
 <summary>Speaker notes</summary>
 
@@ -1191,8 +1102,6 @@ The SKILL.md format is a shared open standard — but each tool looks for skills
 
 > 💡 **Recommended:** Put your team skills in `.agents/skills/` and symlink agent-specific directories to it — one source of truth, all agents see it. `npx skills add` handles this automatically.
 
-#### Speaker notes
-
 <details>
 <summary>Speaker notes</summary>
 
@@ -1228,8 +1137,6 @@ Personal skills live in your home directory and are available in all your projec
 
 > ⚠️ **Cursor limitation:** Cursor is the only major agent with no global skills support. Personal skills must be copied into each project's `.cursor/skills/` manually — or use a setup script.
 
-#### Speaker notes
-
 <details>
 <summary>Speaker notes</summary>
 
@@ -1255,8 +1162,6 @@ Personal skills live in your home directory and are available in all your projec
 | **Fast CLI feedback loop** | `forge tunnel` gives instant test results for agents to iterate on |
 
 > 💰 Most apps stay within the **free monthly allowance** — no cost. Sandbox usage is free as of April 2026.
-
-#### Speaker notes
 
 <details>
 <summary>Speaker notes</summary>
@@ -1306,8 +1211,6 @@ There are two AI-assisted paths to building a Forge app — choose based on tech
 ║ simple agents & workflows    ║    ║ integrations, custom logic   ║
 ╚══════════════════════════════╝    ╚══════════════════════════════╝
 ```
-
-#### Speaker notes
 
 <details>
 <summary>Speaker notes</summary>
@@ -1364,8 +1267,6 @@ Key moment: "When I added Jira API calls, the agent automatically updated the ma
 **📦 Forge CLI** — the only required install:
 - `npm install -g @forge/cli` — deploy, tunnel, and manage from the terminal
 
-#### Speaker notes
-
 <details>
 <summary>Speaker notes</summary>
 
@@ -1405,8 +1306,6 @@ Connects any AI tool to Jira, Confluence, Bitbucket, and Compass with enterprise
 
 > *"Over a million people use AI on the Atlassian platform each month."*
 
-#### Speaker notes
-
 <details>
 <summary>Speaker notes</summary>
 
@@ -1438,8 +1337,6 @@ The three most common failure modes — and how to prevent them:
 
 > *"The goal is not to trust AI blindly — it's to configure it so well that trust is well-placed."*
 
-#### Speaker notes
-
 <details>
 <summary>Speaker notes</summary>
 
@@ -1460,8 +1357,6 @@ The three most common failure modes — and how to prevent them:
 - ⚡ **Volt Studio** *(Internal)* — Atlassian's internal tool for building apps and automations at scale; Atlassian uses AI-assisted development tooling internally, not just for customers
 
 - 📊 **Socrates** *(Internal)* — Atlassian's internal MCP server for data and analytics, enabling data-driven decision making with AI assistance
-
-#### Speaker notes
 
 <details>
 <summary>Speaker notes</summary>
@@ -1539,8 +1434,6 @@ Style: stacked band layout, Atlassian brand palette (blue → teal → slate), c
 
 </details>
 
-#### Speaker notes
-
 <details>
 <summary>Speaker notes</summary>
 
@@ -1565,8 +1458,6 @@ Style: stacked band layout, Atlassian brand palette (blue → teal → slate), c
 | **3 — Autonomous Agent** | Idea to deployment | Provide a Jira issue link; agent reads spec, creates app, deploys, and tests | Dramatic reduction in "Time to Value" |
 
 > Start at Level 1 today — it takes under 10 minutes. Move to Level 2 when you're comfortable. Level 3 is ready when you are.
-
-#### Speaker notes
 
 <details>
 <summary>Speaker notes</summary>
@@ -1595,8 +1486,6 @@ Style: stacked band layout, Atlassian brand palette (blue → teal → slate), c
 **🎯 Level 3 — No-code path (20 minutes)**
 1. Open Atlassian App Studio in your Atlassian admin panel
 2. Describe the app in natural language, review the spec, and deploy
-
-#### Speaker notes
 
 <details>
 <summary>Speaker notes</summary>
@@ -1645,8 +1534,6 @@ If you're an Atlassian admin or building something relatively simple (an approva
 
 > *The platform is ready. The standards are settled. The only variable is how quickly teams adopt them.*
 
-#### Speaker notes
-
 <details>
 <summary>Speaker notes</summary>
 
@@ -1672,8 +1559,6 @@ If you're an Atlassian admin or building something relatively simple (an approva
 | **Hosted AI IDEs** | Atlassian App Studio, Lovable, Bolt.new | No-code / low-code to production |
 
 The right choice depends on **how much autonomy you want the AI to have** — and how much control you want to retain.
-
-#### Speaker notes
 
 <details>
 <summary>Speaker notes</summary>
@@ -1702,8 +1587,6 @@ The right choice depends on **how much autonomy you want the AI to have** — an
 | 🔶 **Atlassian App Studio** | No-code path from natural language to deployed Forge app |
 
 > **The bottom line:** Building Forge apps with AI is not just about writing code faster — it's about describing what you want and letting AI handle the rest. The tools are ready. Start today.
-
-#### Speaker notes
 
 <details>
 <summary>Speaker notes</summary>
