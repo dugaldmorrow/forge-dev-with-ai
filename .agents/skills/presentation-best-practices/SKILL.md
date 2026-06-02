@@ -52,34 +52,37 @@ A well-structured presentation follows a clear arc:
 ### One idea per slide
 Each slide should propose or answer **one primary question**. If you can't summarise the slide's point in a single sentence, split it into two slides.
 
-### Use action titles, not topic labels
-Slide titles should be **complete sentences that state the conclusion**, not generic labels.
+### Slide titles
 
-| ❌ Topic title | ✅ Action title |
+#### Be clear and specific
+Each title should communicate the main point of the slide, not just the topic. A reader skimming only titles should be able to follow the narrative of the presentation.
+
+| ❌ Weak Title | ✅ Stronger Title |
 |---|---|
-| Market Analysis | AI coding agents reached $2B ARR in February 2026 |
-| Results | Forge apps built with AI take hours, not weeks |
-| Next Steps | Start with the Forge MCP Server today — zero install required |
+| Background | Three market shifts created this opportunity |
+| Recommendations | Prioritise API-first to capture developer demand |
+| Q3 Results | Q3 exceeded target by 12% |
+| Agenda | (Use sparingly — only for long presentations) |
 
-Reading the titles alone should tell the story of the entire presentation.
+#### Keep them concise
+Aim for **one line — typically 5–8 words**. If it wraps to a second line, it's too long. Cut filler words ("A Look At…", "An Overview Of…") and get straight to the point.
 
-### Slide title length
-Keep titles **8–15 words** and **no more than 2 lines**. This is the range supported by Michael Alley's Assertion-Evidence model (Penn State), McKinsey consulting standards, and cognitive load research.
+#### Use action-oriented or assertion-based language
+- **Assertion titles** state a conclusion: *"Mobile adoption outpaces desktop 3:1"*
+- **Action titles** prompt a decision: *"Invest in mobile-first onboarding"*
 
-| Constraint | Guideline |
-|---|---|
-| **Word count** | 8–15 words optimal; never exceed 15 |
-| **Line count** | 1–2 lines maximum |
-| **Character count** | 60–130 characters (aligns with working memory research) |
+These are far more effective than generic labels like "Mobile Data" or "Next Steps."
 
-**The tension between completeness and brevity** is real but resolvable:
-- If a title exceeds 15 words, the slide probably contains more than one idea — split the slide, not the title
-- Compress ruthlessly: cut filler words, use precise nouns, drop qualifiers that don't add meaning
-- If domain-specific technical terms are essential, allow up to 2 lines — but never sacrifice accuracy for false brevity
+#### Maintain parallel structure
+Use consistent grammatical form across slides (all questions, all statements, all verb phrases). This creates rhythm and makes the deck easier to follow.
 
-> *"A specific 12-word title beats a vague 2-word label every time."* — Winning Presentations, 2026
+#### Make titles work as a standalone storyline
+The **title test**: read only your slide titles in sequence. If they tell a coherent story, your structure is strong. If they read like a table of contents, rewrite them as assertions.
 
-Research evidence: student recall was 63% when the key point was in the slide title vs. 46% when it was in the first bullet — a 37% improvement from action titles alone (Alley/Penn State).
+#### Additional tips
+- **Front-load the key word** — audiences read left to right, so put the most important concept first
+- **Use sentence case** (not Title Case or ALL CAPS) for readability
+- **Number or label slides** only if your audience needs to reference them later (e.g. appendix slides)
 
 ### Minimise text on slides
 Slides support your spoken words — they are not a transcript. Guidelines:
