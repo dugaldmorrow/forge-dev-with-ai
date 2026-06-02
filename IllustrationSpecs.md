@@ -13,7 +13,7 @@ Visual design specs for diagrams to be created for the presentation. Each illust
 A circular flow diagram with five steps arranged in a loop:
 
 1. **Goal** (top) — "Build a Jira issue panel showing related Confluence pages"
-2. **Plan** (right) — agent decides next action: "Read PROJ-123 via Atlassian MCP"
+2. **Plan** (right) — agent decides next action: "Read PROJ-123 via Atlassian Rovo MCP"
 3. **Execute** (bottom-right) — agent calls tools: reads files, writes code, runs tests
 4. **Observe** (bottom-left) — agent reads results: test output, file contents, API responses
 5. **Iterate** (left) — agent refines: adjusts plan based on what it observed
@@ -109,7 +109,7 @@ Three agent logos side by side: Rovo Dev · Claude Code · Cursor. Label: "Plans
 **Band 3 — Extensions (teal), split into two columns:**
 Left column — **MCP Servers:**
 - 🔶 Forge MCP → "Forge knowledge"
-- 🔷 Atlassian MCP → "Jira · Confluence · Bitbucket"
+- 🔷 Atlassian Rovo MCP → "Jira · Confluence · Bitbucket"
 
 Right column — **Agent Skills:**
 - 📋 Forge App Builder

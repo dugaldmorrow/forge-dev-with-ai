@@ -1,6 +1,6 @@
 # Skipped Slides
 
-Slides that have been removed from [Presentation.md](./Presentation.md) but retained here for reference.
+Slides that have been removed from [Presentation.html](./Presentation.html) but retained here for reference.
 
 ---
 

@@ -1,6 +1,6 @@
 # Presentation Metadata
 
-This file documents the audience profile and presentation preferences for [Presentation.md](./Presentation.md). It is intended to guide content decisions, tone, depth calibration, and future updates to the deck.
+This file documents the audience profile and presentation preferences for [Presentation.html](./Presentation.html). It is intended to guide content decisions, tone, depth calibration, and future updates to the deck.
 
 ---
 
@@ -77,7 +77,7 @@ The audience has **varied technical experience** — from developers who are rel
 
 ### Visual style
 
-- The deck is authored in Markdown (`Presentation.md`) and rendered by a slide tool that interprets the format defined in [PresentationFormat.md](./PresentationFormat.md)
+- The deck is authored in HTML (`Presentation.html`) and rendered with Reveal.js using the conventions defined in [PresentationFormat.md](./PresentationFormat.md)
 - ASCII art diagrams and code blocks are used where visual structure aids comprehension
 - Illustrations are described in `<details>` blocks for slide designers to implement as proper graphics
 
@@ -119,6 +119,6 @@ Based on typical developer audiences for this topic:
 
 ## References
 
-- [Presentation.md](./Presentation.md) — the full slide deck
+- [Presentation.html](./Presentation.html) — the full slide deck
 - [PresentationFormat.md](./PresentationFormat.md) — formatting conventions for the deck
 - [AGENTS.md](./AGENTS.md) — agent personality, scope, and boundaries for this project

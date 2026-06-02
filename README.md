@@ -8,7 +8,7 @@ Research and presentation materials for the talk **"Forge App Development with A
 
 This repository contains:
 
-- **[Presentation.md](./Presentation.md)** — the full slide deck, covering AI coding agents, MCP servers, agent skills, and how to use them to build Forge apps
+- **[Presentation.html](./Presentation.html)** — the full slide deck, covering AI coding agents, MCP servers, agent skills, and how to use them to build Forge apps
 - **[PresentationMetadata.md](./PresentationMetadata.md)** — audience profile, tone, pacing, and content priorities for the deck
 - **[PresentationFormat.md](./PresentationFormat.md)** — formatting conventions used in the presentation
 - **[AGENTS.md](./AGENTS.md)** — agent context file that configures AI agents working in this repository
