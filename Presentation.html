@@ -123,26 +123,37 @@
 <!-- SLIDE 6: Four categories -->
 <section>
 	<h3>Four categories of AI development tools</h3>
-	<pre><code>┌─────────────────────────────────────────────────────────────────┐
-│                   AI DEV TOOL CATEGORIES                        │
-├──────────────────────┬──────────────────────────────────────────┤
-│  AI SOFTWARE         │  Agents that work in your terminal or    │
-│  DEVELOPMENT AGENTS  │  in the background.                      │
-│                      │  Rovo Dev, Claude Code, Codex CLI,       │
-│                      │  Google Antigravity 2.0, Devin, Cline   │
-├──────────────────────┼──────────────────────────────────────────┤
-│  AI-NATIVE IDEs      │  Full IDEs rebuilt around AI — not just  │
-│                      │  a plugin bolted on.                     │
-│                      │  Cursor, Windsurf, Replit                │
-├──────────────────────┼──────────────────────────────────────────┤
-│  IDE EXTENSIONS &    │  AI capabilities added to your existing  │
-│  EDITOR COMPANIONS   │  IDE. Lowest friction to adopt.          │
-│                      │  GitHub Copilot, JetBrains AI, Tabnine  │
-├──────────────────────┼──────────────────────────────────────────┤
-│  HOSTED AI-NATIVE    │  Cloud-based, often no-code platforms.   │
-│  IDEs                │  Atlassian App Studio, Lovable,          │
-│                      │  Bolt.new, v0.dev                        │
-└──────────────────────┴──────────────────────────────────────────┘</code></pre>
+	<table>
+		<thead>
+			<tr>
+				<th>Category</th>
+				<th>Description</th>
+				<th>Examples</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><strong>AI Software<br/>Development Agents</strong></td>
+				<td>Agents that work in your terminal or in the background</td>
+				<td>Rovo Dev, Claude Code, Codex CLI, Google Antigravity 2.0, Devin, Cline</td>
+			</tr>
+			<tr>
+				<td><strong>AI-Native IDEs</strong></td>
+				<td>Full IDEs rebuilt around AI — not just a plugin bolted on</td>
+				<td>Cursor, Windsurf, Replit</td>
+			</tr>
+			<tr>
+				<td><strong>IDE Extensions &amp;<br/>Editor Companions</strong></td>
+				<td>AI capabilities added to your existing IDE. Lowest friction to adopt</td>
+				<td>GitHub Copilot, JetBrains AI, Tabnine</td>
+			</tr>
+			<tr>
+				<td><strong>Hosted AI-Native IDEs</strong></td>
+				<td>Cloud-based, often no-code platforms</td>
+				<td>Atlassian App Studio, Lovable, Bolt.new, v0.dev</td>
+			</tr>
+		</tbody>
+	</table>
 	<aside class="notes">
 		<p>"There are four categories of AI dev tools — and the spectrum runs from 'AI helps me type' all the way to 'AI does the work for me'. One thing I'll flag: you'll often see Cursor and Rovo Dev listed side by side, but they're in different categories. Cursor is an IDE — the environment you code in. Rovo Dev and Claude Code are agents — they run inside or alongside any editor."</p>
 		<ul>
@@ -167,6 +178,17 @@
 			<tr><td><strong>Cline</strong></td><td>Community (MIT)</td><td>5M+ installs; bring your own API key; fully open source</td></tr>
 		</tbody>
 	</table>
+	<aside class="notes">
+		<p>"Let's walk through the six major agents quickly. Rovo Dev is the obvious choice if you're already on Atlassian Cloud — it reads Jira tickets, Confluence pages, and Bitbucket PRs as part of every task. Claude Code is the strongest option outside the Atlassian ecosystem — the supervisor model means it double-checks its own work. Codex CLI is OpenAI's answer: open source, 4 million weekly users, and a web version at chatgpt.com/codex if you don't want a CLI. Google Antigravity 2.0 is the newest — launched May 2026 at Google I/O, so the community is still forming around it. Devin is the most hands-off — give it a GitHub issue and walk away. Cline is the open-source wildcard — bring your own API key, full control, 5 million installs."</p>
+		<ul>
+			<li>Rovo Dev: only agent with native Teamwork Graph access — reads cross-product context (Jira + Confluence + Bitbucket + Compass) without MCP configuration</li>
+			<li>Claude Code: the supervisor Claude verification step is a meaningful reliability differentiator — catches errors before surfacing results</li>
+			<li>Codex CLI: Goal mode for multi-day tasks is notable — the agent persists across sessions toward a longer-running objective</li>
+			<li>Google Antigravity 2.0: multi-model routing means it selects the best model for each sub-task; still early days for community adoption</li>
+			<li>Devin: pricing starts at $20/mo but scales to consumption-based at higher tiers; best for well-scoped, isolated tasks</li>
+			<li>Cline: MIT licence, fully auditable; popular in enterprises with strict data governance requirements because the code never leaves your machine</li>
+		</ul>
+	</aside>
 </section>
 
 <!-- SLIDE 8: LLM configurability -->
