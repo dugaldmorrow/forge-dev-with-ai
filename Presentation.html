@@ -577,13 +577,14 @@ After MCP:   implement client once + implement server once = ∞ works  ✅
 <!-- SLIDE 22: Discretionary invocation -->
 <section>
 	<h3>Agents choose whether to invoke MCP or skills</h3>
-	<pre><code>Developer asks: "What Forge module should I use for a Jira issue panel?"
-
-Agent (without explicit instruction):
-  Option A → call Forge MCP Server → get current answer  ✅
-  Option B → answer from training data → may be outdated  ⚠️
-
-The agent chooses Option B if it believes it already knows.</code></pre>
+	<blockquote>What Forge module should I use for a Jira issue panel</blockquote>
+	<table>
+		<thead><tr><th>Option</th><th>How</th><th>Result</th></tr></thead>
+		<tbody>
+			<tr><td><strong>Call a tool</strong></td><td>Invokes Forge MCP Server or skill</td><td>✅ Current, accurate</td></tr>
+			<tr><td><strong>Answer from memory</strong></td><td>Uses training data</td><td>⚠️ May be outdated or wrong</td></tr>
+		</tbody>
+	</table>
 	<aside class="notes">
 		<p>"Here's something that catches a lot of people out: just because an MCP server is configured doesn't mean the agent will use it. The agent weighs its own confidence against the cost of making a tool call — and if it thinks it already knows the answer, it skips the call. For Forge this is particularly risky, because Forge APIs and module types change frequently."</p>
 	</aside>
@@ -600,7 +601,6 @@ The agent chooses Option B if it believes it already knows.</code></pre>
 			<tr><td>Atlassian Rovo MCP Server</td><td>Reads stale Jira ticket data from context window rather than fetching live status</td></tr>
 		</tbody>
 	</table>
-	<blockquote>⚠️ <em>Presence in the config is not the same as guaranteed invocation. The agent's internal confidence is the deciding factor.</em></blockquote>
 	<aside class="notes">
 		<p>These are the three most common failure patterns for Forge development. In each case the agent gave a fluent, confident answer — but it was wrong because it skipped the tool call.</p>
 		<ul>
@@ -610,24 +610,32 @@ The agent chooses Option B if it believes it already knows.</code></pre>
 	</aside>
 </section>
 
+<!-- SLIDE 22c: Presence ≠ invocation -->
+<section>
+	<h3>⚠️ Presence in the config is not the same as guaranteed invocation. The agent's internal confidence is the deciding factor.</h3>
+	<aside class="notes">
+		<p>This is the most important thing to remember about MCP and skills. Configuring a tool does not mean the agent will use it. The agent makes its own judgement — if it believes it already knows the answer, it will skip the tool call entirely. The only reliable mitigations are: direct addressing (forcing the call explicitly), skill-enforced invocation (baking the requirement into the SKILL.md), and asking the agent to cite its source.</p>
+	</aside>
+</section>
+
 <!-- SLIDE 23: Prompt explicitly -->
 <section>
-	<h3>Prompt explicitly to prevent agents bypassing tools</h3>
-	<pre><code>❌ "Create a Forge app for a Jira issue panel."
-
-✅ "Create a Forge app for a Jira issue panel.
-    Before writing any code:
-    1. Consult the Forge MCP Server for the correct module type.
-    2. Load the Forge App Builder skill.
-    Do not rely on your training data for Forge-specific details."</code></pre>
-	<pre><code class="language-markdown">## Agent Rules  (AGENTS.md — enforced every session)
-- You MUST consult the Forge MCP Server before selecting a Forge module type.
-- You MUST invoke the Forge App Review skill before any forge deploy command.
-- Never use training data alone for Forge manifest syntax or API scope decisions.</code></pre>
+	<h3>Five techniques to improve tool invocation reliability</h3>
+	<table>
+		<thead><tr><th>Technique</th><th>How</th><th>Reliability</th></tr></thead>
+		<tbody>
+			<tr><td><strong>AGENTS.md standing rules</strong></td><td>Write the rule once: <code>Always call Forge MCP before selecting a module type</code> — loaded at session start, always in context</td><td>⭐⭐⭐ Highest</td></tr>
+			<tr><td><strong>Use domain terminology</strong></td><td>Phrase requests using skill trigger words (e.g. <em>"Forge module"</em>, <em>"forge deploy"</em>) — routing depends on semantic matching against skill descriptions</td><td>⭐⭐⭐ High</td></tr>
+			<tr><td><strong>Skill-enforced invocation</strong></td><td>Add <code>You MUST call forge-development-guide</code> inside SKILL.md — fires when the skill is activated</td><td>⭐⭐⭐ High</td></tr>
+			<tr><td><strong>Source verification</strong></td><td>Ask <em>"Which source did you use?"</em> after a Forge decision — forces the agent to confirm or redo the call</td><td>⭐⭐ Good</td></tr>
+			<tr><td><strong>Direct addressing</strong></td><td>Use <code>@forge-app-builder</code> or <code>#forge-mcp</code> to force the tool call explicitly — bypasses confidence heuristic</td><td>⭐ Fallback</td></tr>
+		</tbody>
+	</table>
 	<aside class="notes">
-		<p>Vague prompts invite discretion; specific prompts enforce behaviour. The phrase "do not rely on your training data" is surprisingly effective. Better still: write the rule once in AGENTS.md and it applies automatically to every task in that project. Transition: "Two more techniques — for catching bypasses after they happen, and for encoding enforcement directly into your skills."</p>
+		<p>Explicit per-prompt instructions ("consult the MCP server before proceeding") work but are an antipattern — they defeat the design intent where the agent routes intelligently. The two principled solutions are skill-enforced invocation (bake the requirement into SKILL.md once) and AGENTS.md standing rules (write it once, enforced every session). Source verification is a useful diagnostic habit. Direct addressing is the escape hatch for one-off cases. Model choice also matters — Claude models tend to be more disciplined about tool use than GPT-family models.</p>
 		<ul>
-			<li>AGENTS.md is the most scalable solution: the rule is enforced regardless of how the developer phrases each prompt</li>
+			<li>Skill-enforced example: <code>## Step 2: Select the Module — You MUST call the Forge MCP Server tool `forge-development-guide` now. Do not proceed based on prior knowledge.</code></li>
+			<li>AGENTS.md example: <code>- You MUST consult the Forge MCP Server before selecting a Forge module type.</code></li>
 		</ul>
 	</aside>
 </section>
