@@ -87,9 +87,8 @@
 		<li>🧠 <strong>Context-aware</strong> — understands your codebase, project structure, and prior work</li>
 		<li>🤝 <strong>Human-in-the-loop</strong> — works <em>with</em> you, not just <em>for</em> you</li>
 	</ul>
-	<blockquote><em>In August 2025, New York Magazine described software development as the most definitive use case of AI agents.</em></blockquote>
 	<aside class="notes">
-		<p>An AI software development agent is fundamentally different from a code completion tool or a chatbot. The key insight is autonomy combined with tool use — the agent doesn't just suggest code, it actually executes a plan across multiple steps.</p>
+		<p>An AI software development agent is fundamentally different from a code completion tool or a chatbot. In August 2025, New York Magazine described software development as the most definitive use case of AI agents. The key insight is autonomy combined with tool use — the agent doesn't just suggest code, it actually executes a plan across multiple steps.</p>
 		<p>Think of it like the difference between asking a colleague "how would you fix this bug?" versus handing a colleague your laptop and saying "fix this bug and open a PR when you're done." The agent takes the second role.</p>
 		<p>The reasoning loop is critical: the agent observes the current state of the codebase, plans what to do, executes actions (writes code, runs tests), observes the results, and repeats until the goal is achieved.</p>
 		<p>Software development is a particularly strong fit for AI agents because:</p>
@@ -130,7 +129,6 @@
 <!-- SLIDE 6: Four categories -->
 <section>
 	<h3>AI development tools fall into four categories — each offering a different level of autonomy</h3>
-	<p>Not all AI development tools are the same. For this presentation, we classify them into four categories based on depth of integration and degree of autonomy:</p>
 	<pre><code>┌─────────────────────────────────────────────────────────────────┐
 │                   AI DEV TOOL CATEGORIES                        │
 ├──────────────────────┬──────────────────────────────────────────┤
@@ -204,31 +202,28 @@
 
 <!-- SLIDE 9: Rovo Dev differentiators -->
 <section>
-	<h3>Rovo Dev / Rovo CLI's Teamwork Graph gives it built-in Atlassian context no other agent has natively</h3>
-	<p><strong>What makes Rovo Dev different:</strong></p>
+	<h3>Rovo Dev and the Atlassian MCP Server access the same data — Rovo Dev retrieves it more completely</h3>
 	<ul>
-		<li>🧠 <strong>Teamwork Graph</strong> — built-in, zero-config access to your Jira issues, Confluence docs, Bitbucket PRs, Compass components</li>
+		<li>🧠 <strong>Full Context Mode</strong> — systematic multi-step retrieval across code, docs, pipelines, and history; surfaces long-tail risk MCP silently skips</li>
+		<li>🔍 <strong>Similar issue diffs</strong> — automatically finds past Jira issues with matching code changes and reuses proven solutions</li>
 		<li>🔄 <strong>Full lifecycle</strong> — plan, generate, review, and ship code without leaving the terminal</li>
-		<li>🔌 <strong>MCP-powered</strong> — extensible via MCP servers (Forge, Jira, GitHub, and more)</li>
+		<li>🔌 <strong>MCP-powered</strong> — extensible via MCP servers (Forge, Atlassian, GitHub, and more)</li>
 		<li>📋 <strong>Skills-enabled</strong> — teach it your team's workflows via reusable skill files</li>
-		<li>🔶 <strong>Forge-aware</strong> — with the Forge MCP Server, understands Forge modules, manifests, and APIs</li>
 	</ul>
-	<pre><code>Rovo Dev CLI ──► Forge MCP Server    (Forge knowledge)
-             ──► Atlassian MCP Server (Jira, Confluence, Bitbucket)
-             ──► Teamwork Graph       (project context — built-in, no config needed)
-             ──► Agent Skills         (team workflows)</code></pre>
-	<blockquote>Other agents can connect to Atlassian data via the Atlassian MCP Server — but they require configuration. Rovo Dev has it built in.</blockquote>
+	<blockquote>"MCP = bring Atlassian context into your agent. Rovo = bring your agent to Atlassian." — Atlassian internal positioning, May 2026</blockquote>
 	<aside class="notes">
 		<p>Rovo Dev is the most relevant agent for this audience — it's purpose-built for Atlassian customers and has special Forge awareness.</p>
-		<p>The Teamwork Graph is the key differentiator. When you ask Rovo Dev to implement a feature, it doesn't just look at the code — it looks at the Jira issue describing the feature, the Confluence page with the design spec, the previous PRs that touched related code, and the Compass component ownership. That's context no other agent has out of the box.</p>
-		<p><strong>Important nuance for a technical audience:</strong> other agents (Claude Code, Cursor, Windsurf, etc.) <em>can</em> access Atlassian data by connecting the Atlassian MCP Server. The difference is that Rovo Dev's Teamwork Graph connection is built in and always-on; for other agents it requires explicit MCP configuration. Both approaches are valid — the distinction is convenience and depth of integration, not capability.</p>
+		<p><strong>Same data layer, different strategies:</strong> both Rovo Dev and external agents with the Atlassian MCP Server connect to the same underlying infrastructure at mcp.atlassian.com — same products (Jira, Confluence, Bitbucket, JSM, Compass), same permission model. The difference is how context is gathered and used, not what is technically accessible.</p>
+		<p><strong>Where Rovo Dev wins:</strong> completeness and trust. Rovo surfaces long-tail risk (stale tickets, slipped PRDs, cross-product links) that MCP silently skips. Internal benchmarks show 44% better answer quality with 48% fewer tokens when grounded in Teamwork Graph data. MCP answers can look complete but be silently incomplete — a more dangerous failure mode than obviously missing data.</p>
+		<p><strong>Where MCP-in-IDE wins:</strong> deliverable depth. When the task requires applicable diffs, build/test execution, or code-level output, MCP in an IDE can produce ready-to-apply artifacts that Rovo cannot.</p>
+		<p><strong>For Forge development:</strong> the Atlassian MCP Server (any agent) + Forge MCP Server is a powerful combination. Rovo Dev adds the systematic Atlassian context retrieval on top of that — making it the strongest choice for tasks that require deep cross-product understanding.</p>
+		<p>Note: the Atlassian MCP Server now includes getTeamworkGraphContext and getTeamworkGraphObject tools (open beta as of May 2026) — significantly closing the gap for external agents.</p>
 	</aside>
 </section>
 
 <!-- SLIDE 10: AI-native IDEs -->
 <section>
 	<h3>AI-native IDEs rebuild the entire editor around AI</h3>
-	<p>Full development environments rebuilt from the ground up around AI — not plugins added to existing tools.</p>
 	<table>
 		<thead><tr><th>IDE</th><th>Creator</th><th>LLMs</th><th>Configurable?</th><th>Pricing (Pro)</th></tr></thead>
 		<tbody>
@@ -381,8 +376,7 @@ After MCP:   implement client once + implement server once = ∞ works  ✅</cod
     }
   }
 }</code></pre>
-	<blockquote>⚠️ JSON doesn't allow trailing commas. Validate with <code>jsonlint.com</code>. Always fully restart the app (not just the window) after config changes.</blockquote>
-	<blockquote>After adding: ask the agent <em>"What Forge modules are available for Jira?"</em> — if it returns a structured list, the server is connected.</blockquote>
+	<blockquote>⚠️ JSON doesn't allow trailing commas. Validate with <code>jsonlint.com</code>. Always fully restart the app (not just the window) after config changes — then ask <em>"What Forge modules are available for Jira?"</em> to verify the connection.</blockquote>
 	<aside class="notes">
 		<ul>
 			<li>This is the most actionable slide in the deck — audience members can do this in the next 10 minutes</li>
@@ -418,28 +412,37 @@ After MCP:   implement client once + implement server once = ∞ works  ✅</cod
 	</aside>
 </section>
 
-<!-- SLIDE 18: Agent skills -->
+<!-- SLIDE 18: Agent skills — how they work -->
 <section>
-	<h3>Agent skills are reusable instruction sets — they teach AI your team's specific way of working</h3>
-	<p><strong>How skills work — Progressive Disclosure:</strong></p>
+	<h3>Agent skills load progressively — only ~100 tokens at startup, full instructions on demand</h3>
 	<ol>
 		<li><strong>Discover</strong> (~100 tokens) — agent sees skill name + description at startup</li>
 		<li><strong>Activate</strong> — agent loads full SKILL.md when the task matches</li>
 		<li><strong>Execute</strong> — agent follows instructions, loads referenced files as needed</li>
 	</ol>
-	<p><strong>Examples of useful skills for Forge development:</strong></p>
-	<ul>
-		<li>📋 <strong>Forge App Builder</strong> — module selection, manifest setup, UI Kit patterns, deploy workflow</li>
-		<li>📋 <strong>Forge App Review</strong> — pre-deploy checklist: security, cost efficiency, performance</li>
-		<li>📋 <strong>Commit</strong> — commit message format, what to stage, PR structure</li>
-		<li>📋 <strong>Changelog</strong> — how to record changes in your project's specific format</li>
-	</ul>
 	<blockquote><em>Agent Skills are an open standard (agentskills.io, Apache 2.0), supported by Rovo Dev, Claude Code, GitHub Copilot, and Codex CLI.</em></blockquote>
 	<aside class="notes">
 		<p>Agent Skills are a concept formalised as an open standard at agentskills.io (Apache 2.0 licence).</p>
 		<p>The best analogy: if an MCP server is like giving the agent a phone to call external services, a skill is like giving the agent your team's runbook — the specific way your team does things.</p>
 		<p><strong>Progressive disclosure</strong> is efficient: only ~100 tokens per skill at startup (name + description), then the full instructions load only when the task matches. You can have many skills without burning tokens unnecessarily.</p>
 		<p>The open standard means: build a skill once, use it across Claude Code, Codex CLI, GitHub Copilot, and Rovo Dev — without modification.</p>
+	</aside>
+</section>
+
+<!-- SLIDE 18b: Agent skills — examples -->
+<section>
+	<h3>Four skills cover the core Forge development workflow end-to-end</h3>
+	<ul>
+		<li>📋 <strong>Forge App Builder</strong> — module selection, manifest setup, UI Kit patterns, deploy workflow</li>
+		<li>📋 <strong>Forge App Review</strong> — pre-deploy checklist: security, cost efficiency, performance</li>
+		<li>📋 <strong>Commit</strong> — commit message format, what to stage, PR structure</li>
+		<li>📋 <strong>Changelog</strong> — how to record changes in your project's specific format</li>
+	</ul>
+	<blockquote>These four skills — combined with the Forge MCP Server — cover the full loop from scaffolding to shipped.</blockquote>
+	<aside class="notes">
+		<p>These four skills map directly to the four stages of Forge development: build (Forge App Builder), review (Forge App Review), commit (Commit), and record (Changelog).</p>
+		<p>The Forge App Builder and Forge App Review skills are available in the <code>atlassian/forge-skills</code> bundle. The Commit and Changelog skills are generic enough to write yourself in 15 minutes.</p>
+		<p>Transition: "Now let's look at where to store these skill files and how to keep them up to date."</p>
 	</aside>
 </section>
 
@@ -500,7 +503,6 @@ After MCP:   implement client once + implement server once = ∞ works  ✅</cod
 <!-- SLIDE 21: MCP vs Skills -->
 <section>
 	<h3>MCP servers give agents live capabilities; skills give agents your team's static expertise</h3>
-	<p>Skills and MCP Servers are complementary — not alternatives.</p>
 	<table>
 		<thead><tr><th></th><th>MCP Server</th><th>Agent Skill</th></tr></thead>
 		<tbody>
@@ -511,17 +513,29 @@ After MCP:   implement client once + implement server once = ∞ works  ✅</cod
 			<tr><td><strong>Token cost</strong></td><td>Higher (live connections)</td><td>Lower (loaded on demand only)</td></tr>
 		</tbody>
 	</table>
-	<p><strong>They work together:</strong></p>
-	<pre><code>Forge App Builder SKILL
-  └── instructs the agent to consult the Forge MCP Server
-        └── which provides up-to-date module catalogs &amp; manifest guidance
-              └── agent generates correct, current Forge code</code></pre>
 	<blockquote><em>MCP Servers give the agent its tools. Skills give the agent its expertise.</em></blockquote>
 	<aside class="notes">
 		<p>The answer to "should I use an MCP server or a skill?" is almost always: both, for different reasons.</p>
 		<p><strong>MCP gives the agent capabilities:</strong> access to Jira, access to Forge documentation, ability to run terminal commands, ability to browse the web.</p>
 		<p><strong>Skills give the agent knowledge:</strong> your commit message format, your pre-deploy checklist, your team's preferred Forge module patterns, your architectural standards.</p>
 		<p><strong>Token cost note:</strong> Skills are much cheaper than MCP servers for encoding static knowledge. If the information doesn't change often, use a skill. If it changes frequently or requires live data, use an MCP server.</p>
+		<p>Transition: "But they work best together — a skill can instruct the agent to consult an MCP server, combining static workflow knowledge with live data."</p>
+	</aside>
+</section>
+
+<!-- SLIDE 21b: MCP + Skills working together -->
+<section>
+	<h3>Skills and MCP servers work best together — the skill orchestrates, the MCP provides live data</h3>
+	<pre><code>Forge App Builder SKILL
+  └── instructs the agent to consult the Forge MCP Server
+        └── which provides up-to-date module catalogs &amp; manifest guidance
+              └── agent generates correct, current Forge code</code></pre>
+	<blockquote>A skill without an MCP server relies on static knowledge. An MCP server without a skill relies on the developer prompting correctly every time. Together, they're self-sufficient.</blockquote>
+	<aside class="notes">
+		<p>This is the key synergy: the skill provides the workflow ("first, check the Forge MCP Server for the correct module") while the MCP server provides the live, accurate data.</p>
+		<p>Without the skill, the developer has to remember to prompt the agent to use the MCP server — and as we saw earlier, agents don't always invoke MCP servers unless told to. The skill bakes in the invocation instruction.</p>
+		<p>Without the MCP server, the skill's instructions to "look up the current module catalog" have nowhere to go — the agent falls back to training data.</p>
+		<p>Transition: "Now — MCP invocation is discretionary. Let's look at what that means in practice and how to prevent it."</p>
 	</aside>
 </section>
 
@@ -653,7 +667,6 @@ Do not proceed based on prior knowledge.</code></pre>
 <!-- SLIDE 27: Agents read on demand -->
 <section>
 	<h3>Agents read your codebase on demand — they don't load it all at once</h3>
-	<p>AI agents don't read your entire codebase into memory when they start. They navigate the file system selectively — discovering structure, then reading only what's relevant to the current task.</p>
 	<pre><code>Agent receives task
       │
       ▼
@@ -685,8 +698,6 @@ Acts on relevant content only</code></pre>
 <!-- SLIDE 28: SKILL.md file structure -->
 <section>
 	<h3>A skill is just a SKILL.md file — version-controlled, portable, and team-shareable</h3>
-	<p>Skills are simple markdown files stored in your project repository. Agents discover and load them automatically.</p>
-	<p><strong>Skill file structure</strong> (using the canonical <code>.agents/skills/</code> location):</p>
 	<pre><code>.agents/skills/
 ├── commit/
 │   └── SKILL.md
@@ -795,15 +806,12 @@ You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre
 <!-- SLIDE 32: App Studio -->
 <section>
 	<h3>Choose App Studio for a simpler setup</h3>
-	<p><strong>Atlassian App Studio</strong> (open beta March 2026, auto-rolled out May 2026) — the no-code path to a deployed Forge app.</p>
-	<p><strong>How it works:</strong></p>
 	<ol>
 		<li>Generates a feature spec outlining what the app does, where it lives, how it behaves</li>
 		<li>Developer reviews and approves the spec</li>
 		<li>Rovo builds the app: selects modules, generates UI Kit code, wires backend + permissions</li>
 		<li>One-click deploy to your Atlassian site</li>
 	</ol>
-	<p><strong>Best for:</strong> approval workflows, custom forms, dashboards, Rovo Agents — anything where the UI is straightforward and the business logic is the focus.</p>
 	<blockquote>Production app in under 20 minutes. Enterprise governance built-in. Mostly free for internal/single-site apps.</blockquote>
 	<aside class="notes">
 		<ul>
@@ -890,10 +898,10 @@ You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre
 <section>
 	<h3>Atlassian's internal AI tools show the depth of investment — and what's coming next</h3>
 	<ul>
-		<li>🏗️ <strong>Atlassian App Studio / Rovo Studio</strong> <em>(Open Beta March 2026)</em> — no-code Forge app builder; describe your app, Rovo selects modules and deploys; production app in under 20 minutes; enterprise governance built-in</li>
-		<li>🔬 <strong>Socrates MCP Server</strong> — internal Atlassian data platform; MCP interface for querying internal datasets; shows how Atlassian builds MCP-first internal tooling</li>
-		<li>🎨 <strong>ADS MCP Server</strong> — the Atlassian Design System exposed as an MCP server; live component catalog, design tokens, WCAG 2.1 AA accessibility analysis; used internally and available externally</li>
-		<li>⚡ <strong>Volt Studio</strong> — internal rapid prototyping environment; AI-assisted development of internal tools on the Atlassian stack</li>
+		<li>🏗️ <strong>Atlassian App Studio / Rovo Studio</strong> <em>(Open Beta March 2026)</em> — describe your app, Rovo selects modules and deploys; production app in under 20 minutes</li>
+		<li>🔬 <strong>Socrates MCP Server</strong> — internal data platform with an MCP interface; Atlassian's own MCP-first internal tooling</li>
+		<li>🎨 <strong>ADS MCP Server</strong> — Atlassian Design System as an MCP server; live components, design tokens, and accessibility analysis</li>
+		<li>⚡ <strong>Volt Studio</strong> — AI-assisted rapid prototyping for internal tools on the Atlassian stack</li>
 	</ul>
 	<aside class="notes">
 		<ul>
@@ -956,24 +964,13 @@ Atlassian MCP → marks PROJ-123 Done</code></pre>
 	</aside>
 </section>
 
-<!-- SLIDE 39: Start in minutes -->
+<!-- SLIDE 39: Start in minutes — Level 1 -->
 <section>
-	<h3>Start in minutes: add the Forge MCP Server to your current AI tool</h3>
-	<p><strong>⚡ Level 1 — Immediate value (30 minutes)</strong></p>
+	<h3>Level 1: add the Forge MCP Server to your current AI tool — takes under 10 minutes</h3>
 	<ol>
-		<li>Add the Forge MCP Server to your existing AI tool (Claude Desktop, Cursor, VS Code)</li>
-		<li>Ask it Forge questions — watch it give accurate, up-to-date answers</li>
-	</ol>
-	<p><strong>🚀 Level 2 — Full agentic workflow (2 hours)</strong></p>
-	<ol>
-		<li>Install Rovo Dev CLI <em>or</em> configure Claude Code / Cursor with agent mode</li>
-		<li>Add Forge MCP + Atlassian MCP; add <code>atlassian/forge-skills</code> to <code>.agents/skills/</code></li>
-		<li>Give the agent a Forge app goal and let it work</li>
-	</ol>
-	<p><strong>🎯 Level 3 — No-code path (20 minutes)</strong></p>
-	<ol>
-		<li>Open Atlassian App Studio in your Atlassian admin panel</li>
-		<li>Describe the app in natural language, review the spec, and deploy</li>
+		<li>Add this block to your agent's MCP config file</li>
+		<li>Fully restart the app</li>
+		<li>Ask <em>"What Forge modules are available for Jira?"</em> — if you get a structured list, you're connected</li>
 	</ol>
 	<pre><code class="language-json">{
   "mcpServers": {
@@ -983,10 +980,35 @@ Atlassian MCP → marks PROJ-123 Done</code></pre>
     }
   }
 }</code></pre>
+	<blockquote>Works with Claude Desktop, Cursor, VS Code, Windsurf, Rovo Dev, and any other MCP-compatible client — no Rovo Dev required.</blockquote>
 	<aside class="notes">
 		<ul>
-			<li>"Does this work with Claude Code / Cursor / Windsurf — not just Rovo Dev?" — Yes, the Forge MCP Server works with any MCP-compatible client.</li>
+			<li>This is the single most actionable step in the entire presentation — the audience can do this right now on their phones</li>
+			<li>Config file locations are on the previous slide (slide 17)</li>
 			<li>"How much does Forge cost?" — Most single-site apps stay within the free tier. Sandbox usage now free.</li>
+			<li>Transition: "Once you're comfortable with Level 1, Level 2 is the full agentic workflow — and Level 3 needs no code at all."</li>
+		</ul>
+	</aside>
+</section>
+
+<!-- SLIDE 39b: Start in minutes — Levels 2 & 3 -->
+<section>
+	<h3>Level 2 adds skills and agent mode; Level 3 skips the terminal entirely</h3>
+	<p><strong>🚀 Level 2 — Full agentic workflow (~2 hours to set up)</strong></p>
+	<ol>
+		<li>Install Rovo Dev CLI <em>or</em> configure Claude Code / Cursor with agent mode</li>
+		<li>Add Forge MCP + Atlassian MCP; add <code>atlassian/forge-skills</code> to <code>.agents/skills/</code></li>
+		<li>Give the agent a Forge app goal and let it work</li>
+	</ol>
+	<p><strong>🎯 Level 3 — No-code path (~20 minutes)</strong></p>
+	<ol>
+		<li>Open Atlassian App Studio in your Atlassian admin panel</li>
+		<li>Describe the app in natural language, review the spec, and deploy</li>
+	</ol>
+	<aside class="notes">
+		<ul>
+			<li>Level 2 is the full developer workflow: agent reads a Jira issue, scaffolds the app, runs forge tunnel, iterates on errors, deploys</li>
+			<li>Level 3 (App Studio) is the fastest path to a deployed Forge app — no CLI, no code; ideal for internal tools and approval workflows</li>
 			<li>"Is the generated code production-quality?" — Better than ever, but always review. The Forge App Review skill helps with pre-deploy auditing.</li>
 		</ul>
 	</aside>
@@ -1015,7 +1037,6 @@ Atlassian MCP → marks PROJ-123 Done</code></pre>
 <!-- SLIDE 41: Landscape summary -->
 <section>
 	<h3>The AI dev tool landscape has crystallised into four categories — choose by autonomy level</h3>
-	<p><strong>The AI software development landscape — May 2026:</strong></p>
 	<table>
 		<thead><tr><th>Category</th><th>Key Players</th><th>Best For</th></tr></thead>
 		<tbody>
@@ -1025,7 +1046,7 @@ Atlassian MCP → marks PROJ-123 Done</code></pre>
 			<tr><td><strong>Hosted AI IDEs</strong></td><td>Atlassian App Studio, Lovable, Bolt.new</td><td>No-code / low-code to production</td></tr>
 		</tbody>
 	</table>
-	<p>The right choice depends on <strong>how much autonomy you want the AI to have</strong> — and how much control you want to retain.</p>
+	<blockquote>Choose by autonomy level — from AI in your editor to AI doing the work end-to-end.</blockquote>
 	<aside class="notes">
 		<ul>
 			<li>This is the summary of the landscape — four clear categories, each serving a different developer persona and level of AI autonomy</li>
@@ -1037,7 +1058,6 @@ Atlassian MCP → marks PROJ-123 Done</code></pre>
 <!-- SLIDE 42: Final / closing -->
 <section>
 	<h3>The tools are ready — AI agents, MCP Servers, and skills can build Forge apps today</h3>
-	<blockquote>💡 <strong>Presenter note:</strong> Conduct Q&amp;A before advancing to this slide. End on the key message below, not on a question from the floor.</blockquote>
 	<blockquote><strong>MCP Servers are the connection. Agent Skills are the knowledge. Forge is the platform.</strong></blockquote>
 	<p><strong>Key enablers for Forge development:</strong></p>
 	<table>
