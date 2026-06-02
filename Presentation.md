@@ -177,6 +177,8 @@ This classification helps developers choose the right tool for the right job. Th
 
 **AI Software Development Agents** are the most autonomous. You give them a goal and they work — potentially for hours — without needing you to intervene. They live in your terminal or run as background workers.
 
+**Note for the room:** You may see tools like Cursor, Rovo Dev, and Claude Code listed side-by-side as equivalent tools in some guides — the important distinction is that Cursor is an IDE (the environment you code in), while Rovo Dev and Claude Code are agents that can run inside or alongside any editor. They belong to different categories.
+
 **AI-Native IDEs** are full development environments where AI is baked into every interaction. Cursor is the best example — it's a fork of VS Code rebuilt entirely around AI. Every feature (autocomplete, chat, multi-file editing, agents) is first-class, not an afterthought.
 
 **IDE Extensions** are the most conservative option — you keep your existing IDE (VS Code, IntelliJ) and add AI as a plugin. Less integrated, but lower switching cost. Good starting point for teams nervous about changing workflows.
@@ -195,9 +197,9 @@ The most autonomous category — agents that independently plan, write, test, an
 
 | Agent | Creator | Distinctive Feature |
 |---|---|---|
-| **Rovo Dev** | Atlassian | Atlassian Teamwork Graph — Jira, Confluence, Bitbucket, Compass context |
+| **Rovo Dev / Rovo CLI** | Atlassian | Atlassian Teamwork Graph — Jira, Confluence, Bitbucket, Compass context; ADS-accurate UI generation |
 | **Claude Code** | Anthropic | Agent View + /goal; supervisor Claude verifies results |
-| **Codex CLI** | OpenAI | ~4M weekly users; open source; Goal mode for multi-day tasks |
+| **Codex CLI** | OpenAI | ~4M weekly users; open source; Goal mode for multi-day tasks. Also available as a web product at chatgpt.com/codex |
 | **Google Antigravity 2.0** | Google | Multi-model routing; launched May 19 2026 at Google I/O |
 | **Devin** | Cognition AI | First "autonomous AI software engineer"; Interactive Planning; from $20/mo |
 | **Cline** | Community (MIT) | 5M+ installs; bring your own API key; fully open source |
@@ -208,7 +210,7 @@ The most autonomous category — agents that independently plan, write, test, an
 
 | Agent | LLMs | Configurable? |
 |---|---|---|
-| **Rovo Dev** | GPT, Claude, Gemini + open-source | Limited (switch with /model) |
+| **Rovo Dev / Rovo CLI** | GPT, Claude, Gemini + open-source | Limited (switch with /model) |
 | **Claude Code** | Claude only (Opus/Sonnet/Haiku) | Yes (/model command) |
 | **Codex CLI** | GPT-5.x series; local via Ollama | Yes (/model command) |
 | **Google Antigravity 2.0** | Gemini (default), Claude, GPT-OSS | Yes |
@@ -242,11 +244,11 @@ Let's look at each major agent:
 
 ---
 
-### Rovo Dev is the only agent with full Atlassian context — Jira, Confluence, Bitbucket, and Forge
+### Rovo Dev / Rovo CLI's Teamwork Graph gives it built-in Atlassian context no other agent has natively
 
 **What makes Rovo Dev different:**
 
-- 🧠 **Teamwork Graph** — knows your Jira issues, Confluence docs, Bitbucket PRs, Compass components
+- 🧠 **Teamwork Graph** — built-in, zero-config access to your Jira issues, Confluence docs, Bitbucket PRs, Compass components
 - 🔄 **Full lifecycle** — plan, generate, review, and ship code without leaving the terminal
 - 🔌 **MCP-powered** — extensible via MCP servers (Forge, Jira, GitHub, and more)
 - 📋 **Skills-enabled** — teach it your team's workflows via reusable skill files
@@ -255,16 +257,20 @@ Let's look at each major agent:
 ```
 Rovo Dev CLI ──► Forge MCP Server    (Forge knowledge)
              ──► Atlassian MCP Server (Jira, Confluence, Bitbucket)
-             ──► Teamwork Graph       (project context)
+             ──► Teamwork Graph       (project context — built-in, no config needed)
              ──► Agent Skills         (team workflows)
 ```
+
+> Other agents can connect to Atlassian data via the Atlassian MCP Server — but they require configuration. Rovo Dev has it built in.
 
 <details>
 <summary>Speaker notes</summary>
 
 Rovo Dev is the most relevant agent for this audience — it's purpose-built for Atlassian customers and has special Forge awareness.
 
-The Teamwork Graph is the key differentiator. When you ask Rovo Dev to implement a feature, it doesn't just look at the code — it looks at the Jira issue describing the feature, the Confluence page with the design spec, the previous PRs that touched related code, and the Compass component ownership. That's context no other agent has access to.
+The Teamwork Graph is the key differentiator. When you ask Rovo Dev to implement a feature, it doesn't just look at the code — it looks at the Jira issue describing the feature, the Confluence page with the design spec, the previous PRs that touched related code, and the Compass component ownership. That's context no other agent has out of the box.
+
+**Important nuance for a technical audience:** other agents (Claude Code, Cursor, Windsurf, etc.) *can* access Atlassian data by connecting the Atlassian MCP Server — this is covered later in the deck. The difference is that Rovo Dev's Teamwork Graph connection is built in and always-on; for other agents it requires explicit MCP configuration. Both approaches are valid — the distinction is convenience and depth of integration, not capability.
 
 MCP integration means Rovo Dev is extensible. Connect the Forge MCP Server and it gains deep knowledge of Forge modules, manifest syntax, API scopes, and common patterns. This dramatically reduces hallucination when building Forge apps.
 
@@ -489,17 +495,9 @@ The Forge MCP Server is a remote server — no local install, no dependencies. J
 }
 ```
 
-**Config file locations by tool:**
-
-| Tool | Config file location |
-|---|---|
-| **Claude Desktop** | `~/Library/Application Support/Claude/claude_desktop_config.json` |
-| **Cursor** | `~/.cursor/mcp.json` |
-| **Windsurf** | `~/.codeium/windsurf/mcp_config.json` |
-| **VS Code** | `settings.json` → `mcp.servers` key |
-| **Rovo Dev** | `acli rovodev mcp` (opens config in default editor) |
-
 > ⚠️ JSON doesn't allow trailing commas. Validate with `jsonlint.com`. Always fully restart the app (not just the window) after config changes.
+
+> After adding: ask the agent *"What Forge modules are available for Jira?"* — if it returns a structured list, the server is connected.
 
 <details>
 <summary>Speaker notes</summary>
@@ -509,15 +507,35 @@ The Forge MCP Server is a remote server — no local install, no dependencies. J
 - Common gotcha: people reload the window but the MCP client doesn't reconnect until the full app is restarted
 - Second common gotcha: trailing comma in JSON causes silent failure — the MCP server simply doesn't appear
 - Rovo Dev users: use `acli rovodev mcp` which opens the config in your default editor — no need to find the file path manually
-- After adding: ask the agent "What Forge modules are available for Jira?" — if it returns a structured list from developer.atlassian.com, the server is connected
-
 - **Forge MCP Server** — GA February 2026; remote server, no local install; just add the URL to your MCP config
 - What it provides: how-to guides, module catalogs, manifest guidance, Forge doc search, agent-friendly structured responses
 - Workflow: `forge-development-guide` → `forge-ui-kit-developer-guide` / `forge-modules-list` / `forge-app-manifest-guide` → `search-forge-docs` → correct Forge code
 - Limitation: publicly available info only, no auth required; may become stale if knowledge index not refreshed
+
+</details>
+
+---
+
+### Add the config in the right place — locations vary by tool
+
+**Config file locations by tool:**
+
+| Tool | Config file location |
+|---|---|
+| **Claude Desktop** | `~/Library/Application Support/Claude/claude_desktop_config.json` |
+| **Cursor** | `~/.cursor/mcp.json` |
+| **Windsurf** | `~/.codeium/windsurf/mcp_config.json` |
+| **VS Code** | `settings.json` → `mcp.servers` key |
+| **Rovo Dev / Rovo CLI** | `acli rovodev mcp` (opens config in default editor) |
+
+> 💡 **Rovo Dev / Rovo CLI** users don't need to find the file — `acli rovodev mcp` opens the config in your default editor automatically.
+
+<details>
+<summary>Speaker notes</summary>
+
+- **Config file locations:** Claude Desktop `~/Library/Application Support/Claude/claude_desktop_config.json` · Cursor `~/.cursor/mcp.json` · Windsurf `~/.codeium/windsurf/mcp_config.json` · VS Code `settings.json` (`mcp.servers` key)
 - **Atlassian MCP Server** — GA February 2026 (Claude first); expanded April 2026 to include Bitbucket; supports Jira, Confluence, Compass, Bitbucket read/write; 20+ supported AI clients; OAuth 2.1 + respects existing permissions
 - **ADS MCP Server** (`@atlaskit/ads-mcp`) — available via `npx -y @atlaskit/ads-mcp` or the remote URL `https://mcp.atlassian.com/v1/ads/public/mcp`; provides component catalogs, design tokens, icons, and full WCAG 2.1 AA accessibility analysis; particularly valuable for Custom UI apps where the agent needs to know which ADS component and token to use before writing a single line of code
-- **Config file locations:** Claude Desktop `~/Library/Application Support/Claude/claude_desktop_config.json` · Cursor `~/.cursor/mcp.json` · Windsurf `~/.codeium/windsurf/mcp_config.json` · VS Code `settings.json` (`mcp.servers` key)
 - Common gotcha: JSON doesn't allow trailing commas; fully restart the app (not just the window) after config changes
 
 </details>
@@ -600,11 +618,7 @@ The Forge Skills Plugin bundles several Forge-focused skills plus MCP-backed too
 **MCP tooling included:** Forge MCP Server + ADS MCP Server — wired automatically so your agent has live Forge docs and ADS component lookup from day one.
 
 ```bash
-# Install via the Skills CLI
 npx skills add atlassian/forge-skills
-
-# For Rovo Dev (manual steps — plugin install not yet supported):
-# acli rovodev mcp   (add .mcp.json entries, then restart Rovo Dev)
 ```
 
 > 🔗 `github.com/atlassian/forge-skills` — works with Rovo Dev, Claude Code, Cursor, GitHub Copilot, and Codex CLI
@@ -616,7 +630,7 @@ npx skills add atlassian/forge-skills
 - It's the fastest way to get a fully configured Forge development environment for any AI agent
 - **Four skills in one install:** Builder (scaffold), Review (pre-deploy QA), Debugger (production tracing), Connector (Rovo Search integration)
 - **MCP tooling bundled:** the installer also wires up the Forge MCP Server and the Atlassian Design System MCP — so you get live, up-to-date Forge docs and ADS component lookup in one step
-- Rovo Dev doesn't currently support plugin installations but you can install the skills and MCP servers separately. The README explains how to do this step by step
+- **Rovo Dev note:** doesn't currently support plugin installations via `npx skills` — install the skills and MCP servers separately following the README step-by-step guide
 - **Quick-check prompts after install:** "What Forge modules are available for Jira?" (tests Forge MCP) · "Review my Forge app for security issues before I deploy." (tests Forge App Review skill) · "My Forge issue panel is blank after deploy — help me trace it." (tests Forge Debugger)
 - The **Forge Connector skill** is worth calling out separately: it's for teams that want to surface external data (e.g. a project management tool, a support system) inside Rovo Search and Rovo Chat — a powerful use case that goes beyond app-building
 
@@ -802,7 +816,7 @@ Some agents allow you to `@`-mention an MCP server or skill directly in the prom
 | **Windsurf** | `@mcp-server-name` | `@forge scaffold a Jira issue panel app` |
 | **Claude Code** | `@tool-name` or slash command | `@forge-development-guide` |
 | **GitHub Copilot** | `#tool-name` | `#forge What manifest scope do I need?` |
-| **Rovo Dev** | `@skill-name` or `/skill` | `@forge-app-builder scaffold this app` |
+| **Rovo Dev / Rovo CLI** | `@skill-name` or `/skill` | `@forge-app-builder scaffold this app` |
 
 > ⚡ Direct addressing bypasses the agent's confidence heuristic entirely — the tool call is explicit, not inferred.
 
@@ -850,9 +864,9 @@ Do not proceed based on prior knowledge.
 
 ---
 
-### Agent Context Files Give Every Session a Standing Brief
+### Agent context files give every session a standing brief
 
-**The three-level hierarchy:**
+**The four-level hierarchy:**
 
 ```
 ~/.rovodev/AGENTS.md          ← Global / personal (all your projects)
@@ -882,16 +896,12 @@ Style: layered/stacked card metaphor, each layer a different colour, clean label
 
 </details>
 
-**What to put in AGENTS.md:**
-- Project overview and directory structure
-- Build and test commands
-- Coding standards *specific to this project*
-- Agent boundaries and constraints
-
 > *Including an AGENTS.md reduced agent task completion time by 28% in a controlled study (ETH Zurich, 2025).*
 
 <details>
 <summary>Speaker notes</summary>
+
+**What to put in AGENTS.md:** project overview + directory structure · build and test commands · coding standards specific to this project · agent boundaries and constraints (e.g. "never commit without explicit request").
 
 Context files are the "always-on" layer of agent configuration — as opposed to skills, which are "on-demand". The difference matters:
 
@@ -950,14 +960,6 @@ Large files shown collapsed (signatures only) → expand on demand
 Acts on relevant content only
 ```
 
-**Scoping vs. loading — an important distinction:**
-
-| | What it means |
-|---|---|
-| **Scoped to a directory** | The agent's sandbox — it can only read/write within this boundary |
-| **Context window** | What the agent actually has in memory right now — much smaller |
-| **Selective reading** | The agent decides which files to open based on the task |
-
 **Best practices for large codebases:**
 - 🎯 **Launch from the most specific relevant directory** — not the monorepo root
 - 🚫 **Use `.rovoignore` / `.gitignore`** to exclude `node_modules/`, `build/`, `dist/` etc. — reduces context pollution
@@ -969,6 +971,11 @@ Acts on relevant content only
 <summary>Speaker notes</summary>
 
 This is one of the most practically important things to understand about working with AI coding agents — and it's counterintuitive for developers who are used to IDEs that index the entire project upfront.
+
+**Scoping vs. loading — an important distinction:**
+- **Scoped to a directory** — the agent's sandbox; it can only read/write within this boundary
+- **Context window** — what the agent actually has in memory right now; much smaller than the whole codebase
+- **Selective reading** — the agent decides which files to open based on the task; it does not load everything
 
 **The key mental model:**
 The agent's *working directory* defines what it's allowed to touch. But that's not the same as what it has read. The agent starts with awareness of the directory tree (like doing `ls -la` and `find .`) and then selectively opens files when it needs to understand them.
@@ -1052,14 +1059,10 @@ Ask the developer what Atlassian product the app targets...
 Consult the Forge MCP Server for module recommendations...
 ```
 
-**Benefits of skills:**
-- ✅ **Version controlled** — improve them like code, review changes in PRs
-- ✅ **Portable** — work across Claude Code, Codex, Copilot, Rovo Dev
-- ✅ **Team-shareable** — check into your repo; every developer benefits
-- ✅ **Lightweight** — loaded on demand, not burning tokens every session
-
 <details>
 <summary>Speaker notes</summary>
+
+**Benefits of skills:** version-controlled (improve them like code, review changes in PRs) · portable (work across Claude Code, Codex, Copilot, Rovo Dev) · team-shareable (check into your repo; every developer benefits) · lightweight (loaded on demand, not burning tokens every session).
 
 The beauty of skills is their simplicity. A skill is just a markdown file in a directory. No servers to run, no APIs to configure, no deployment pipeline.
 
@@ -1093,7 +1096,7 @@ The SKILL.md format is a shared open standard — but each tool looks for skills
 |---|---|
 | **Codex CLI** | `.agents/skills/` ✅ standard |
 | **GitHub Copilot** | `.agents/skills/`, `.github/skills/`, or `.claude/skills/` |
-| **Rovo Dev** | `.agents/skills/` or `.rovodev/skills/` |
+| **Rovo Dev / Rovo CLI** | `.agents/skills/` or `.rovodev/skills/` |
 | **Claude Code** | `.claude/skills/` |
 | **Cursor** | `.cursor/skills/` |
 | **Windsurf** | `.windsurf/skills/` |
@@ -1123,7 +1126,7 @@ Personal skills live in your home directory and are available in all your projec
 |---|---|
 | **Codex CLI** | `~/.codex/skills/` |
 | **GitHub Copilot** | `~/.agents/skills/` or `~/.copilot/skills/` |
-| **Rovo Dev** | `~/.agents/skills/` or `~/.rovodev/skills/` |
+| **Rovo Dev / Rovo CLI** | `~/.agents/skills/` or `~/.rovodev/skills/` |
 | **Claude Code** | `~/.claude/skills/` |
 | **Windsurf** | `~/.codeium/windsurf/skills/` |
 | **Cursor** | ❌ No global skills support |
@@ -1259,11 +1262,9 @@ Key moment: "When I added Jira API calls, the agent automatically updated the ma
 **📋 Skills** — encode your team's Forge workflow:
 - `atlassian/forge-skills` — scaffold, review, debug, and connect, all in one install
 
-**🖥️ Editor** — your existing editor works fine:
-- VS Code, Cursor, Windsurf, or JetBrains — add MCP config and go
+**📦 Forge CLI** — the only required local install: `npm install -g @forge/cli`
 
-**📦 Forge CLI** — the only required install:
-- `npm install -g @forge/cli` — deploy, tunnel, and manage from the terminal
+> 💡 Your existing editor (VS Code, Cursor, Windsurf, JetBrains) works as-is — just add the MCP config.
 
 <details>
 <summary>Speaker notes</summary>
@@ -1551,7 +1552,7 @@ If you're an Atlassian admin or building something relatively simple (an approva
 
 | Category | Key Players | Best For |
 |---|---|---|
-| **AI Dev Agents** | Rovo Dev, Claude Code, Codex CLI, Antigravity 2.0, Devin, Cline | Autonomous multi-step coding tasks |
+| **AI Dev Agents** | Rovo Dev / Rovo CLI, Claude Code, Codex CLI, Antigravity 2.0, Devin, Cline | Autonomous multi-step coding tasks |
 | **AI-Native IDEs** | Cursor, Windsurf, Replit | Full AI-first development environment |
 | **IDE Extensions** | GitHub Copilot, JetBrains AI Assistant, Tabnine | AI in your existing editor |
 | **Hosted AI IDEs** | Atlassian App Studio, Lovable, Bolt.new | No-code / low-code to production |
