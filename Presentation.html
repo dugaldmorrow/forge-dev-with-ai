@@ -645,35 +645,22 @@ After MCP:   implement client once + implement server once = ∞ works  ✅
 	<h3>Use @-mentions to force tool invocation</h3>
 	<p>Some agents allow you to <code>@</code>-mention an MCP server or skill directly in the prompt, forcing invocation:</p>
 	<table>
-		<thead><tr><th>Agent</th><th>Syntax</th><th>Example</th></tr></thead>
+		<thead><tr><th>Agent</th><th>Syntax</th></tr></thead>
 		<tbody>
-			<tr><td><strong>Cursor</strong></td><td><code>@mcp-server-name</code></td><td><code>@forge What module for a Jira issue panel?</code></td></tr>
-			<tr><td><strong>Windsurf</strong></td><td><code>@mcp-server-name</code></td><td><code>@forge scaffold a Jira issue panel app</code></td></tr>
-			<tr><td><strong>Claude Code</strong></td><td><code>@tool-name</code> or slash command</td><td><code>@forge-development-guide</code></td></tr>
-			<tr><td><strong>GitHub Copilot</strong></td><td><code>#tool-name</code></td><td><code>#forge What manifest scope do I need?</code></td></tr>
-			<tr><td><strong>Rovo Dev / Rovo CLI</strong></td><td><code>@skill-name</code> or <code>/skill</code></td><td><code>@forge-app-builder scaffold this app</code></td></tr>
+			<tr><td><strong>Cursor</strong></td><td><code>@mcp-server-name</code></td></tr>
+			<tr><td><strong>Windsurf</strong></td><td><code>@mcp-server-name</code></td></tr>
+			<tr><td><strong>Claude Code</strong></td><td><code>@tool-name</code>, slash command, or the <strong>@</strong> button to browse and select tools</td></tr>
+			<tr><td><strong>Codex</strong></td><td><code>@tool-name</code> or the <strong>@</strong> button to browse and select tools</td></tr>
+			<tr><td><strong>GitHub Copilot</strong></td><td><code>#tool-name</code></td></tr>
+			<tr><td><strong>Rovo Dev / Rovo CLI</strong></td><td><code>@skill-name</code> or <code>/skill</code></td></tr>
 		</tbody>
 	</table>
-	<blockquote>⚡ Direct addressing bypasses the agent's confidence heuristic entirely — the tool call is explicit, not inferred.</blockquote>
+	<blockquote>⚡ Example: <code>@forge What module for a Jira issue panel?</code> — the tool call is explicit, not inferred.</blockquote>
 	<aside class="notes">
 		<p>Direct addressing via <code>@</code> or <code>#</code> bypasses the agent's confidence heuristic entirely — the tool call is forced, not inferred. This is the most immediate technique for one-off queries where you know exactly which MCP server or skill you need.</p>
 		<ul>
 			<li>Syntax varies by agent — worth checking the docs for your specific tool</li>
 		</ul>
-	</aside>
-</section>
-
-<!-- SLIDE 25: Verify tool use -->
-<section>
-	<h3>Verify tool use and enforce it in skills</h3>
-	<pre><code>"Which source did you use to determine the module type?
- If you did not call the Forge MCP Server, please do so now and verify."</code></pre>
-	<pre><code class="language-markdown">## Step 2: Select the Module  (inside SKILL.md)
-You MUST call the Forge MCP Server tool `forge-development-guide` now.
-Do not proceed based on prior knowledge.</code></pre>
-	<blockquote>💡 The Forge App Builder skill in <code>atlassian/forge-skills</code> already does this — MCP invocation is baked into every step.</blockquote>
-	<aside class="notes">
-		<p>Ask the agent to name its source as an audit step. If it cites "my knowledge" rather than a specific tool call, ask it to redo the step using the MCP. Skill-enforced invocation is the most robust approach — the instruction is embedded in the skill itself, so it's enforced regardless of how the developer phrases their prompt.</p>
 	</aside>
 </section>
 
