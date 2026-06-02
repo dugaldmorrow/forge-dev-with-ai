@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>FAQ — AI-Assisted Forge Development</title>
+	<style>
+		*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+			background: #1a1a2e;
+			color: #e8e8e8;
+			line-height: 1.6;
+			padding: 2rem 1rem 4rem;
+		}
+
+		header {
+			max-width: 860px;
+			margin: 0 auto 2.5rem;
+			text-align: center;
+		}
+
+		header h1 {
+			font-size: 2rem;
+			font-weight: 700;
+			color: #ffffff;
+			margin-bottom: 0.5rem;
+		}
+
+		header p {
+			color: #a0a0c0;
+			font-size: 1rem;
+		}
+
+		.section {
+			max-width: 860px;
+			margin: 0 auto 2rem;
+		}
+
+		.section-heading {
+			font-size: 0.75rem;
+			font-weight: 700;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			color: #7878a8;
+			padding: 0 0 0.5rem 0.25rem;
+			border-bottom: 1px solid #2e2e50;
+			margin-bottom: 0.75rem;
+		}
+
+		details {
+			background: #1e1e38;
+			border: 1px solid #2e2e52;
+			border-radius: 8px;
+			margin-bottom: 0.5rem;
+			transition: border-color 0.2s;
+		}
+
+		details[open] {
+			border-color: #5050a8;
+		}
+
+		details[open] summary {
+			color: #ffffff;
+		}
+
+		summary {
+			cursor: pointer;
+			padding: 1rem 1.25rem;
+			font-size: 0.975rem;
+			font-weight: 500;
+			color: #c8c8e8;
+			list-style: none;
+			display: flex;
+			align-items: center;
+			gap: 0.75rem;
+			user-select: none;
+		}
+
+		summary::-webkit-details-marker { display: none; }
+
+		summary::before {
+			content: "▶";
+			font-size: 0.6rem;
+			color: #5858a0;
+			flex-shrink: 0;
+			transition: transform 0.2s;
+		}
+
+		details[open] summary::before {
+			transform: rotate(90deg);
+			color: #8080d0;
+		}
+
+		.q-number {
+			font-size: 0.72rem;
+			font-weight: 700;
+			color: #5858a0;
+			background: #12122a;
+			border-radius: 4px;
+			padding: 0.1rem 0.45rem;
+			flex-shrink: 0;
+		}
+
+		details[open] .q-number {
+			color: #9090d8;
+		}
+
+		.answer {
+			padding: 0 1.25rem 1.25rem 3.25rem;
+			font-size: 0.9rem;
+			color: #b0b0d0;
+			border-top: 1px solid #2a2a48;
+			padding-top: 0.85rem;
+		}
+
+		.answer p { margin-bottom: 0.6rem; }
+		.answer p:last-child { margin-bottom: 0; }
+
+		.answer code {
+			background: #12122a;
+			border: 1px solid #2e2e50;
+			border-radius: 4px;
+			padding: 0.1em 0.4em;
+			font-size: 0.85em;
+			color: #a0c0ff;
+			font-family: "SF Mono", "Fira Code", "Fira Mono", Consolas, monospace;
+		}
+
+		.answer ul {
+			margin: 0.4rem 0 0.6rem 1.2rem;
+		}
+
+		.answer ul li {
+			margin-bottom: 0.3rem;
+		}
+
+		.answer .note {
+			display: inline-block;
+			background: #1a2a1a;
+			border-left: 3px solid #4a8a4a;
+			padding: 0.4rem 0.75rem;
+			border-radius: 0 4px 4px 0;
+			color: #90c890;
+			font-size: 0.85rem;
+			margin-top: 0.4rem;
+		}
+
+		.answer .warn {
+			display: inline-block;
+			background: #2a1e0a;
+			border-left: 3px solid #c8882a;
+			padding: 0.4rem 0.75rem;
+			border-radius: 0 4px 4px 0;
+			color: #d8a850;
+			font-size: 0.85rem;
+			margin-top: 0.4rem;
+		}
+
+		footer {
+			max-width: 860px;
+			margin: 3rem auto 0;
+			text-align: center;
+			color: #505070;
+			font-size: 0.8rem;
+		}
+	</style>
+</head>
+<body>
+
+<header>
+	<h1>Frequently Asked Questions</h1>
+	<p>AI-Assisted Forge Development &mdash; Anticipated audience questions and suggested answers</p>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 1: Agents vs Autocomplete / Tool Choices       -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section">
+	<div class="section-heading">🤖 Agents vs. Autocomplete &amp; Tool Choices</div>
+
+	<details>
+		<summary><span class="q-number">Q1</span> Which agent should I actually start with — Rovo Dev, Claude Code, or Cursor?</summary>
+		<div class="answer">
+			<p>Start with what you already have. If you're an Atlassian Cloud Standard, Premium, or Enterprise customer, <strong>Rovo Dev is likely already included</strong> — that's the obvious starting point because it has native Forge awareness and deep Atlassian context.</p>
+			<p>If you're not on a paid Atlassian plan, <strong>Claude Code (free tier) + Forge MCP Server</strong> is an excellent zero-cost starting point. If you already use Cursor, enable agent mode there — you don't need to switch.</p>
+			<p class="note">The Forge MCP Server works with all of them. Your agent choice matters less than getting MCP configured.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q2</span> Can I use Cursor or Windsurf as an agent, or are they just IDEs?</summary>
+		<div class="answer">
+			<p>Both Cursor and Windsurf include an <strong>agent mode</strong> that can plan, iterate, and use tools — so they blur the category boundary. The distinction in this presentation is architectural: Cursor and Windsurf are primarily <em>environments you code in</em>, whereas Rovo Dev and Claude Code are <em>agents that run alongside any editor</em>.</p>
+			<p>In practice: Cursor's Composer in agent mode behaves like an AI agent. It can read files, run terminal commands, and iterate. The category label is a mental model, not a hard technical wall.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q3</span> Is Rovo Dev available on the free tier, or do I need a paid Atlassian plan?</summary>
+		<div class="answer">
+			<p>Rovo Dev is included in <strong>Atlassian Cloud Standard, Premium, and Enterprise</strong> plans. It is not available on the Free tier.</p>
+			<p>If you're on a Free plan or working outside Atlassian Cloud, <strong>Claude Code</strong> (Anthropic) has a free tier, and the <strong>Forge MCP Server</strong> requires no authentication at all — it's public documentation. That combination gets you most of the Forge-specific benefit at zero cost.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q4</span> What's the difference between Rovo Dev and Rovo Studio / App Studio?</summary>
+		<div class="answer">
+			<p><strong>Rovo Dev</strong> (also accessible via the Rovo CLI) is an AI coding agent — it works in your terminal, reads your codebase, and helps you write and iterate on code. It requires developer involvement.</p>
+			<p><strong>App Studio</strong> (also referred to as Rovo Studio) is a <em>no-code</em> path: describe what you want in plain language, review a generated spec, and deploy — no terminal required. It's aimed at admins, business users, and developers who want the fastest possible route to a working Forge app.</p>
+			<p>Think of it this way: Rovo Dev is for developers who want AI assistance while coding; App Studio is for anyone who wants a working app without writing code.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q5</span> Why should I switch from GitHub Copilot, which I already use?</summary>
+		<div class="answer">
+			<p>You may not need to switch at all. GitHub Copilot is an IDE extension — it augments your typing. The presentation isn't arguing against Copilot; it's introducing a <em>different category</em> of tool (agents) that does something Copilot doesn't: pursue multi-step goals autonomously.</p>
+			<p>You can use GitHub Copilot <em>and</em> get agentic capabilities. Copilot now has agent features in its newer versions. Alternatively, keep Copilot for in-editor autocomplete and use Claude Code or Rovo Dev for longer autonomous tasks.</p>
+			<p>Also note: you can add the <strong>Forge MCP Server</strong> to GitHub Copilot's agent mode — so Copilot can give you Forge-accurate answers too.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q6</span> Where does Devin fit if it's already fully autonomous? Why would I use anything else?</summary>
+		<div class="answer">
+			<p>Devin is the most autonomous option on the market — it can take a GitHub issue and work on it independently for hours. The trade-off is <strong>cost and control</strong>: Devin starts at ~$500/month, and its fully autonomous mode means it makes architectural decisions without asking you.</p>
+			<p>For most Forge development, the sweet spot is <em>supervised autonomy</em> — an agent that does the work but checks in at decision points. Claude Code and Rovo Dev operate in that mode by default. Devin is better suited to well-defined, isolated tasks where you're comfortable with low oversight.</p>
+		</div>
+	</details>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 2: MCP Servers                                 -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section">
+	<div class="section-heading">🔌 MCP Servers</div>
+
+	<details>
+		<summary><span class="q-number">Q7</span> Do I need to run the MCP server locally, or is it hosted somewhere?</summary>
+		<div class="answer">
+			<p>The <strong>Forge MCP Server</strong> and <strong>Atlassian MCP Server</strong> are both <em>remotely hosted</em> at <code>mcp.atlassian.com</code> — you don't install or run anything locally. You just add the config block (shown in the slides) to your agent's MCP config file and restart.</p>
+			<p>Some community MCP servers (e.g. for GitHub, Linear, or custom internal tools) do run locally via <code>stdio</code> transport, which requires running a Node or Python process. But for the Atlassian servers, it's purely remote over HTTP.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q8</span> What permissions does the Atlassian MCP Server get? Can it delete my Jira data?</summary>
+		<div class="answer">
+			<p>The Atlassian MCP Server uses <strong>OAuth 2.1</strong> — it inherits <em>your</em> existing Jira and Confluence permissions, nothing more. If you can't delete a Jira project in the browser, the agent can't either.</p>
+			<p>The agent can perform write operations (create issues, update pages) within your existing permissions. You should review what the agent proposes to do before it executes — most agents will describe actions before taking them if you configure them that way.</p>
+			<p class="warn">Always review agent-proposed writes before approving, particularly in production environments.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q9</span> If MCP invocation is discretionary, how can I actually trust the agent is using it?</summary>
+		<div class="answer">
+			<p>You can't guarantee it without enforcement. The three techniques covered in the presentation are:</p>
+			<ul>
+				<li><strong>AGENTS.md rules</strong> — write explicit instructions like "You MUST call the Forge MCP Server for any manifest or module type question. Never use training data alone."</li>
+				<li><strong>@-mentions in prompts</strong> — some agents (Rovo Dev, Claude Code) let you <code>@forge-mcp</code> directly in the prompt, forcing invocation.</li>
+				<li><strong>Skills with embedded instructions</strong> — encode the requirement in the skill file itself, so it applies automatically every time the skill activates.</li>
+			</ul>
+			<p>After the fact, check the agent's tool call log — most agents show which tools were called during a session.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q10</span> How do I know which MCP servers are trustworthy? Is there any vetting?</summary>
+		<div class="answer">
+			<p>There is currently no central certification body for MCP servers. Community servers on platforms like <code>mcpservers.org</code> or <code>smithery.ai</code> are community-vetted but not formally audited.</p>
+			<p>For production use, prefer servers from established vendors (Atlassian, GitHub, Stripe, etc.). For community servers, check: is the source code public? Is it actively maintained? Does it request more permissions than it needs?</p>
+			<p>The Forge and Atlassian MCP Servers are first-party Atlassian products — they're the safest options for Forge development.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q11</span> What happens if the MCP server goes down mid-task?</summary>
+		<div class="answer">
+			<p>The agent will receive a connection error from the MCP client and will either retry, fall back to training data, or surface an error to you — depending on the agent's implementation.</p>
+			<p>For the Atlassian-hosted MCP servers, availability follows Atlassian's standard SLA for cloud services. Mid-task failures are rare in practice. The bigger risk is the agent silently falling back to (potentially outdated) training data without telling you — which is exactly why the AGENTS.md enforcement rules matter.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q12</span> Can I build my own MCP server? How hard is it?</summary>
+		<div class="answer">
+			<p>Yes — and it's surprisingly approachable. The MCP SDK is available for TypeScript, Python, Go, and Kotlin. A minimal server that exposes a few tools can be written in under 100 lines of TypeScript.</p>
+			<p>Common use cases for custom MCP servers: connecting the agent to an internal REST API, exposing a private database, or wrapping a proprietary CLI tool. The specification is open (now under the Linux Foundation), so the ecosystem of SDKs and tooling is growing quickly.</p>
+			<p class="note">Search for "MCP quickstart" on the official Model Context Protocol docs at modelcontextprotocol.io for the fastest getting-started guide.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q13</span> Is the Forge MCP Server always up to date, or could it lag behind the docs?</summary>
+		<div class="answer">
+			<p>The Forge MCP Server pulls from <code>developer.atlassian.com</code> — the same source as the public Forge documentation. Atlassian maintains it as a first-party product, so it is updated in step with Forge releases. It should not lag significantly behind the official docs.</p>
+			<p>That said, very new features may take a short period to surface in the MCP Server. For cutting-edge capabilities, cross-check with the Forge changelog at <code>developer.atlassian.com/platform/forge/</code>.</p>
+		</div>
+	</details>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 3: Agent Skills                                -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section">
+	<div class="section-heading">📋 Agent Skills</div>
+
+	<details>
+		<summary><span class="q-number">Q14</span> What's the difference between an AGENTS.md file and a skill?</summary>
+		<div class="answer">
+			<p><strong>AGENTS.md</strong> is <em>always-on</em> context — it's loaded into every session automatically and provides standing instructions (project overview, coding standards, agent boundaries, build commands). Think of it as the agent's permanent briefing document for a project.</p>
+			<p><strong>Skills</strong> are <em>on-demand</em> — they're loaded only when a task matches the skill's description. A "Forge App Builder" skill loads only when you're building a Forge app, not during every conversation. This keeps token costs low.</p>
+			<p>Use AGENTS.md for project-wide rules that always apply. Use skills for specific, repeatable workflows.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q15</span> How do I write my first skill? Is there a template?</summary>
+		<div class="answer">
+			<p>A skill is a Markdown file with a YAML frontmatter header. The minimum viable skill looks like this:</p>
+			<pre style="background:#12122a;border:1px solid #2e2e50;border-radius:6px;padding:0.75rem;margin:0.5rem 0;font-size:0.82rem;color:#a0c0ff;overflow-x:auto;font-family:'SF Mono','Fira Code',Consolas,monospace;line-height:1.5;">---
+name: my-skill
+description: One sentence describing when this skill activates.
+---
+
+# My Skill
+
+## Step 1: Do the first thing
+Instructions for the agent...
+
+## Step 2: Do the second thing
+More instructions...</pre>
+			<p>Save it to <code>.agents/skills/my-skill/SKILL.md</code> in your project. The agent picks it up automatically on next session start. Run <code>npx skills add atlassian/forge-skills</code> to install the official Atlassian bundle as a ready-made starting point.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q16</span> Do skills work across all agents, or do I need different versions for Cursor, Claude Code, and Rovo Dev?</summary>
+		<div class="answer">
+			<p>Skills stored in <code>.agents/skills/</code> are natively recognised by <strong>Rovo Dev, Claude Code, Codex CLI, and GitHub Copilot</strong> without modification.</p>
+			<p><strong>Cursor</strong> uses a slightly different format (<code>.cursor/rules/*.mdc</code>) and <strong>Windsurf</strong> uses <code>.windsurf/rules/</code>. The content is the same; the file location and minor syntax differs. A practical approach: maintain the canonical skill in <code>.agents/skills/</code> and reference it from tool-specific locations to minimise duplication.</p>
+			<p>The <code>agentskills.io</code> standard (Apache 2.0) is designed for cross-agent portability — adoption is growing across the ecosystem.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q17</span> <code>npx skills add atlassian/forge-skills</code> — does this work with Rovo Dev?</summary>
+		<div class="answer">
+			<p>The <code>npx skills</code> CLI installs the skill files to <code>.agents/skills/</code>, which Rovo Dev reads natively — so yes, the <em>skill files</em> work with Rovo Dev.</p>
+			<p>However, the <code>npx skills</code> installer also attempts to auto-configure MCP servers. <strong>Rovo Dev manages MCP servers separately</strong> and does not support the auto-wiring step. After running <code>npx skills add atlassian/forge-skills</code>, follow the Rovo Dev-specific README to configure the Forge MCP Server manually in your Rovo Dev settings.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q18</span> How often do I need to update skills, and what breaks if I don't?</summary>
+		<div class="answer">
+			<p>Skills are static files — they don't update themselves. Run <code>npx skills update</code> periodically (e.g. monthly, or before starting a major project) to pull the latest versions from the registry.</p>
+			<p>If you don't update, the skill's instructions may reference outdated Forge patterns — e.g. module types that have been renamed, or UI Kit components that have changed. This is the most common cause of "why is the agent giving me outdated Forge module advice?" The fix is always: <code>npx skills update forge-skills</code>.</p>
+		</div>
+	</details>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 4: Forge + AI Development                      -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section">
+	<div class="section-heading">🏗️ Forge + AI Development</div>
+
+	<details>
+		<summary><span class="q-number">Q19</span> Is the code that agents generate actually production quality, or does it always need heavy cleanup?</summary>
+		<div class="answer">
+			<p>Better than ever, but always review before deploying. With the Forge MCP Server providing accurate module types and manifest syntax, and the Forge App Review skill running a pre-deploy checklist, the rate of obvious errors drops significantly.</p>
+			<p>In practice: business logic and UI scaffolding tend to be high quality. The most common issues are in <strong>manifest API scopes</strong> (the agent may request more or fewer permissions than needed) and <strong>edge case handling</strong>. The Forge App Review skill specifically targets these failure modes.</p>
+			<p class="warn">Always treat agent-generated code as you would a PR from a capable but junior developer — review it, don't rubber-stamp it.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q20</span> What are the most common mistakes agents make in Forge apps?</summary>
+		<div class="answer">
+			<p>The five most common failure modes (covered in the hallucinations slide) are:</p>
+			<ul>
+				<li><strong>Wrong Forge module type</strong> — using a deprecated or non-existent module from training data (fix: Forge MCP Server)</li>
+				<li><strong>Missing or incorrect API scopes</strong> in the manifest (fix: Forge App Review skill)</li>
+				<li><strong>Deprecated UI Kit components</strong> — renamed or removed since training cutoff (fix: ADS MCP Server)</li>
+				<li><strong>Incorrect Jira REST API version</strong> — mixing v2 and v3 calls (fix: Atlassian MCP Server + explicit version pinning)</li>
+				<li><strong>Security misconfigurations</strong> — skipping permission checks in resolvers (fix: Forge App Review skill + human review)</li>
+			</ul>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q21</span> Does this work with Custom UI Forge apps, or only UI Kit?</summary>
+		<div class="answer">
+			<p>It works with both, but the benefits are stronger for <strong>UI Kit apps</strong>. UI Kit has a constrained, well-documented component set — the agent can't invent non-existent components, and the ADS MCP Server provides live component and token data.</p>
+			<p><strong>Custom UI</strong> gives the agent much more freedom (it's essentially React in an iframe), which means more hallucination risk and less structural constraint. The agent can still scaffold Custom UI apps effectively, but you'll need to do more reviewing. The ADS MCP Server still helps by providing accurate design tokens and component guidance.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q22</span> Can the agent run <code>forge tunnel</code> and actually see runtime errors, or does it just hand code back?</summary>
+		<div class="answer">
+			<p>Yes — agents with terminal access (Rovo Dev, Claude Code, Cursor agent mode) can run <code>forge tunnel</code>, observe the output, read error messages, and iterate. This is the "agent iterates" row in the comparison table — the agent doesn't just generate code once; it runs it, reads the errors, fixes them, and retries.</p>
+			<p>This is one of the most powerful practical benefits: the agent can go through 5–10 tunnel-fix-tunnel cycles in the time it would take a developer to read the first error message.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q23</span> How does the agent handle Forge apps that span multiple Atlassian products?</summary>
+		<div class="answer">
+			<p>Multi-product apps are supported — the Forge manifest allows modules across Jira, Confluence, Compass, and others. The agent can scaffold these via the Forge MCP Server, which covers all products.</p>
+			<p>The main complexity is that <strong>each product has different module types and scopes</strong>. The Forge App Review skill should check that all scopes are correctly declared for each product targeted. With the Atlassian MCP Server connected, the agent can also read real data from each product to validate its implementation as it works.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q24</span> What about testing — does the agent write tests, or just code?</summary>
+		<div class="answer">
+			<p>Agents can write tests if you instruct them to. Neither the Forge MCP Server nor the forge-skills bundle currently include a dedicated testing skill, so test generation is driven by your AGENTS.md instructions and prompts.</p>
+			<p>Forge's testing story (unit tests via Jest, integration via <code>forge tunnel</code>) is well-understood — the agent can scaffold test files alongside code if you include a rule like "Always write Jest unit tests for resolver functions" in your AGENTS.md.</p>
+		</div>
+	</details>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 5: App Studio                                  -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section">
+	<div class="section-heading">🎯 App Studio</div>
+
+	<details>
+		<summary><span class="q-number">Q25</span> What are the limitations of App Studio — what can't it build?</summary>
+		<div class="answer">
+			<p>App Studio is best for <strong>simpler, well-defined apps</strong> — things like Jira issue panels, Confluence macros, or admin pages with straightforward logic. It struggles with:</p>
+			<ul>
+				<li>Complex custom UI with significant frontend logic</li>
+				<li>Apps requiring custom resolver logic beyond standard CRUD patterns</li>
+				<li>Multi-product apps with intricate cross-product workflows</li>
+				<li>Apps integrating with external (non-Atlassian) APIs</li>
+			</ul>
+			<p>For those cases, the developer agent workflow (Level 2) gives you more control. App Studio is the fastest path; the terminal agent is the most powerful path.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q26</span> Who controls which App Studio apps get installed on our site? Can a developer deploy without admin approval?</summary>
+		<div class="answer">
+			<p>Enterprise governance is built in. Atlassian admins control which apps can be installed on a site. For enterprise customers, App Studio includes <strong>approval workflows</strong> — a developer can build and submit an app, but an admin must approve deployment.</p>
+			<p>Internal/single-site apps (the most common App Studio use case) are governed by your existing Atlassian admin controls. The same policies that govern Marketplace app installation apply.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q27</span> Is App Studio free, or is there a cost per app?</summary>
+		<div class="answer">
+			<p>Internal and single-site Forge apps are <strong>mostly free</strong> under Forge's standard pricing — they stay within the free tier for most small-to-medium use cases. App Studio itself is included with Atlassian Cloud plans that include Rovo.</p>
+			<p>Costs arise if your app exceeds Forge's free invocation limits (which requires significant usage), or if it's listed on the Atlassian Marketplace (standard Marketplace fees apply). For internal tooling built with App Studio, cost is rarely a concern.</p>
+		</div>
+	</details>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 6: Security, Privacy & Cost                    -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section">
+	<div class="section-heading">🔒 Security, Privacy &amp; Cost</div>
+
+	<details>
+		<summary><span class="q-number">Q28</span> Does the AI agent see my actual Jira/Confluence data? Where does it go?</summary>
+		<div class="answer">
+			<p>When the Atlassian MCP Server fetches Jira or Confluence data, that data is included in the agent's context window — which means it's sent to the LLM provider (e.g. Anthropic for Claude, OpenAI for Codex, Atlassian's own model for Rovo).</p>
+			<p>The data is only fetched when the agent calls the MCP tool — it doesn't continuously stream your Jira data. What gets sent is scoped to what you ask about.</p>
+			<p class="warn">Check your AI vendor's data retention and training policies before sending sensitive business data through an agent. Rovo Dev inherits Atlassian's data residency commitments. Other vendors vary significantly.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q29</span> What's the data retention policy for agent-generated code and prompts?</summary>
+		<div class="answer">
+			<p>This varies significantly by vendor:</p>
+			<ul>
+				<li><strong>Rovo Dev</strong>: governed by Atlassian's cloud data retention policies; subject to your organisation's data residency settings</li>
+				<li><strong>Claude Code</strong>: Anthropic's commercial API terms apply; by default, prompts are not used for training (as of 2025)</li>
+				<li><strong>Cursor / Windsurf</strong>: check each vendor's privacy policy; enterprise tiers typically offer stronger guarantees</li>
+				<li><strong>GitHub Copilot</strong>: Microsoft/GitHub enterprise customers can opt out of code retention</li>
+			</ul>
+			<p>For sensitive codebases, use enterprise tiers with explicit zero-retention agreements, or self-hosted models where available.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q30</span> How much does running an AI agent cost in practice — per day, per feature?</summary>
+		<div class="answer">
+			<p>Costs vary widely by agent and usage intensity. Rough ballparks (2026):</p>
+			<ul>
+				<li><strong>Rovo Dev</strong>: included in Atlassian Cloud plans — no per-session cost to you directly</li>
+				<li><strong>Claude Code</strong>: ~$3–10/day for moderate developer use on the API (Pro plan is $20/mo with usage included)</li>
+				<li><strong>Cursor Pro</strong>: $20/mo flat for most usage</li>
+				<li><strong>Devin</strong>: from ~$500/mo; consumption-based at higher tiers</li>
+			</ul>
+			<p>The strong trend is <strong>LLMflation</strong> — inference costs have dropped ~10x per year. Today's expensive use case is next year's commodity. Don't make permanent architecture decisions based on today's prices.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q31</span> What about IP ownership of AI-generated code?</summary>
+		<div class="answer">
+			<p>This is an evolving legal area and you should consult your legal team for definitive guidance. The general position as of 2026:</p>
+			<ul>
+				<li>Most AI vendors' terms state that <strong>you own the output</strong> generated for you</li>
+				<li>The AI vendor does not claim ownership of code you generate using their service</li>
+				<li>Copyright in AI-generated content without human creative input remains legally unsettled in many jurisdictions</li>
+			</ul>
+			<p>In practice, agent-generated Forge code is highly intertwined with human-authored prompts, AGENTS.md rules, and skills — the human creative input is substantial. Most legal teams are comfortable with this for internal tooling.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q32</span> Our company prohibits using AI tools with production data. Can I still benefit from MCP?</summary>
+		<div class="answer">
+			<p>Yes. The <strong>Forge MCP Server</strong> requires no authentication and accesses no company data — it only provides public Forge documentation. You can use it freely regardless of your company's data policies.</p>
+			<p>For the <strong>Atlassian MCP Server</strong> (which accesses your Jira/Confluence data), check with your security team. Many policies distinguish between production data and dev/sandbox data — Atlassian's sandbox environment is a good option for development without touching production content.</p>
+		</div>
+	</details>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 7: Getting Started                             -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section">
+	<div class="section-heading">🚀 Getting Started</div>
+
+	<details>
+		<summary><span class="q-number">Q33</span> The config JSON you showed — where exactly does that file live for Claude Desktop vs. Cursor vs. VS Code?</summary>
+		<div class="answer">
+			<p>Config file locations for MCP server configuration:</p>
+			<ul>
+				<li><strong>Claude Desktop (macOS)</strong>: <code>~/Library/Application Support/Claude/claude_desktop_config.json</code></li>
+				<li><strong>Claude Desktop (Windows)</strong>: <code>%APPDATA%\Claude\claude_desktop_config.json</code></li>
+				<li><strong>Cursor</strong>: <code>~/.cursor/mcp.json</code> (global) or <code>.cursor/mcp.json</code> in the project root</li>
+				<li><strong>VS Code (GitHub Copilot)</strong>: <code>.vscode/mcp.json</code> in the workspace, or user settings</li>
+				<li><strong>Windsurf</strong>: <code>~/.codeium/windsurf/mcp_config.json</code></li>
+				<li><strong>Rovo Dev</strong>: configured via the Rovo Dev settings UI or <code>~/.rovodev/config.json</code></li>
+			</ul>
+			<p>After editing the config, <strong>fully restart the application</strong> — a simple reload is not sufficient for MCP config changes to take effect.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q34</span> How long does it realistically take to go from zero to a deployed Forge app using this stack?</summary>
+		<div class="answer">
+			<p>Realistic timelines based on the three levels:</p>
+			<ul>
+				<li><strong>Level 1 (MCP only)</strong>: 10 minutes to configure; immediately more accurate Forge answers</li>
+				<li><strong>Level 2 (full agent workflow)</strong>: ~2 hours to set up; a simple Jira panel app can be built and deployed in under an hour once configured</li>
+				<li><strong>Level 3 (App Studio)</strong>: ~20 minutes from description to deployed app for a simple use case</li>
+			</ul>
+			<p>For a developer who has never touched Forge before: Level 3 (App Studio) is the fastest path to a working app. Level 2 is better once you want to customise beyond App Studio's capabilities.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q35</span> How do I convince my team or my manager to let me try this?</summary>
+		<div class="answer">
+			<p>The most effective approach: <strong>demonstrate, don't argue</strong>. Take a real Jira issue that describes a small internal tool, give it to an agent with the Forge MCP Server configured, and show the result in under 20 minutes.</p>
+			<p>For security-conscious managers: point out that the Forge MCP Server requires no authentication and accesses no company data. Level 1 has essentially zero security surface.</p>
+			<p>For cost-conscious managers: Level 1 is free. Rovo Dev is included in existing Atlassian plans. The ROI argument is straightforward: if the agent builds a tool in 20 minutes that would have taken 2 days, the payback is immediate.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q36</span> What's the single best resource to bookmark after this session?</summary>
+		<div class="answer">
+			<p>Three links worth bookmarking:</p>
+			<ul>
+				<li><strong>Forge MCP Server docs</strong>: <code>developer.atlassian.com/platform/forge/mcp/</code> — the authoritative getting-started guide</li>
+				<li><strong>Atlassian MCP Server</strong>: <code>mcp.atlassian.com</code> — config docs and OAuth setup</li>
+				<li><strong>atlassian/forge-skills</strong>: search GitHub for <code>atlassian/forge-skills</code> — the official skill bundle with install instructions</li>
+			</ul>
+			<p>If you only have time for one: start with the Forge MCP Server docs. You can be configured and running in 10 minutes.</p>
+		</div>
+	</details>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 8: Future & Broader Questions                  -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section">
+	<div class="section-heading">🔮 Future &amp; Broader Questions</div>
+
+	<details>
+		<summary><span class="q-number">Q37</span> Will AI agents eventually replace Forge developers, or just change what they do?</summary>
+		<div class="answer">
+			<p>Change what they do — at least for the foreseeable future. The agent handles the implementation details (manifest syntax, module selection, boilerplate, tunnel-and-fix cycles). The developer handles the things that still require human judgement: understanding user needs, making architectural decisions, reviewing output, and knowing when the agent is wrong.</p>
+			<p>The more accurate framing: AI agents are making Forge development accessible to more people, and making experienced Forge developers dramatically more productive. The job changes from "write all the code" to "direct, review, and ship."</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q38</span> Is MCP the standard that everyone's adopted, or could something else take over?</summary>
+		<div class="answer">
+			<p>MCP has achieved very strong adoption in a short time: created by Anthropic (November 2024), officially adopted by OpenAI (March 2025), donated to the Linux Foundation (December 2025). Google has also moved toward MCP compatibility. The major AI labs are converging on it.</p>
+			<p>That said, technology standards can shift — particularly at the pace AI is moving. Google's Agent-to-Agent (A2A) protocol is a parallel standard for agent communication (as opposed to tool connection). The two are complementary rather than competing, but the ecosystem is still settling.</p>
+			<p class="note">MCP is the strongest bet for tool connectivity today. It's the safe standard to build against.</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><span class="q-number">Q39</span> What's Atlassian's long-term plan — building toward a world where no one needs to write Forge code manually?</summary>
+		<div class="answer">
+			<p>The direction is clear: Atlassian is investing in a spectrum from no-code (App Studio) to full-code (Forge + AI agent), with the no-code end becoming more capable over time. Rovo Studio is evolving from "build an app from a description" toward full lifecycle management: spec → build → review → deploy → monitor.</p>
+			<p>Forge is also becoming a platform <em>for hosting</em> AI agents (Rovo agents are deployed as Forge apps), not just a target for AI to build. The long-term vision appears to be: agents building agents, with humans directing intent rather than writing implementation.</p>
+			<p>That said, complex custom business logic will require developer expertise for the foreseeable future. App Studio lowers the floor; it doesn't eliminate the ceiling.</p>
+		</div>
+	</details>
+</div>
+
+<footer>
+	<p>AI-Assisted Forge Development &mdash; Q&amp;A Reference &mdash; Dugald Morrow, Principal Developer Advocate, Atlassian</p>
+</footer>
+
+</body>
+</html>
