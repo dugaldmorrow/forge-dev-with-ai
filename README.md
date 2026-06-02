@@ -57,15 +57,6 @@ The presentation covers:
 
 ---
 
-## Contributing
-
-Contributions are welcome. Please sign a Contributor License Agreement (CLA) before submitting a pull request:
-
-- **Corporate CLA**: [https://opensource.atlassian.com/corporate](https://opensource.atlassian.com/corporate)
-- **Individual CLA**: [https://opensource.atlassian.com/individual](https://opensource.atlassian.com/individual)
-
----
-
 ## License
 
 Copyright @ 2026 Atlassian Pty Ltd
