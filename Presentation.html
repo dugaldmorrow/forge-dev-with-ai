@@ -476,7 +476,6 @@ After MCP:   implement client once + implement server once = ∞ works  ✅
 			<tr><td><strong>Verification prompts</strong></td><td>Quick checks that the plugin is active and using the expected tools</td></tr>
 		</tbody>
 	</table>
-	<blockquote>A plugin does not change the model — it gives the host a structured bundle to expose to the agent.</blockquote>
 	<aside class="notes">
 		<p>"A plugin is just a packaging layer. It does not magically make the model smarter. It gives the host a bundle it can install: skills to expose, MCP servers to configure, metadata that tells the host where things live, and prompts you can use to verify everything is active."</p>
 		<ul>
@@ -549,7 +548,6 @@ After MCP:   implement client once + implement server once = ∞ works  ✅
 			<tr><td><strong>Token cost</strong></td><td>Higher (live connections)</td><td>Lower (loaded on demand only)</td></tr>
 		</tbody>
 	</table>
-	<blockquote><em>MCP Servers give the agent its tools. Skills give the agent its expertise.</em></blockquote>
 	<aside class="notes">
 		<p>The answer to "should I use an MCP server or a skill?" is almost always: both, for different reasons. MCP gives the agent capabilities — access to Jira, Forge docs, the web. Skills give the agent knowledge — your commit format, your pre-deploy checklist, your team's Forge patterns. Transition: "They work best together — a skill can instruct the agent to consult an MCP server, combining static workflow knowledge with live data."</p>
 		<ul>
@@ -560,14 +558,19 @@ After MCP:   implement client once + implement server once = ∞ works  ✅
 
 <!-- SLIDE 21b: MCP + Skills working together -->
 <section>
-	<h3>Skills orchestrate; MCP provides live data</h3>
-	<pre><code>Forge App Builder SKILL
-  └── instructs the agent to consult the Forge MCP Server
-        └── which provides up-to-date module catalogs &amp; manifest guidance
-              └── agent generates correct, current Forge code</code></pre>
-	<blockquote>A skill without an MCP server relies on static knowledge. An MCP server without a skill relies on the developer prompting correctly every time. Together, they're self-sufficient.</blockquote>
+	<h3>Skills = Local; MCP = Remote</h3>
+  <p>
+    <span class="fragment highlight-blue">Skills</span> provide <span class="fragment highlight-blue">local</span> knowledge and capabilities
+  </p>
+  <p>
+    <span class="fragment highlight-green">MCP</span> provide <span class="fragment highlight-green">remote</span> knowledge and capabilities
+  </p>
+  <p>
+    <span class="fragment highlight-blue">Skills</span> can be used to help ensure <span class="fragment highlight-green">MCP</span> is utilised reliably.
+  </p>
 	<aside class="notes">
-		<p>The skill provides the workflow; the MCP server provides the live data. Without the skill, the developer has to remember to prompt the agent to use the MCP — and agents don't always invoke tools unless instructed. Without the MCP, the skill's instruction to "look up the current module catalog" falls back to training data. Together they're self-sufficient. Transition: "MCP invocation is discretionary — let's look at what that means in practice."</p>
+		<p>The local/remote distinction is the clearest mental model for the skills vs MCP question. Skills are files on disk — they travel with your repo, they're version-controlled, and they load into the agent's context when the task matches. MCP servers are running processes that connect to external systems in real time: the Forge MCP Server, the Atlassian Rovo MCP, your database, your CI system. Neither is sufficient alone. Without a skill, the agent has to decide on its own whether to call the MCP — and it may not. Without the MCP, the skill's instruction to "look up the current module catalog" falls back to stale training data. Skills can also include executable scripts, so "local capabilities" covers more than just instructions — they can run commands on your machine too.</p>
+		<p>Transition: "MCP invocation isn't guaranteed — let's look at what that means in practice."</p>
 	</aside>
 </section>
 
@@ -581,6 +584,14 @@ Agent (without explicit instruction):
   Option B → answer from training data → may be outdated  ⚠️
 
 The agent chooses Option B if it believes it already knows.</code></pre>
+	<aside class="notes">
+		<p>"Here's something that catches a lot of people out: just because an MCP server is configured doesn't mean the agent will use it. The agent weighs its own confidence against the cost of making a tool call — and if it thinks it already knows the answer, it skips the call. For Forge this is particularly risky, because Forge APIs and module types change frequently."</p>
+	</aside>
+</section>
+
+<!-- SLIDE 22b: What can go wrong when the agent skips -->
+<section>
+	<h3>Skipping MCP or skills leads to predictable failures</h3>
 	<table>
 		<thead><tr><th>Agent skips…</th><th>What can go wrong</th></tr></thead>
 		<tbody>
@@ -591,7 +602,7 @@ The agent chooses Option B if it believes it already knows.</code></pre>
 	</table>
 	<blockquote>⚠️ <em>Presence in the config is not the same as guaranteed invocation. The agent's internal confidence is the deciding factor.</em></blockquote>
 	<aside class="notes">
-		<p>"Here's something that catches a lot of people out: just because an MCP server is configured doesn't mean the agent will use it. The agent weighs its own confidence against the cost of making a tool call — and if it thinks it already knows the answer, it skips the call. For Forge this is particularly risky, because Forge APIs and module types change frequently."</p>
+		<p>These are the three most common failure patterns for Forge development. In each case the agent gave a fluent, confident answer — but it was wrong because it skipped the tool call.</p>
 		<ul>
 			<li>Tell-tale sign: agent gives a fluent, confident answer about a Forge module or API that doesn't exist or has changed</li>
 			<li>How to spot it in Rovo Dev: check the tool call log — if <code>forge-development-guide</code> or <code>search-forge-docs</code> were not called during a Forge scaffolding task, the agent answered from memory</li>
