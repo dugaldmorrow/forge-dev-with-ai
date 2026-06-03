@@ -13,6 +13,15 @@ The research will be presented in public to professional and aspiring software d
 
 You must load and use the skills in the [.agents/skills/](./.agents/skills) directory and subdirectories.
 
+### Quiz Skill
+
+The [quiz skill](./.agents/skills/quiz/SKILL.md) tests the user's understanding of the presentation content. It is **opt-in only** — load it when:
+
+- The user explicitly asks to be quizzed or tested on the presentation.
+- You believe a self-check would be valuable after a substantial discussion about the presentation content.
+
+The skill manages its own cadence via `.agents/skills/quiz/quiz-state.json`. Always check that file before asking any question — if the cooldown (24 hours) has not elapsed since the last question, silently skip the quiz. Never ask more than one question per invocation.
+
 ## Boundaries
 
 Agents must never commit code or push changes to remote repositories unless a user has explicitly requested to do so in the latest instruction of a session.
