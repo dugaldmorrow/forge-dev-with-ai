@@ -395,25 +395,7 @@
 <!-- SLIDE 13: MCP universal adapter -->
 <section>
 	<h3>MCP connects any agent to any tool</h3>
-	<pre><code>Before MCP:  10 AI apps × 100 tools = 1,000 custom integrations  ❌
-After MCP:   implement client once + implement server once = ∞ works  ✅
-
-┌─────────────────────────────────────┐
-│  AI Agent (Host)                    │
-│  e.g. Rovo Dev, Claude Code, Cursor │
-│              │                      │
-│      ┌───────▼────────┐             │
-│      │   MCP Client   │             │
-│      └───────┬────────┘             │
-└──────────────┼──────────────────────┘
-               │  JSON-RPC 2.0
-    ┌──────────┼──────────┐
-    ▼          ▼          ▼
-┌────────┐ ┌────────┐ ┌────────┐
-│ Forge  │ │Atlasn. │ │ GitHub │
-│  MCP   │ │  MCP   │ │  MCP   │
-└────────┘ └────────┘ └────────┘</code></pre>
-	<blockquote>Three primitives: <strong>Tools</strong> (actions to execute) · <strong>Resources</strong> (data to read) · <strong>Prompts</strong> (reusable instructions)</blockquote>
+	<img src="images/mcp-illustration.svg" alt="Diagram showing an MCP Client box inside an AI Agent box, with arrows from the MCP Client to three MCP Server boxes: Forge MCP Server, Atlassian Rovo MCP Server, and GitHub MCP Server." style="max-height: 65vh; width: auto;" />
 	<aside class="notes">
 		<p>MCP is the universal connector for AI tools — like USB-C for devices. Before MCP, every AI integration was custom-built. MCP means implement the client once, implement the server once, and any combination works. Three primitives: Tools (actions the agent can execute), Resources (data the agent can read), and Prompts (reusable instruction templates).</p>
 		<ul>
