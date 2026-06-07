@@ -120,6 +120,89 @@
 	</aside>
 </section>
 
+<!-- SLIDE 5c: Increasing levels of abstraction -->
+<section>
+	<h3>Increasing levels of abstraction</h3>
+	<table>
+		<thead>
+			<tr>
+				<th>Abstraction Level</th>
+				<th>What you give the AI</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><strong>Token / line</strong> <em>(AI Coding Assistants)</em></td>
+				<td>Cursor position — the AI completes your thought without being asked</td>
+			</tr>
+			<tr>
+				<td><strong>Task / file</strong> <em>(AI-Native IDEs)</em></td>
+				<td>"Refactor this function", "add tests for this class"</td>
+			</tr>
+			<tr>
+				<td><strong>Goal / feature</strong> <em>(AI Dev Agents)</em></td>
+				<td>"Implement this Jira ticket", "fix this bug end-to-end"</td>
+			</tr>
+			<tr>
+				<td><strong>Intent / product</strong> <em>(Autonomous Dev Platforms)</em></td>
+				<td>"Build me an app that..."</td>
+			</tr>
+		</tbody>
+	</table>
+	<aside class="notes">
+		<p>The four categories of AI coding tools map directly to a familiar concept in software engineering: the abstraction ladder. We've always moved up it — from machine code to assembly to high-level languages to frameworks to no-code. AI coding tools are the next rung, and the four categories represent different positions on that ladder.</p>
+		<p>The key insight: the higher the abstraction level, the less the developer needs to specify *how* — they only need to specify *what*. This is also why higher abstraction tools are more autonomous: the AI must make more decisions independently to fill the gap between the high-level intent and the low-level code. In other words, <strong>autonomy level is an approximation of abstraction level</strong> — the star ratings you'll see on the next slide are a practical proxy for where each category sits on this ladder.</p>
+		<ul>
+			<li>Token/line: the developer is still coding — the AI is accelerating keystrokes, not making decisions</li>
+			<li>Task/file: the developer directs; the AI executes a bounded piece of work within the session</li>
+			<li>Goal/feature: the developer delegates; the AI plans, iterates, and reports back</li>
+			<li>Intent/product: the developer describes the outcome; the AI handles architecture, implementation, hosting, and deployment</li>
+			<li>Transition: "So let's look at how the market has organised around these four abstraction levels."</li>
+		</ul>
+	</aside>
+</section>
+
+<!-- SLIDE 5d: Abstraction demands autonomy -->
+<section>
+	<h3>Higher abstraction demands higher autonomy</h3>
+	<table>
+		<thead>
+			<tr>
+				<th>Your instruction</th>
+				<th>Decisions the AI must make independently</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Cursor position</td>
+				<td>Predicts the next token — almost none</td>
+			</tr>
+			<tr>
+				<td>"Refactor this function"</td>
+				<td>Plans the edit, applies it, checks correctness</td>
+			</tr>
+			<tr>
+				<td>"Implement this ticket"</td>
+				<td>Reads context, writes code, runs tests, iterates</td>
+			</tr>
+			<tr>
+				<td>"Build me an app that..."</td>
+				<td>Architecture, implementation, hosting, deployment</td>
+			</tr>
+		</tbody>
+	</table>
+	<blockquote><strong>Autonomy is an observable proxy for abstraction level.</strong></blockquote>
+	<aside class="notes">
+		<p>This slide makes the logical connection explicit: abstraction level and autonomy always move together because they are causally linked, not just correlated. You cannot have a high-abstraction, low-autonomy tool — if you say "build me an app", the tool must make decisions you didn't specify. There is no way around it.</p>
+		<p>The converse is equally true: a low-abstraction tool like autocomplete doesn't need high autonomy. It is completing your thought, not replacing your judgment. The developer is still fully in control — the AI is just a faster keyboard.</p>
+		<ul>
+			<li>This is why the star ratings on the next slide are a reliable shorthand: they measure how high up the abstraction ladder each category operates</li>
+			<li>It also explains boundary cases: Cursor and Windsurf sit at ★★★☆ because in agent mode they operate at the task/file level — not as high as a full AI Dev Agent operating at goal/feature level</li>
+			<li>Transition: "So with that in mind, let's look at how the market has organised around these four abstraction levels."</li>
+		</ul>
+	</aside>
+</section>
+
 <!-- SLIDE 6: Four categories -->
 <section>
 	<h3>Four categories of AI development tools</h3>
@@ -127,39 +210,42 @@
 		<thead>
 			<tr>
 				<th>Category</th>
+				<th>Autonomy</th>
 				<th>Description</th>
-				<th>Examples</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td><strong>AI Software<br/>Development Agents</strong></td>
-				<td>Agents that work in your terminal or in the background</td>
-				<td>Rovo Dev, Claude Code, Codex CLI, Google Antigravity 2.0, Devin, Cline</td>
+				<td><strong>AI Coding Assistants</strong></td>
+				<td>★★☆☆<br/><em>Assisted / conversational</em></td>
+				<td>Plugin in your existing editor — lowest switching cost</td>
 			</tr>
 			<tr>
 				<td><strong>AI-Native IDEs</strong></td>
-				<td>Full IDEs rebuilt around AI — not just a plugin bolted on</td>
-				<td>Cursor, Windsurf, Replit</td>
+				<td>★★★☆<br/><em>Agentic with human-in-the-loop</em></td>
+				<td>Full IDE rebuilt around AI — agent mode is a first-class citizen, not a plugin</td>
 			</tr>
 			<tr>
-				<td><strong>IDE Extensions &amp;<br/>Editor Companions</strong></td>
-				<td>AI capabilities added to your existing IDE. Lowest friction to adopt</td>
-				<td>GitHub Copilot, JetBrains AI, Tabnine</td>
+				<td><strong>AI Dev Agents</strong></td>
+				<td>★★★★<br/><em>Fully agentic</em></td>
+				<td>Terminal or web — you hand off a goal and review the result</td>
 			</tr>
 			<tr>
-				<td><strong>Hosted AI-Native IDEs</strong></td>
-				<td>Cloud-based, often no-code platforms</td>
-				<td>Atlassian App Studio, Lovable, Bolt.new, v0.dev</td>
+				<td><strong>Autonomous Dev Platforms</strong></td>
+				<td>★★★★<br/><em>Fully agentic, zero setup</em></td>
+				<td>Cloud platform — describe intent, the platform builds and deploys</td>
 			</tr>
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>"There are four categories of AI dev tools — and the spectrum runs from 'AI helps me type' all the way to 'AI does the work for me'. One thing I'll flag: you'll often see Cursor and Rovo Dev listed side by side, but they're in different categories. Cursor is an IDE — the environment you code in. Rovo Dev and Claude Code are agents — they run inside or alongside any editor."</p>
+		<p>"There are four categories of AI dev tools, and the key dimension to understand them is autonomy — how much of the work does the AI do independently? The spectrum runs from 'AI helps me type' at one end, all the way to 'AI does the complete task while I review the result' at the other."</p>
+		<p>"One thing worth flagging up front: autonomy and deployment model are two different things. Autonomous Dev Platforms like App Studio are at the same autonomy level as standalone agents — the difference is where the environment lives, not how capable the AI is. And you'll often see Cursor and Rovo Dev listed side by side, but Cursor is an AI-Native IDE — the environment you code inside — while Rovo Dev is an AI Dev Agent that runs in your terminal — a different relationship with the tool entirely."</p>
 		<ul>
-			<li>AI-Native IDEs: AI baked into core architecture, not bolted on; Cursor is a fork of VS Code rebuilt entirely around AI</li>
-			<li>IDE Extensions: most conservative option — keep your existing IDE, add AI as a plugin; lower switching cost</li>
-			<li>Hosted AI-Native IDEs: cloud platforms where the entire stack is managed; App Studio falls here</li>
+			<li>AI Dev Agents: fully agentic — the agent plans, executes, runs tests, and iterates with minimal human involvement per step; you review the output, not every action</li>
+			<li>AI-Native IDEs: strong agent mode built into the core architecture (not bolted on as a plugin), but the human is still in the editor making decisions; Cursor is a fork of VS Code rebuilt entirely around AI</li>
+			<li>AI Coding Assistants: most conservative option — keep your existing IDE, add AI as a plugin; GitHub Copilot has grown from autocomplete into agent mode, but the baseline experience is still assisted coding</li>
+			<li>Autonomous Dev Platforms: cloud platforms where the AI and the environment are unified — you describe what you want and the platform builds, hosts, and deploys it; App Studio falls here; note these are as autonomous as standalone agents, just with a different UX</li>
+			<li>The autonomy column is the key buying signal: if you want to supervise every step, start with extensions; if you want to hand over a task and review the result, agents and hosted IDEs are your category</li>
 		</ul>
 	</aside>
 </section>
@@ -172,18 +258,18 @@
 		<tbody>
 			<tr><td><strong>Rovo Dev / Rovo CLI</strong></td><td>Atlassian</td><td>Atlassian Teamwork Graph — Jira, Confluence, Bitbucket, Compass context; ADS-accurate UI generation</td></tr>
 			<tr><td><strong>Claude Code</strong></td><td>Anthropic</td><td>Agent View + /goal; supervisor Claude verifies results</td></tr>
-			<tr><td><strong>Codex CLI</strong></td><td>OpenAI</td><td>~4M weekly users; open source; Goal mode for multi-day tasks. Also available as a web product at chatgpt.com/codex</td></tr>
+			<tr><td><strong>Codex</strong></td><td>OpenAI</td><td>Available as a desktop app, CLI, IDE plugin, and web app — same agent, multiple surfaces</td></tr>
 			<tr><td><strong>Google Antigravity 2.0</strong></td><td>Google</td><td>Multi-model routing; launched May 19 2026 at Google I/O</td></tr>
 			<tr><td><strong>Devin</strong></td><td>Cognition AI</td><td>First "autonomous AI software engineer"; Interactive Planning; from $20/mo</td></tr>
 			<tr><td><strong>Cline</strong></td><td>Community (MIT)</td><td>5M+ installs; bring your own API key; fully open source</td></tr>
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>"Let's walk through the six major agents quickly. Rovo Dev is the obvious choice if you're already on Atlassian Cloud — it reads Jira tickets, Confluence pages, and Bitbucket PRs as part of every task. Claude Code is the strongest option outside the Atlassian ecosystem — the supervisor model means it double-checks its own work. Codex CLI is OpenAI's answer: open source, 4 million weekly users, and a web version at chatgpt.com/codex if you don't want a CLI. Google Antigravity 2.0 is the newest — launched May 2026 at Google I/O, so the community is still forming around it. Devin is the most hands-off — give it a GitHub issue and walk away. Cline is the open-source wildcard — bring your own API key, full control, 5 million installs."</p>
+		<p>"Let's walk through the six major agents quickly. Rovo Dev is the obvious choice if you're already on Atlassian Cloud — it reads Jira tickets, Confluence pages, and Bitbucket PRs as part of every task. Claude Code is the strongest option outside the Atlassian ecosystem — the supervisor model means it double-checks its own work. Codex is OpenAI's answer — and unlike the others it's available across four surfaces: a CLI for terminal-native workflows, a desktop app for supervising multiple agent threads in parallel, an IDE extension for editor-centred pairing, and a web app at chatgpt.com/codex for cloud-delegated tasks. Same underlying agent, same ChatGPT account, different interface depending on how you work. Google Antigravity 2.0 is the newest — launched May 2026 at Google I/O, so the community is still forming around it. Devin is the most hands-off — give it a GitHub issue and walk away. Cline is the open-source wildcard — bring your own API key, full control, 5 million installs."</p>
 		<ul>
 			<li>Rovo Dev: only agent with native Teamwork Graph access — reads cross-product context (Jira + Confluence + Bitbucket + Compass) without MCP configuration</li>
 			<li>Claude Code: the supervisor Claude verification step is a meaningful reliability differentiator — catches errors before surfacing results</li>
-			<li>Codex CLI: Goal mode for multi-day tasks is notable — the agent persists across sessions toward a longer-running objective</li>
+			<li>Codex: the multi-surface story is its clearest differentiator — CLI for terminal-first developers, desktop app for managing parallel agent threads, IDE extension for pairing inside VS Code or Cursor, and web for cloud-delegated tasks; all share the same ChatGPT account and model</li>
 			<li>Google Antigravity 2.0: multi-model routing means it selects the best model for each sub-task; still early days for community adoption</li>
 			<li>Devin: pricing starts at $20/mo but scales to consumption-based at higher tiers; best for well-scoped, isolated tasks</li>
 			<li>Cline: MIT licence, fully auditable; popular in enterprises with strict data governance requirements because the code never leaves your machine</li>
@@ -193,7 +279,7 @@
 
 <!-- SLIDE 8: LLM configurability -->
 <section>
-	<h3>LLM configurability varies — choose your model</h3>
+	<h3>LLM (model) configurability varies</h3>
 	<table>
 		<thead><tr><th>Agent</th><th>LLMs</th><th>Configurable?</th></tr></thead>
 		<tbody>
@@ -215,58 +301,15 @@
 	</aside>
 </section>
 
-<!-- SLIDE 9: Rovo Dev differentiators -->
+<!-- SLIDE 9: IDE extensions -->
 <section>
-	<h3>Rovo Dev retrieves Atlassian context more completely</h3>
-	<ul>
-		<li>🧠 <strong>Full Context Mode</strong> — systematic multi-step retrieval across code, docs, pipelines, and history; surfaces long-tail risk MCP silently skips</li>
-		<li>🔍 <strong>Similar issue diffs</strong> — automatically finds past Jira issues with matching code changes and reuses proven solutions</li>
-		<li>🔄 <strong>Full lifecycle</strong> — plan, generate, review, and ship code without leaving the terminal</li>
-		<li>🔌 <strong>MCP-powered</strong> — extensible via MCP servers (Forge, Atlassian, GitHub, and more)</li>
-		<li>📋 <strong>Skills-enabled</strong> — teach it your team's workflows via reusable skill files</li>
-	</ul>
-	<blockquote>"MCP = bring Atlassian context into your agent. Rovo = bring your agent to Atlassian." — Atlassian internal positioning, May 2026</blockquote>
-	<aside class="notes">
-		<p>Rovo Dev is purpose-built for Atlassian customers and has special Forge awareness. Both Rovo Dev and external agents using the Atlassian Rovo MCP Server connect to the same underlying infrastructure — the difference is how thoroughly context is gathered. Rovo surfaces long-tail risk (stale tickets, slipped PRDs, cross-product links) that MCP silently skips.</p>
-		<ul>
-			<li>Same data layer: both connect to mcp.atlassian.com — same products (Jira, Confluence, Bitbucket, JSM, Compass), same permission model</li>
-			<li>Where Rovo Dev wins: completeness. Internal benchmarks show 44% better answer quality with 48% fewer tokens when grounded in Teamwork Graph data</li>
-			<li>Where MCP-in-IDE wins: deliverable depth — applicable diffs, build/test execution, code-level output</li>
-			<li>Atlassian Rovo MCP Server now includes getTeamworkGraphContext and getTeamworkGraphObject tools (open beta May 2026) — significantly closing the gap for external agents</li>
-		</ul>
-	</aside>
-</section>
-
-<!-- SLIDE 10: AI-native IDEs -->
-<section>
-	<h3>AI-native IDEs are rebuilt around AI</h3>
+	<h3>AI Coding Assistants add AI with zero friction</h3>
 	<table>
-		<thead><tr><th>IDE</th><th>Creator</th><th>LLMs</th><th>Configurable?</th><th>Pricing (Pro)</th></tr></thead>
+		<thead><tr><th>Extension</th><th>Creator</th><th>LLMs</th><th>LLM Configurable?</th></tr></thead>
 		<tbody>
-			<tr><td><strong>Cursor</strong></td><td>Anysphere</td><td>Claude, GPT, Gemini, Grok + proprietary Composer</td><td>Yes — per-conversation</td><td>$20/mo</td></tr>
-			<tr><td><strong>Windsurf</strong></td><td>Codeium / Cognition</td><td>Proprietary SWE-1.5/1.6, Claude, GPT + BYOK</td><td>Yes — dropdown in Cascade</td><td>$15/mo</td></tr>
-			<tr><td><strong>Replit</strong></td><td>Replit Inc.</td><td>Managed (not user-selectable)</td><td>❌ No</td><td>$17/mo</td></tr>
-		</tbody>
-	</table>
-	<aside class="notes">
-		<p>AI-Native IDEs differ from extensions because AI is baked into the core architecture, not bolted on. Both Cursor and Windsurf work excellently with the Forge MCP Server. Cursor leads on model flexibility and community; Windsurf on speed and compliance for regulated industries.</p>
-		<ul>
-			<li>Cursor: $2B ARR in February 2026 (reportedly fastest-growing SaaS in history); $29.3B valuation after Series D; 2M+ users; 50% Fortune 500 adoption</li>
-			<li>Windsurf: acquired by Cognition AI; Cascade agent tracks your actions to infer intent; FedRAMP, HIPAA, ITAR compliant</li>
-			<li>Both ~$20/mo · 200K token context · multi-file agentic editing</li>
-		</ul>
-	</aside>
-</section>
-
-<!-- SLIDE 11: IDE extensions -->
-<section>
-	<h3>IDE extensions add AI with zero friction</h3>
-	<table>
-		<thead><tr><th>Extension</th><th>Creator</th><th>LLMs</th><th>Configurable?</th><th>Pricing</th></tr></thead>
-		<tbody>
-			<tr><td><strong>GitHub Copilot</strong></td><td>Microsoft / GitHub</td><td>GPT-5.5, GPT-5.4, Claude Sonnet 4.6, Claude Haiku 4.5</td><td>Yes — user or admin selectable</td><td>Free / $10 / $39 / mo</td></tr>
-			<tr><td><strong>JetBrains AI Assistant</strong></td><td>JetBrains</td><td>Claude (Anthropic), Gemini, GPT via BYOK; proprietary Mellum for completions</td><td>Yes — BYOK supported</td><td>$10 / $20 / $30 / mo</td></tr>
-			<tr><td><strong>Tabnine</strong></td><td>Tabnine</td><td>Privacy-first; multiple models; self-hosted / air-gapped available</td><td>Yes — enterprise model config</td><td>$12–$39/mo</td></tr>
+			<tr><td><strong>GitHub Copilot</strong></td><td>Microsoft / GitHub</td><td>GPT-5.5, GPT-5.4, Claude Sonnet 4.6, Claude Haiku 4.5</td><td>Yes — user or admin selectable</td></tr>
+			<tr><td><strong>JetBrains AI Assistant</strong></td><td>JetBrains</td><td>Claude (Anthropic), Gemini, GPT via BYOK; proprietary Mellum for completions</td><td>Yes — BYOK supported</td></tr>
+			<tr><td><strong>Tabnine</strong></td><td>Tabnine</td><td>Privacy-first; multiple models; self-hosted / air-gapped available</td><td>Yes — enterprise model config</td></tr>
 		</tbody>
 	</table>
 	<blockquote>💡 Copilot has evolved well beyond autocomplete: agentic PR creation and code review, and GitHub Spark (natural language app building) — now moving to token-based billing in mid-2026.</blockquote>
@@ -280,9 +323,30 @@
 	</aside>
 </section>
 
-<!-- SLIDE 12: Hosted AI IDEs -->
+<!-- SLIDE 10: AI-native IDEs -->
 <section>
-	<h3>Hosted AI IDEs now support MCP</h3>
+	<h3>AI-Native IDEs are rebuilt around AI</h3>
+	<table>
+		<thead><tr><th>IDE</th><th>Creator</th><th>LLMs</th><th>LLM Configurable?</th></tr></thead>
+		<tbody>
+			<tr><td><strong>Cursor</strong></td><td>Anysphere</td><td>Claude, GPT, Gemini, Grok + proprietary Composer</td><td>Yes — per-conversation</td></tr>
+			<tr><td><strong>Windsurf</strong></td><td>Codeium / Cognition</td><td>Proprietary SWE-1.5/1.6, Claude, GPT + BYOK</td><td>Yes — dropdown in Cascade</td></tr>
+			<tr><td><strong>Replit</strong></td><td>Replit Inc.</td><td>Managed (not user-selectable)</td><td>❌ No</td></tr>
+		</tbody>
+	</table>
+	<aside class="notes">
+		<p>AI-Native IDEs differ from AI Coding Assistants because AI is baked into the core architecture, not bolted on. Both Cursor and Windsurf work excellently with the Forge MCP Server. Cursor leads on model flexibility and community; Windsurf on speed and compliance for regulated industries.</p>
+		<ul>
+			<li>Cursor: $2B ARR in February 2026 (reportedly fastest-growing SaaS in history); $29.3B valuation after Series D; 2M+ users; 50% Fortune 500 adoption</li>
+			<li>Windsurf: acquired by Cognition AI; Cascade agent tracks your actions to infer intent; FedRAMP, HIPAA, ITAR compliant</li>
+			<li>Both ~$20/mo · 200K token context · multi-file agentic editing</li>
+		</ul>
+	</aside>
+</section>
+
+<!-- SLIDE 11: Autonomous Dev Platforms -->
+<section>
+	<h3>Autonomous Dev Platforms now support MCP</h3>
 	<table>
 		<thead><tr><th>Platform</th><th>Creator</th><th>Best For</th><th>MCP Support</th><th>Forge-native?</th></tr></thead>
 		<tbody>
@@ -300,6 +364,28 @@
 			<li>App Studio: open beta March 2026, auto-rolled out May 2026</li>
 			<li>Lovable: $100M ARR in 8 months; custom MCP on paid plans</li>
 			<li>Technical Cliff: general-purpose platforms hand off hosting and auth to the developer; Forge handles both automatically</li>
+		</ul>
+	</aside>
+</section>
+
+<!-- SLIDE 12: Rovo Dev differentiators -->
+<section>
+	<h3>Rovo Dev retrieves Atlassian context more completely</h3>
+	<ul>
+		<li>🧠 <strong>Full Context Mode</strong> — systematic multi-step retrieval across code, docs, pipelines, and history; surfaces long-tail risk MCP silently skips</li>
+		<li>🔍 <strong>Similar issue diffs</strong> — automatically finds past Jira issues with matching code changes and reuses proven solutions</li>
+		<li>🔄 <strong>Full lifecycle</strong> — plan, generate, review, and ship code without leaving the terminal</li>
+		<li>🔌 <strong>MCP-powered</strong> — extensible via MCP servers (Forge, Atlassian, GitHub, and more)</li>
+		<li>📋 <strong>Skills-enabled</strong> — teach it your team's workflows via reusable skill files</li>
+	</ul>
+	<blockquote>"MCP = bring Atlassian context into your agent. Rovo = bring your agent to Atlassian." — Atlassian internal positioning, May 2026</blockquote>
+	<aside class="notes">
+		<p>Rovo Dev is purpose-built for Atlassian customers and has special Forge awareness. Both Rovo Dev and external agents using the Atlassian Rovo MCP Server connect to the same underlying infrastructure — the difference is how thoroughly context is gathered. Rovo surfaces long-tail risk (stale tickets, slipped PRDs, cross-product links) that MCP silently skips.</p>
+		<ul>
+			<li>Same data layer: both connect to mcp.atlassian.com — same products (Jira, Confluence, Bitbucket, JSM, Compass), same permission model</li>
+			<li>Where Rovo Dev wins: completeness. Internal benchmarks show 44% better answer quality with 48% fewer tokens when grounded in Teamwork Graph data</li>
+			<li>Where MCP-in-IDE wins: deliverable depth — applicable diffs, build/test execution, code-level output</li>
+			<li>Atlassian Rovo MCP Server now includes getTeamworkGraphContext and getTeamworkGraphObject tools (open beta May 2026) — significantly closing the gap for external agents</li>
 		</ul>
 	</aside>
 </section>
@@ -1064,19 +1150,22 @@ Atlassian Rovo MCP → marks PROJ-123 Done</code></pre>
 <section>
 	<h3>Four categories — choose by autonomy level</h3>
 	<table>
-		<thead><tr><th>Category</th><th>Key Players</th><th>Best For</th></tr></thead>
+		<thead><tr><th>Category</th><th>Autonomy</th><th>Best For</th></tr></thead>
 		<tbody>
-			<tr><td><strong>AI Dev Agents</strong></td><td>Rovo Dev / Rovo CLI, Claude Code, Codex CLI, Antigravity 2.0, Devin, Cline</td><td>Multi-step coding tasks</td></tr>
-			<tr><td><strong>AI-Native IDEs</strong></td><td>Cursor, Windsurf, Replit</td><td>Full AI-first development environment</td></tr>
-			<tr><td><strong>IDE Extensions</strong></td><td>GitHub Copilot, JetBrains AI Assistant, Tabnine</td><td>AI in your existing editor</td></tr>
-			<tr><td><strong>Hosted AI IDEs</strong></td><td>Atlassian App Studio, Lovable, Bolt.new</td><td>No-code / low-code to production</td></tr>
+			<tr><td><strong>AI Dev Agents</strong></td><td>★★★★ Fully agentic</td><td>Multi-step coding tasks; hand off and review</td></tr>
+			<tr><td><strong>AI-Native IDEs</strong></td><td>★★★☆ Agentic, human-in-loop</td><td>AI-first editing with you still in control</td></tr>
+			<tr><td><strong>AI Coding Assistants</strong></td><td>★★☆☆ Assisted / conversational</td><td>AI in your existing editor; lowest switching cost</td></tr>
+			<tr><td><strong>Autonomous Dev Platforms</strong></td><td>★★★★ Fully agentic, zero setup</td><td>No-code / low-code to production; no environment to configure</td></tr>
 		</tbody>
 	</table>
-	<blockquote>Choose by autonomy level — from AI in your editor to AI doing the work end-to-end.</blockquote>
+	<blockquote>The key question isn't which category is best — it's which autonomy level fits your team's confidence and workflow today.</blockquote>
 	<aside class="notes">
-		<p>"To summarise the landscape: four categories, each at a different point on the autonomy spectrum. The question worth asking yourself: where do you sit today — and where do you want to be in six months?"</p>
+		<p>"To summarise the landscape: four categories, but the real axis is autonomy — how much of the work do you hand to the AI versus supervise step by step? Extensions give you AI assistance with full control. AI-native IDEs give you strong agent capabilities while keeping you in the editor. Standalone agents and hosted IDEs are both fully agentic — the difference is whether you bring your own environment or use a managed one."</p>
+		<p>"The question worth asking yourself: where do you sit today on that spectrum — and where do you want to be in six months?"</p>
 		<ul>
-			<li>Most developers start lower (extensions) and move higher (agents) as they build confidence</li>
+			<li>Most developers start with extensions (lowest friction, no switching cost) and move toward agents as they build confidence — this is the Three Levels adoption path we covered earlier</li>
+			<li>Autonomous Dev Platforms and AI Dev Agents are at the same autonomy level — the distinction is operational, not capability-based; worth emphasising if the audience conflates "simple tool" with "low autonomy"</li>
+			<li>Cursor and Rovo Dev often get compared but sit in different categories: Cursor is an AI-Native IDE (where you code), Rovo Dev is an AI Dev Agent (what does the coding) — reinforce this if it came up in Q&A</li>
 		</ul>
 	</aside>
 </section>
