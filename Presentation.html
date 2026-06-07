@@ -346,24 +346,48 @@
 
 <!-- SLIDE 11: Autonomous Dev Platforms -->
 <section>
-	<h3>Autonomous Dev Platforms now support MCP</h3>
+	<h3>Autonomous Dev Platforms</h3>
 	<table>
-		<thead><tr><th>Platform</th><th>Creator</th><th>Best For</th><th>MCP Support</th><th>Forge-native?</th></tr></thead>
+		<thead><tr><th>Platform</th><th>Creator</th><th>Best For</th><th>Forge MCP Support</th></tr></thead>
 		<tbody>
-			<tr><td><strong>Atlassian App Studio</strong></td><td>Atlassian</td><td>Building Forge apps via natural language; no code required</td><td>✅ Native</td><td>✅ Yes</td></tr>
-			<tr><td><strong>Lovable</strong></td><td>Lovable</td><td>Full-stack web app MVPs from prompts; $100M ARR in 8 months</td><td>✅ Custom MCP on paid plans</td><td>⚙️ Via Forge MCP</td></tr>
-			<tr><td><strong>Bolt.new</strong></td><td>StackBlitz</td><td>Browser-based dev; visible code; zero local setup</td><td>✅ Custom MCP</td><td>⚙️ Via Forge MCP</td></tr>
-			<tr><td><strong>v0.dev</strong></td><td>Vercel</td><td>React/Tailwind UI component generation</td><td>✅ Custom MCP</td><td>⚙️ Via Forge MCP</td></tr>
-			<tr><td><strong>Replit</strong></td><td>Replit Inc.</td><td>Cloud coding + hosting + DB + AI agent</td><td>✅ 1-click + custom MCP</td><td>⚙️ Via Forge MCP</td></tr>
+			<tr><td><strong>Atlassian App Studio</strong></td><td>Atlassian</td><td>Building Forge apps via natural language; no code required</td><td>✅ Custom MCP (native)</td></tr>
+			<tr><td><strong>Lovable</strong></td><td>Lovable</td><td>Full-stack web app MVPs from prompts</td><td>✅ Custom MCP on paid plans</td></tr>
+			<tr><td><strong>Bolt.new</strong></td><td>StackBlitz</td><td>Browser-based dev; visible code; zero local setup</td><td>✅ Custom MCP</td></tr>
+			<tr><td><strong>v0.dev</strong></td><td>Vercel</td><td>React/Tailwind UI component generation</td><td>✅ Custom MCP</td></tr>
+			<tr><td><strong>Replit</strong></td><td>Replit Inc.</td><td>Cloud coding + hosting + DB + AI agent</td><td>✅ 1-click + custom MCP</td></tr>
 		</tbody>
 	</table>
-	<blockquote><strong>The tradeoff:</strong> Maximum speed to prototype — but general-purpose platforms often hit a "Technical Cliff" at production deployment. App Studio avoids this because Forge handles hosting, auth, and scaling automatically.</blockquote>
 	<aside class="notes">
 		<p>"All five of these platforms now support MCP — so any of them can connect to the Forge MCP Server for Forge-aware generation. But App Studio is the one to highlight for this audience: it's Forge-native, which means you sidestep the 'Technical Cliff' — the point where vibe-coded apps look great but fall apart at production auth, hosting, and scaling. Forge handles all of that automatically."</p>
 		<ul>
 			<li>App Studio: open beta March 2026, auto-rolled out May 2026</li>
-			<li>Lovable: $100M ARR in 8 months; custom MCP on paid plans</li>
+			<li>Lovable: custom MCP on paid plans</li>
 			<li>Technical Cliff: general-purpose platforms hand off hosting and auth to the developer; Forge handles both automatically</li>
+		</ul>
+	</aside>
+</section>
+
+<!-- SLIDE 11b: The Technical Cliff -->
+<section>
+	<h3>The Technical Cliff</h3>
+	<table>
+		<thead><tr><th></th><th>General-purpose platforms</th><th>App Studio (Forge)</th></tr></thead>
+		<tbody>
+			<tr><td><strong>Prototype</strong></td><td>✅ Fast</td><td>✅ Fast</td></tr>
+			<tr><td><strong>AuthZ &amp; AuthN</strong></td><td>⚠️ Your responsibility</td><td>✅ Handled by Forge</td></tr>
+			<tr><td><strong>Hosting, scaling &amp; deployment</strong></td><td>⚠️ You manage it</td><td>✅ Handled by Forge</td></tr>
+		</tbody>
+	</table>
+	<aside class="notes">
+		<p>The "Technical Cliff" is the point at which a vibe-coded app — one that looks complete and polished in a browser preview — hits the realities of production deployment. For general-purpose platforms like Lovable, Bolt.new, or v0.dev, the AI generates the app code, but everything else is left to the developer: setting up OAuth, provisioning hosting, managing scaling, wiring in Atlassian permission scopes, and handling deployment pipelines.</p>
+		<p>For a professional developer this is routine. For someone who used an Autonomous Dev Platform precisely because they wanted to avoid that complexity, it's a cliff edge — the moment the tool stops helping and the hard work begins.</p>
+		<ul>
+			<li>Authentication: Atlassian OAuth 2.0 is non-trivial to implement correctly; Forge handles it out of the box with zero configuration</li>
+			<li>Hosting &amp; scaling: general-purpose platforms generate front-end code; you still need a server, a CDN, and a scaling strategy; Forge runs on Atlassian's infrastructure automatically</li>
+			<li>Atlassian permissions: Forge apps declare scopes in manifest.yml and the platform enforces them; external apps must implement the full Atlassian permission model manually</li>
+			<li>Production deployment: Forge has a first-class deployment model (forge deploy); there is no equivalent in general-purpose platforms</li>
+			<li>The key message for this audience: if you're building for Atlassian products, App Studio is the only platform where the cliff doesn't exist — the platform handles everything that comes after the prototype</li>
+			<li>Transition: "That's why App Studio is the tool to highlight for this audience. Now let's look at what makes Rovo Dev stand out when you're working with an AI agent directly."</li>
 		</ul>
 	</aside>
 </section>
