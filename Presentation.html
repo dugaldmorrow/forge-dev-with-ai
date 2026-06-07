@@ -646,9 +646,9 @@
 <section>
 	<h3>Skills = Local; MCP = Remote</h3>
 	<ul>
-		<li class="fragment"><span class="fragment highlight-blue">Skills</span> provide <span class="fragment highlight-blue">local</span> knowledge and capabilities</li>
-		<li class="fragment"><span class="fragment highlight-green">MCP</span> provides <span class="fragment highlight-green">remote</span> knowledge and capabilities</li>
-		<li class="fragment"><span class="fragment highlight-blue">Skills</span> can be used to help ensure <span class="fragment highlight-green">MCP</span> is utilised reliably</li>
+		<li class="fragment"><span style="color:#1b91ff">Skills</span> provide <span style="color:#1b91ff">local</span> knowledge and capabilities</li>
+		<li class="fragment"><span style="color:#17ff2e">MCP</span> provides <span style="color:#17ff2e">remote</span> knowledge and capabilities</li>
+		<li class="fragment"><span style="color:#1b91ff">Skills</span> can be used to help ensure <span style="color:#17ff2e">MCP</span> is utilised reliably</li>
 	</ul>
 	<aside class="notes">
 		<p>The local/remote distinction is the clearest mental model for the skills vs MCP question. Skills are files on disk — they travel with your repo, they're version-controlled, and they load into the agent's context when the task matches. MCP servers are running processes that connect to external systems in real time: the Forge MCP Server, the Atlassian Rovo MCP, your database, your CI system. Neither is sufficient alone. Without a skill, the agent has to decide on its own whether to call the MCP — and it may not. Without the MCP, the skill's instruction to "look up the current module catalog" falls back to stale training data. Skills can also include executable scripts, so "local capabilities" covers more than just instructions — they can run commands on your machine too.</p>
