@@ -534,14 +534,13 @@
 
 <!-- SLIDE 18b: Agent skills — examples -->
 <section>
-	<h3>Four skills cover the Forge workflow end-to-end</h3>
+	<h3>Skills to cover the Forge workflow</h3>
 	<ul>
 		<li>📋 <strong>Forge App Builder</strong> — module selection, manifest setup, UI Kit patterns, deploy workflow</li>
 		<li>📋 <strong>Forge App Review</strong> — pre-deploy checklist: security, cost efficiency, performance</li>
 		<li>📋 <strong>Commit</strong> — commit message format, what to stage, PR structure</li>
 		<li>📋 <strong>Changelog</strong> — how to record changes in your project's specific format</li>
 	</ul>
-	<blockquote>These four skills — combined with the Forge MCP Server — cover the full loop from scaffolding to shipped.</blockquote>
 	<aside class="notes">
 		<p>These four skills map directly to the four stages of Forge development: build, review, commit, and record. Together they cover the full loop from scaffolding to shipped. Transition: "Now let's look at where to store these skill files and how to keep them up to date."</p>
 		<ul>
@@ -574,7 +573,7 @@
 
 <!-- SLIDE 19: forge-skills bundle -->
 <section>
-	<h3>The Forge AI Plugin bundles skills, MCP, and host metadata</h3>
+	<h3>The Forge AI Plugin bundles skills and MCP servers</h3>
 	<table>
 		<thead><tr><th>Component</th><th>What it provides</th></tr></thead>
 		<tbody>
@@ -586,7 +585,7 @@
 			<tr><td>🎨 <strong>ADS MCP Server</strong></td><td>Atlassian Design System components, tokens, and icon lookup for Custom UI apps</td></tr>
 		</tbody>
 	</table>
-	<blockquote>Install the plugin where supported. Use <code>npx skills</code> as the manual fallback.</blockquote>
+	<blockquote>Use <code>npx skills</code> as the manual fallback.</blockquote>
 	<aside class="notes">
 		<p>The Forge AI Plugin (<code>atlassian/forge-skills</code>) is the official Atlassian-published plugin bundle — not a community project. It ships Forge skills under <code>skills/</code>, MCP configuration in <code>.mcp.json</code>, and per-host plugin metadata such as <code>.claude-plugin/</code>, <code>.cursor-plugin/</code>, and <code>gemini-extension.json</code>. The host makes the agent aware of the skills by indexing the plugin's bundled <code>skills/</code> directory after install or restart.</p>
 		<p><strong>Path 1 — Plugin-aware hosts:</strong> use the host-specific plugin install command. Current examples include Claude Code: <code>/plugin install forge-skills@atlassian-forge-skills</code>; Cursor: <code>/add-plugin forge-skills</code> or the Cursor Marketplace; Gemini CLI: <code>gemini extensions install https://github.com/atlassian/forge-skills</code>; GitHub Copilot CLI: <code>copilot plugin install atlassian/forge-skills</code>. The plugin path is lower friction because skills, MCP wiring, and host metadata install together.</p>
@@ -646,15 +645,11 @@
 <!-- SLIDE 21b: MCP + Skills working together -->
 <section>
 	<h3>Skills = Local; MCP = Remote</h3>
-  <p>
-    <span class="fragment highlight-blue">Skills</span> provide <span class="fragment highlight-blue">local</span> knowledge and capabilities
-  </p>
-  <p>
-    <span class="fragment highlight-green">MCP</span> provide <span class="fragment highlight-green">remote</span> knowledge and capabilities
-  </p>
-  <p>
-    <span class="fragment highlight-blue">Skills</span> can be used to help ensure <span class="fragment highlight-green">MCP</span> is utilised reliably.
-  </p>
+	<ul>
+		<li class="fragment"><span class="fragment highlight-blue">Skills</span> provide <span class="fragment highlight-blue">local</span> knowledge and capabilities</li>
+		<li class="fragment"><span class="fragment highlight-green">MCP</span> provides <span class="fragment highlight-green">remote</span> knowledge and capabilities</li>
+		<li class="fragment"><span class="fragment highlight-blue">Skills</span> can be used to help ensure <span class="fragment highlight-green">MCP</span> is utilised reliably</li>
+	</ul>
 	<aside class="notes">
 		<p>The local/remote distinction is the clearest mental model for the skills vs MCP question. Skills are files on disk — they travel with your repo, they're version-controlled, and they load into the agent's context when the task matches. MCP servers are running processes that connect to external systems in real time: the Forge MCP Server, the Atlassian Rovo MCP, your database, your CI system. Neither is sufficient alone. Without a skill, the agent has to decide on its own whether to call the MCP — and it may not. Without the MCP, the skill's instruction to "look up the current module catalog" falls back to stale training data. Skills can also include executable scripts, so "local capabilities" covers more than just instructions — they can run commands on your machine too.</p>
 		<p>Transition: "MCP invocation isn't guaranteed — let's look at what that means in practice."</p>
