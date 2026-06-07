@@ -17,7 +17,7 @@
 		.reveal pre { font-size: 0.55em; }
 		.reveal blockquote { font-size: 0.85em; border-left: 4px solid #f90; padding-left: 1em; background: rgba(255,153,0,0.1); }
 		.reveal .slides section { text-align: left; }
-		.reveal h1, .reveal h2, .reveal h3 { text-transform: none; }
+		.reveal h1, .reveal h2, .reveal h3 { text-transform: none; text-align: center; }
 		.reveal ul, .reveal ol { margin-left: 1.5em; }
 		.reveal li { margin-bottom: 0.3em; }
 	</style>
@@ -1059,6 +1059,79 @@ Atlassian Rovo MCP → marks PROJ-123 Done</code></pre>
 		<ul>
 			<li>Skills in play: Forge App Builder · Forge App Review · Commit · Changelog</li>
 			<li>A developer new to Forge can be productive on day one</li>
+		</ul>
+	</aside>
+</section>
+
+<!-- SLIDE 37b: How I AI -->
+<section>
+	<h3>My workflow: how I build Forge apps with AI</h3>
+	<ol>
+		<li>🔨 <strong>Scaffold with the Forge CLI</strong> — <code>forge create</code> generates the correct app structure; the agent starts from a known-good foundation, not a blank file</li>
+		<li>📄 <strong>Write a <code>Requirements.md</code></strong> — a plain-language spec describing what the app should do; this becomes the agent's source of truth for every feature</li>
+		<li>🤖 <strong>Instruct Rovo Dev (VS Code) + Forge MCP</strong> — in the Rovo Dev VS Code extension, point the agent at <code>Requirements.md</code> and ask it to build each feature; the Forge MCP Server keeps module, manifest, and API decisions grounded in live docs</li>
+		<li>🔁 <strong>Review → refine the spec, not just the code</strong> — when the output is wrong, the fix goes into <code>Requirements.md</code> first; clearer requirements prevent the same mistake from recurring</li>
+	</ol>
+	<blockquote>💡 The spec improves every iteration — by the time the app ships, <code>Requirements.md</code> is accurate documentation of what was built and why.</blockquote>
+	<aside class="notes">
+		<p>This is the presenter's personal workflow — not a prescription, but a concrete example of how the tools in this presentation fit together in practice. The key insight is that the Requirements.md file serves a dual purpose: it's the agent's instruction set during development, and it becomes the app's living documentation after it ships.</p>
+		<ul>
+			<li>Step 1 — forge create: scaffolding with the CLI gives the agent a valid starting point (correct directory structure, package.json, manifest.yml) so it never has to guess the boilerplate. This is where the Forge App Builder skill is particularly useful.</li>
+			<li>Step 2 — Requirements.md: a structured plain-language spec. Sections typically include: what the app does, which Atlassian product it targets, which Forge module it uses, what data it reads/writes, and any UI/UX notes. Not a PRD — just enough for the agent to make correct decisions.</li>
+			<li>Step 3 — Rovo Dev in VS Code + Forge MCP: the Rovo Dev VS Code extension brings the agent into the editor so you can reference open files directly. The Forge MCP Server ensures the agent uses current module types and API scopes, not training data that may be months out of date.</li>
+			<li>Step 4 — spec-first debugging: when the agent produces something wrong, resist the urge to just fix the code. Ask: why did the agent make this decision? Usually the spec was ambiguous. Fix the ambiguity in Requirements.md, then re-run. This prevents the same issue resurfacing in the next feature.</li>
+			<li>The compounding benefit: after ten features, Requirements.md is a comprehensive, accurate spec that a new developer (or a new AI agent session) can use to understand the app immediately.</li>
+			<li>Transition: "That's how I do it — but it doesn't have to be all or nothing. Here are three levels of adoption you can use to ramp up at your own pace."</li>
+		</ul>
+	</aside>
+</section>
+
+<!-- SLIDE 37c: Requirements specification structure -->
+<section>
+	<h3>Two files define every app: generic + specific</h3>
+	<table>
+		<thead>
+			<tr>
+				<th>File</th>
+				<th>Purpose</th>
+				<th>Example contents</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><code>GenericAppRequirements.md</code></td>
+				<td>Standards common to <strong>all</strong> Forge apps — reused unchanged across every project</td>
+				<td>TypeScript, Node 24, <code>/src/</code> directory structure, manifest conventions, <code>Usage.md</code> requirement</td>
+			</tr>
+			<tr>
+				<td><code>{AppName}.md</code></td>
+				<td>Requirements for <strong>this</strong> app only — references the generic file and adds the app-specific detail</td>
+				<td>YAML frontmatter (name, description), problem statement, Forge module &amp; trigger, functional &amp; non-functional requirements</td>
+			</tr>
+		</tbody>
+	</table>
+	<pre><code class="language-markdown">---
+name: Email Address Detector
+description: Detects email addresses within Jira work item comments.
+---
+
+# App Requirements
+...
+### Generic App Requirements
+See GenericAppRequirements.md for generic app requirements.
+
+### Functional Requirements
+The app must listen to the creation of new comments on Jira
+work items by subscribing to the `avi:jira:commented:issue` event.</code></pre>
+	<aside class="notes">
+		<p>The two-file structure keeps specifications DRY (Don't Repeat Yourself) and consistent. GenericAppRequirements.md is written once and covers the standards that apply to every Forge app in the project: TypeScript as the source language, Node.js 24, the /src/frontend/, /src/backend/, /src/shared/ directory layout, manifest.yml and package.json conventions, and the requirement for a Usage.md file. This file never changes between apps.</p>
+		<p>The app-specific file (e.g. EmailAddressDetector.md) uses a YAML frontmatter block at the top (name and description) so the agent — and any human reader — immediately knows what the app is. It then covers the problem statement, solution overview, key definitions, functional requirements (which Forge module and trigger to use, what the app must do), and non-functional requirements. It references GenericAppRequirements.md by name so the agent loads both files as context.</p>
+		<ul>
+			<li>The YAML frontmatter mirrors the pattern used in SKILL.md files — it's the same "name + description for fast scanning" convention</li>
+			<li>Functional requirements are written as testable "must" statements: "The app must listen to...", "The app must not process..." — this precision is what prevents the agent from making assumptions</li>
+			<li>Definitions matter: the email detector spec defines exactly what a "personal email address" means and lists allowed prefixes — without this, the agent would guess</li>
+			<li>When a code review reveals an issue, the fix goes into the relevant section of the spec file first — adding a "must not", clarifying a definition, or adding a new constraint — then the agent is re-run with the updated spec</li>
+			<li>Transition: "With those two files in place, the agent has everything it needs — no verbal briefing required across sessions."</li>
 		</ul>
 	</aside>
 </section>
