@@ -319,6 +319,21 @@
 	</details>
 
 	<details>
+		<summary><span class="q-number">Q14b</span> Do skills load at the start of a session, or can they load at any point?</summary>
+		<div class="answer">
+			<p>Skills can load <strong>at any point within a session</strong> — not just at startup. Loading is demand-driven: the agent evaluates each skill's <code>description</code> field (~100 tokens) at session start, then loads the full <code>SKILL.md</code> only when a task matches.</p>
+			<p>In practice this means:</p>
+			<ul>
+				<li><strong>At session start</strong> — if your first instruction clearly matches a skill (e.g. "review my Forge app"), the skill loads immediately</li>
+				<li><strong>Mid-session</strong> — if the conversation evolves and a new skill becomes relevant, it loads then (e.g. you start with a question, then ask to commit changes, so the <code>commit</code> skill activates)</li>
+				<li><strong>Reactively</strong> — some skills are opt-in and only load on an explicit trigger (e.g. the <code>quiz</code> skill in this project only loads when you ask to be tested)</li>
+			</ul>
+			<p>Because loading a skill consumes context window tokens, on-demand loading keeps costs proportional to usage — you only pay for what activates.</p>
+			<p class="note">A skill loaded mid-session is just as effective as one loaded at the start — its instructions simply become part of the active context from that point forward.</p>
+		</div>
+	</details>
+
+	<details>
 		<summary><span class="q-number">Q15</span> How do I write my first skill? Is there a template?</summary>
 		<div class="answer">
 			<p>A skill is a Markdown file with a YAML frontmatter header. The minimum viable skill looks like this:</p>

@@ -517,17 +517,15 @@
 
 <!-- SLIDE 18: Agent skills — how they work -->
 <section>
-	<h3>Skills load progressively — ~100 tokens at startup</h3>
+	<h3>Skills load progressively</h3>
 	<ol>
 		<li><strong>Discover</strong> (~100 tokens) — agent sees skill name + description at startup</li>
 		<li><strong>Activate</strong> — agent loads full SKILL.md when the task matches</li>
 		<li><strong>Execute</strong> — agent follows instructions, loads referenced files as needed</li>
 	</ol>
-	<blockquote><em>Agent Skills are an open standard (agentskills.io, Apache 2.0), supported by Rovo Dev, Claude Code, GitHub Copilot, and Codex CLI.</em></blockquote>
 	<aside class="notes">
 		<p>If an MCP server is like giving the agent a phone to call external services, a skill is like giving the agent your team's runbook — the specific way your team does things. Progressive disclosure keeps costs low: only ~100 tokens per skill at startup, then the full instructions load only when the task matches.</p>
 		<ul>
-			<li>Agent Skills are an open standard formalised at agentskills.io (Apache 2.0 licence)</li>
 			<li>Build a skill once, use it across Claude Code, Codex CLI, GitHub Copilot, and Rovo Dev — without modification</li>
 			<li>You can have many skills without burning tokens unnecessarily — cost scales with usage, not with skill count</li>
 		</ul>
