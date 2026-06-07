@@ -370,22 +370,24 @@
 
 <!-- SLIDE 12: Rovo Dev differentiators -->
 <section>
-	<h3>Rovo Dev retrieves Atlassian context more completely</h3>
+	<h3>Rovo Dev vs MCP-connected agents</h3>
 	<ul>
-		<li>🧠 <strong>Full Context Mode</strong> — systematic multi-step retrieval across code, docs, pipelines, and history; surfaces long-tail risk MCP silently skips</li>
-		<li>🔍 <strong>Similar issue diffs</strong> — automatically finds past Jira issues with matching code changes and reuses proven solutions</li>
-		<li>🔄 <strong>Full lifecycle</strong> — plan, generate, review, and ship code without leaving the terminal</li>
-		<li>🔌 <strong>MCP-powered</strong> — extensible via MCP servers (Forge, Atlassian, GitHub, and more)</li>
-		<li>📋 <strong>Skills-enabled</strong> — teach it your team's workflows via reusable skill files</li>
+		<li>🕸️ <strong>Teamwork Graph intelligence</strong> — graph traversal MCP doesn't support</li>
+		<li>🧠 <strong>Memory fused with Teamwork Graph</strong> — no manual prompting per session</li>
+		<li>🔍 <strong>Long-tail completeness</strong> — catches what MCP silently misses</li>
+		<li>🔗 <strong>Dual-layer context</strong> — org graph + personal workspace</li>
+		<li>⚡ <strong>Zero-config</strong> — no OAuth or MCP setup required</li>
 	</ul>
-	<blockquote>"MCP = bring Atlassian context into your agent. Rovo = bring your agent to Atlassian." — Atlassian internal positioning, May 2026</blockquote>
 	<aside class="notes">
-		<p>Rovo Dev is purpose-built for Atlassian customers and has special Forge awareness. Both Rovo Dev and external agents using the Atlassian Rovo MCP Server connect to the same underlying infrastructure — the difference is how thoroughly context is gathered. Rovo surfaces long-tail risk (stale tickets, slipped PRDs, cross-product links) that MCP silently skips.</p>
+		<p>Both Rovo Dev and external agents using the Atlassian Rovo MCP Server connect to the same underlying Atlassian infrastructure — same products (Jira, Confluence, Bitbucket, JSM, Compass), same permission model. The difference is depth and continuity of context, not access. See <a href="research/RovoDevResearch.md">RovoDevResearch.md</a> for full research notes.</p>
 		<ul>
-			<li>Same data layer: both connect to mcp.atlassian.com — same products (Jira, Confluence, Bitbucket, JSM, Compass), same permission model</li>
-			<li>Where Rovo Dev wins: completeness. Internal benchmarks show 44% better answer quality with 48% fewer tokens when grounded in Teamwork Graph data</li>
-			<li>Where MCP-in-IDE wins: deliverable depth — applicable diffs, build/test execution, code-level output</li>
-			<li>Atlassian Rovo MCP Server now includes getTeamworkGraphContext and getTeamworkGraphObject tools (open beta May 2026) — significantly closing the gap for external agents</li>
+			<li><strong>Teamwork Graph intelligence:</strong> Rovo Dev gets multi-hop graph traversals, relationship inference, and collaboration patterns — e.g. "who worked on what together", tracing project → issue → commit → repo. These aren't exposed through the MCP Server's tool surface; external agents get basic Jira/Confluence read/write, but not the graph intelligence layer.</li>
+			<li><strong>Memory fused with Teamwork Graph:</strong> Persistent memory files (AGENTS.md etc.) are a general pattern any agent can use — the Rovo Dev-specific advantage is that memory is automatically fused with live Teamwork Graph data in the same context window, with no explicit prompting required. An external agent with an equivalent memory file can achieve similar results, but must manually trigger MCP calls each session to pull in live Atlassian context.</li>
+			<li><strong>Long-tail completeness:</strong> Internal testing showed Rovo Dev catches things MCP-connected agents silently miss — stale tickets, slipped PRDs, cross-product links like a CVE linked to a Bitbucket PR. External agents with MCP "look authoritative when they're missing risks."</li>
+			<li><strong>Dual-layer context:</strong> Rovo Dev combines the Teamwork Graph (organisational layer) with personal skills, memory, and workspace context (individual layer). External agents only get what MCP tools return per-query — no accumulated personal layer.</li>
+			<li><strong>Zero-config integration:</strong> Rovo Dev auto-connects to the Atlassian MCP server with native Jira/Confluence/Bitbucket actions built in. External agents require explicit MCP server configuration and OAuth setup — a meaningful barrier for teams adopting at scale.</li>
+			<li>Internal benchmarks: 44% better answer quality with 48% fewer tokens when grounded in Teamwork Graph data. Where MCP-in-IDE wins: deliverable depth — applicable diffs, build/test execution, code-level output.</li>
+			<li>Note: The Atlassian Rovo MCP Server added getTeamworkGraphContext and getTeamworkGraphObject tools in open beta (May 2026) — this is closing the gap for external agents, but persistent memory and zero-config remain Rovo Dev–only advantages.</li>
 		</ul>
 	</aside>
 </section>
