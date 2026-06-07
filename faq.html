@@ -533,6 +533,26 @@ More instructions...</pre>
 	</details>
 
 	<details>
+		<summary><span class="q-number">Q30c</span> As an agent session grows, does each query consume more tokens?</summary>
+		<div class="answer">
+			<p>Yes — because AI models have no true memory. Every response requires the <strong>full conversation history</strong> to be sent as input. So query #20 includes all 19 previous exchanges plus your new prompt, making it significantly more expensive than query #1.</p>
+			<p>In practice this means:</p>
+			<ul>
+				<li><strong>Token cost increases</strong> throughout a session — each response costs more than the last</li>
+				<li><strong>Context window fills up</strong> — there's a hard limit; once hit, early messages get dropped or the session stops working</li>
+				<li><strong>Quality can degrade</strong> — important early instructions can get diluted in very long contexts</li>
+			</ul>
+			<p>How to mitigate it:</p>
+			<ul>
+				<li><strong>Start fresh sessions</strong> for new, unrelated tasks — don't accumulate unrelated context</li>
+				<li><strong>Use AGENTS.md / Requirements.md</strong> — key facts live in files, not the chat history, so a fresh session starts with full context at zero chat cost</li>
+				<li><strong>Skills load on demand</strong> — they contribute only when needed, keeping idle sessions lean</li>
+			</ul>
+			<p>The two-file spec structure in this workflow (<code>GenericAppRequirements.md</code> + <code>{AppName}.md</code>) is a direct response to this: rather than re-briefing the agent in chat every session, you load the spec files and the agent has everything it needs in a fresh, token-efficient context.</p>
+		</div>
+	</details>
+
+	<details>
 		<summary><span class="q-number">Q31</span> What about IP ownership of AI-generated code?</summary>
 		<div class="answer">
 			<p>This is an evolving legal area and you should consult your legal team for definitive guidance. The general position as of 2026:</p>
