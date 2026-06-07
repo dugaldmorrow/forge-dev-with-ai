@@ -432,16 +432,14 @@
 
 <!-- SLIDE 14: MCP servers for building -->
 <section>
-	<h3>Three MCP servers accelerate Forge development</h3>
-	<p><strong>🔨 App development</strong> — tools that help the agent <em>build</em> the app:</p>
+	<h3>MCP servers accelerate Forge development</h3>
 	<table>
-		<thead><tr><th>MCP Server</th><th>Provider</th><th>Key Capabilities</th></tr></thead>
+		<thead><tr><th>MCP Server</th><th>Key Capabilities</th></tr></thead>
 		<tbody>
-			<tr><td>🔶 <strong>Forge MCP Server</strong></td><td>Atlassian</td><td>Forge how-to guides, module catalogs, manifest guidance, API search</td></tr>
-			<tr><td>🎨 <strong>ADS MCP Server</strong></td><td>Atlassian</td><td>ADS components, design tokens, icons, and accessibility guidelines</td></tr>
-			<tr><td>🐙 <strong>GitHub MCP Server</strong></td><td>GitHub</td><td>Repository management, PR creation, issue tracking, code review</td></tr>
-			<tr><td>📁 <strong>Filesystem MCP</strong></td><td>Anthropic</td><td>Local file read/write for agents in sandboxed environments</td></tr>
-			<tr><td>🌐 <strong>Playwright MCP</strong></td><td>Microsoft</td><td>Browser automation, web scraping, UI testing</td></tr>
+			<tr><td>🔶 <strong>Forge MCP Server</strong></td><td>Forge how-to guides, module catalogs, manifest guidance, API search</td></tr>
+			<tr><td>🎨 <strong>ADS MCP Server</strong></td><td>ADS components, design tokens, icons, and accessibility guidelines</td></tr>
+			<tr><td>🐙 <strong>Bitbucket or GitHub MCP Server</strong></td><td>Repository management, PR creation, issue tracking, code review</td></tr>
+			<tr><td>🌐 <strong>Playwright MCP</strong></td><td>Browser automation, web scraping, UI testing</td></tr>
 		</tbody>
 	</table>
 	<aside class="notes">
@@ -456,13 +454,12 @@
 
 <!-- SLIDE 15: MCP servers for context -->
 <section>
-	<h3>MCP servers give agents live Atlassian context</h3>
-	<p><strong>📋 Project context</strong> — tools that help the agent <em>understand what to build and track progress</em>:</p>
+	<h3>MCP servers give agents team context</h3>
 	<table>
-		<thead><tr><th>MCP Server</th><th>Provider</th><th>Key Capabilities</th></tr></thead>
+		<thead><tr><th>MCP Server</th><th>Key Capabilities</th></tr></thead>
 		<tbody>
-			<tr><td>🔷 <strong>Atlassian Rovo MCP Server</strong></td><td>Atlassian</td><td>Jira, Confluence, Bitbucket, Compass read/write — reads requirements, updates issue status, links PRs</td></tr>
-			<tr><td>💬 <strong>Slack MCP</strong></td><td>Community</td><td>Read channel discussions for context; post progress updates</td></tr>
+			<tr><td>🔷 <strong>Atlassian Rovo MCP Server</strong></td><td>Jira, Confluence, Bitbucket, Compass read/write — reads requirements, updates issue status, links PRs</td></tr>
+			<tr><td>💬 <strong>Slack MCP</strong></td><td>Read channel discussions for context; post progress updates</td></tr>
 		</tbody>
 	</table>
 	<aside class="notes">
@@ -485,7 +482,7 @@
     }
   }
 }</code></pre>
-	<blockquote>⚠️ Fully restart the app after config changes — then ask <em>"What Forge modules are available for Jira?"</em> to verify.</blockquote>
+	<blockquote>⚠️ Restart the MCP host, then ask <em>"What Forge modules are available for Jira?"</em> to verify.</blockquote>
 	<aside class="notes">
 		<p>"This one config block is all you need. The Forge MCP Server is remote — there's nothing to install locally, the URL is the server. Paste this into your config, fully restart the app, and ask 'What Forge modules are available for Jira?' If you get a structured list, you're connected."</p>
 		<ul>
@@ -498,7 +495,6 @@
 <!-- SLIDE 17: Config file locations -->
 <section>
 	<h3>MCP config locations vary by tool</h3>
-	<p><strong>Config file locations by tool:</strong></p>
 	<table>
 		<thead><tr><th>Tool</th><th>Config file location</th></tr></thead>
 		<tbody>
@@ -509,7 +505,6 @@
 			<tr><td><strong>Rovo Dev / Rovo CLI</strong></td><td><code>acli rovodev mcp</code> (opens config in default editor)</td></tr>
 		</tbody>
 	</table>
-	<blockquote>💡 <strong>Rovo Dev / Rovo CLI</strong> users don't need to find the file — <code>acli rovodev mcp</code> opens the config in your default editor automatically.</blockquote>
 	<aside class="notes">
 		<p>"Config file locations vary by tool — this is the reference slide. If you're on Rovo Dev, you don't need to hunt for the file: just run <code>acli rovodev mcp</code> and it opens in your default editor."</p>
 		<ul>
