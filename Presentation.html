@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="reveal.js-master/dist/plugin/highlight/monokai.css" />
 	<style>
 		.reveal table { font-size: 0.65em; }
+		.reveal table tr.fragment:not(.visible) td, .reveal table tr.fragment:not(.visible) th { border: none; padding: 0; }
 		.reveal pre { font-size: 0.55em; }
 		.reveal blockquote { font-size: 0.85em; border-left: 4px solid #f90; padding-left: 1em; background: rgba(255,153,0,0.1); }
 		.reveal .slides section { text-align: left; }
@@ -585,7 +586,6 @@
 			<tr><td>🎨 <strong>ADS MCP Server</strong></td><td>Atlassian Design System components, tokens, and icon lookup for Custom UI apps</td></tr>
 		</tbody>
 	</table>
-	<blockquote>Use <code>npx skills</code> as the manual fallback.</blockquote>
 	<aside class="notes">
 		<p>The Forge AI Plugin (<code>atlassian/forge-skills</code>) is the official Atlassian-published plugin bundle — not a community project. It ships Forge skills under <code>skills/</code>, MCP configuration in <code>.mcp.json</code>, and per-host plugin metadata such as <code>.claude-plugin/</code>, <code>.cursor-plugin/</code>, and <code>gemini-extension.json</code>. The host makes the agent aware of the skills by indexing the plugin's bundled <code>skills/</code> directory after install or restart.</p>
 		<p><strong>Path 1 — Plugin-aware hosts:</strong> use the host-specific plugin install command. Current examples include Claude Code: <code>/plugin install forge-skills@atlassian-forge-skills</code>; Cursor: <code>/add-plugin forge-skills</code> or the Cursor Marketplace; Gemini CLI: <code>gemini extensions install https://github.com/atlassian/forge-skills</code>; GitHub Copilot CLI: <code>copilot plugin install atlassian/forge-skills</code>. The plugin path is lower friction because skills, MCP wiring, and host metadata install together.</p>
@@ -659,7 +659,7 @@
 <!-- SLIDE 22: Discretionary invocation -->
 <section>
 	<h3>Agents choose whether to invoke MCP or skills</h3>
-	<blockquote>What Forge module should I use for a Jira issue panel</blockquote>
+	<blockquote>"What Forge module should I use for a Jira issue panel?"</blockquote>
 	<table>
 		<thead><tr><th>Option</th><th>How</th><th>Result</th></tr></thead>
 		<tbody>
@@ -674,13 +674,13 @@
 
 <!-- SLIDE 22b: What can go wrong when the agent skips -->
 <section>
-	<h3>Skipping MCP or skills leads to predictable failures</h3>
+	<h3>Example problems due to agents skipping MCP or skills</h3>
 	<table>
 		<thead><tr><th>Agent skips…</th><th>What can go wrong</th></tr></thead>
 		<tbody>
 			<tr><td>Forge MCP Server</td><td>Uses a deprecated or non-existent module type from training data</td></tr>
-			<tr><td>Forge App Review skill</td><td>Misses a missing API scope; deploys an app that fails in production</td></tr>
-			<tr><td>Atlassian Rovo MCP Server</td><td>Reads stale Jira ticket data from context window rather than fetching live status</td></tr>
+			<tr class="fragment"><td>Forge App Review skill</td><td>Misses a missing API scope or input sanitisation</td></tr>
+			<tr class="fragment"><td>Atlassian Rovo MCP Server</td><td>Reads stale Jira ticket data from context window rather than fetching live status</td></tr>
 		</tbody>
 	</table>
 	<aside class="notes">
@@ -704,7 +704,7 @@
 <section>
 	<h3>Five techniques to improve tool invocation reliability</h3>
 	<table>
-		<thead><tr><th>Technique</th><th>How</th><th>Reliability</th></tr></thead>
+		<thead><tr><th>Technique</th><th>How</th><th>Effectiveness</th></tr></thead>
 		<tbody>
 			<tr><td><strong>AGENTS.md standing rules</strong></td><td>Write the rule once: <code>Always call Forge MCP before selecting a module type</code> — loaded at session start, always in context</td><td>⭐⭐⭐ Highest</td></tr>
 			<tr><td><strong>Use domain terminology</strong></td><td>Phrase requests using skill trigger words (e.g. <em>"Forge module"</em>, <em>"forge deploy"</em>) — routing depends on semantic matching against skill descriptions</td><td>⭐⭐⭐ High</td></tr>
@@ -737,11 +737,33 @@
 			<tr><td><strong>Rovo Dev / Rovo CLI</strong></td><td><code>@skill-name</code> or <code>/skill</code></td></tr>
 		</tbody>
 	</table>
-	<blockquote>⚡ Example: <code>@forge What module for a Jira issue panel?</code> — the tool call is explicit, not inferred.</blockquote>
 	<aside class="notes">
 		<p>Direct addressing via <code>@</code> or <code>#</code> bypasses the agent's confidence heuristic entirely — the tool call is forced, not inferred. This is the most immediate technique for one-off queries where you know exactly which MCP server or skill you need.</p>
 		<ul>
 			<li>Syntax varies by agent — worth checking the docs for your specific tool</li>
+		</ul>
+	</aside>
+</section>
+
+<!-- SLIDE 24b: Skill aliases reduce @-mention friction -->
+<section>
+	<h3>Short skill aliases</h3>
+	<pre><code class="language-markdown"># .agents/skills/fab/SKILL.md
+---
+name: fab
+description: Alias for the forge-app-builder skill. Load and follow the forge-app-builder skill.
+---
+Load and follow the forge-app-builder skill.</code></pre>
+	<p>Now <code>@fab</code> will ensure the forge-app-builder is used:</p>
+	<pre><code>@fab What module should I use for a Jira issue panel?</code></pre>
+	<aside class="notes">
+		<p>The @-mention technique is only useful if developers actually type it. Skill names like forge-app-builder, forge-app-review, and forge-debugger are accurate but verbose — in practice, developers skip the @-mention and let the agent guess. A short alias skill eliminates that barrier.</p>
+		<ul>
+			<li>An alias skill is just a SKILL.md file whose body instructs the agent to load the target skill — one line of content</li>
+			<li>The name and description fields are what the agent uses for routing — keep the description explicit: "Alias for the forge-app-builder skill"</li>
+			<li>Suggested aliases: <code>fab</code> → forge-app-builder, <code>far</code> → forge-app-review, <code>fdb</code> → forge-debugger</li>
+			<li>Alias skills can live globally (~/.rovodev/skills/) so they're available across all projects, or in the project repo so the whole team benefits</li>
+			<li>Transition: "Now let's look at the other side of reliable agent behaviour — not just forcing invocation, but giving the agent a standing brief it reads at the start of every session."</li>
 		</ul>
 	</aside>
 </section>
@@ -757,6 +779,7 @@
 	<blockquote><em>Including an AGENTS.md reduced agent task completion time by 28% in a controlled study (ETH Zurich, 2025).</em></blockquote>
 	<aside class="notes">
 		<p>AGENTS.md is the "always-on" layer of agent configuration — as opposed to skills, which are "on-demand". Put in it: project overview, directory structure, build and test commands, coding standards, and agent boundaries (e.g. "never commit without explicit request").</p>
+		<p>The hierarchy works by <strong>accumulation, not override</strong>: the agent reads all applicable AGENTS.md files from the outermost level inward, and concatenates them into a single brief. The global file (~/.rovodev/AGENTS.md) applies to every project on your machine — personal preferences, default tools, your name and role. The repo-level file (./AGENTS.md) is committed to source control and shared with the whole team — project overview, build commands, coding standards, agent boundaries. A subdirectory file (./src/AGENTS.md) adds specialist rules for that area only — e.g. "all code in this directory must use the payments API client, never raw fetch". The local override (AGENTS.local.md) is gitignored and personal — use it for machine-specific paths or experimental instructions you don't want to share. When all four exist, the agent sees all four, with inner files taking precedence on any conflicting instruction.</p>
 		<ul>
 			<li>Rovo Dev: <code>AGENTS.md</code> / <code>AGENTS.local.md</code> (project); <code>~/.rovodev/AGENTS.md</code> (global)</li>
 			<li>Claude Code: <code>CLAUDE.md</code> / <code>CLAUDE.local.md</code> (project); <code>~/.claude/CLAUDE.md</code> (global)</li>
