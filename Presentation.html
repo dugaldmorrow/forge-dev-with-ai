@@ -586,6 +586,7 @@
 			<tr><td>🎨 <strong>ADS MCP Server</strong></td><td>Atlassian Design System components, tokens, and icon lookup for Custom UI apps</td></tr>
 		</tbody>
 	</table>
+	<p style="font-size:0.5em; margin-top:0.5em;">📖 <a href="https://developer.atlassian.com/platform/forge/ai-development-toolkit/forge-ai-plugin/">developer.atlassian.com/platform/forge/ai-development-toolkit/forge-ai-plugin/</a></p>
 	<aside class="notes">
 		<p>The Forge AI Plugin (<code>atlassian/forge-skills</code>) is the official Atlassian-published plugin bundle — not a community project. It ships Forge skills under <code>skills/</code>, MCP configuration in <code>.mcp.json</code>, and per-host plugin metadata such as <code>.claude-plugin/</code>, <code>.cursor-plugin/</code>, and <code>gemini-extension.json</code>. The host makes the agent aware of the skills by indexing the plugin's bundled <code>skills/</code> directory after install or restart.</p>
 		<p><strong>Path 1 — Plugin-aware hosts:</strong> use the host-specific plugin install command. Current examples include Claude Code: <code>/plugin install forge-skills@atlassian-forge-skills</code>; Cursor: <code>/add-plugin forge-skills</code> or the Cursor Marketplace; Gemini CLI: <code>gemini extensions install https://github.com/atlassian/forge-skills</code>; GitHub Copilot CLI: <code>copilot plugin install atlassian/forge-skills</code>. The plugin path is lower friction because skills, MCP wiring, and host metadata install together.</p>
@@ -806,17 +807,29 @@ Large files shown collapsed (signatures only) → expand on demand
       │
       ▼
 Acts on relevant content only</code></pre>
-	<ul>
-		<li>🎯 <strong>Launch from the most specific relevant directory</strong> — not the monorepo root</li>
-		<li>🚫 <strong>Use <code>.rovoignore</code></strong> to exclude <code>node_modules/</code>, <code>build/</code>, <code>dist/</code></li>
-		<li>📁 <strong>Describe directory structure in AGENTS.md</strong> — saves the agent from discovering it</li>
-	</ul>
 	<aside class="notes">
 		<p>This is counterintuitive for developers used to IDEs that index the entire project upfront. Agents work selectively — they list the directory, open only the files they need, and expand large files on demand. Launch from the most specific relevant directory, not the monorepo root.</p>
 		<ul>
 			<li>Rovo Dev: files opened on demand via <code>open_files</code>, <code>grep</code>, <code>expand_code_chunks</code>, <code>expand_folder</code>; large files shown collapsed until explicitly expanded</li>
 			<li>Monorepo tip: running from <code>/monorepo-root/services/payments/</code> vs <code>/monorepo-root/</code> saves significant navigation time</li>
-			<li>Common <code>.rovoignore</code> candidates: <code>node_modules/</code>, <code>build/</code>, <code>dist/</code>, <code>.next/</code>, <code>target/</code>, large data files and binary assets</li>
+			<li>Common ignore candidates: <code>node_modules/</code>, <code>build/</code>, <code>dist/</code>, <code>.next/</code>, <code>target/</code>, large data files and binary assets</li>
+		</ul>
+	</aside>
+</section>
+
+<!-- SLIDE 27b: Telling agents to ignore files -->
+<section>
+	<h3>Telling agents to ignore files</h3>
+	<ul>
+		<li class="fragment">Add an <code>.agentignore</code> file</li>
+		<li class="fragment">Add symbolic links for specific agents, e.g. <code>.rovoignore</code></li>
+		<li class="fragment">Add instructions to <code>AGENTS.md</code>: <em>Ignore the files and directories identified by the patterns in <code>.agentignore</code>.</em></li>
+	</ul>
+	<aside class="notes">
+		<p>Not all agents support a native ignore file, but all agents respect instructions in AGENTS.md. The two-step pattern works universally: define the patterns in a <code>.agentignore</code> file (same syntax as <code>.gitignore</code>), then instruct the agent in AGENTS.md to honour those patterns. Agents that natively support <code>.agentignore</code> will pick it up automatically; others will follow the AGENTS.md instruction.</p>
+		<ul>
+			<li>Common candidates: <code>node_modules/</code>, <code>build/</code>, <code>dist/</code>, <code>.next/</code>, <code>target/</code>, large binary assets, generated files, and test fixtures with large data sets</li>
+			<li>Ignoring irrelevant files reduces context noise and speeds up codebase navigation</li>
 		</ul>
 	</aside>
 </section>
