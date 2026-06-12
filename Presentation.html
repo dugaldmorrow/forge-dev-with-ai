@@ -204,6 +204,53 @@
 	</aside>
 </section>
 
+<!-- SLIDE 5e: Vibe coding vs specification-based coding -->
+<section>
+	<h3>Specification beats vibes — especially for Forge</h3>
+	<table>
+		<thead>
+			<tr>
+				<th></th>
+				<th>🎵 Vibe Coding</th>
+				<th>📋 Specification-Based Coding</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><strong>How you start</strong></td>
+				<td>Describe a feeling or rough idea; iterate freely</td>
+				<td>Write a spec first; agent implements against it</td>
+			</tr>
+			<tr>
+				<td><strong>Best for</strong></td>
+				<td>Exploration, prototyping, learning</td>
+				<td>Production apps, team handoffs, repeatable builds</td>
+			</tr>
+			<tr>
+				<td><strong>Risk</strong></td>
+				<td>Drift, inconsistency, hard to reproduce</td>
+				<td>More upfront effort — but predictable results</td>
+			</tr>
+			<tr>
+				<td><strong>With Forge</strong></td>
+				<td>Fine for spikes; risky for manifests &amp; scopes</td>
+				<td>✅ Recommended — Forge's constraints reward precision</td>
+			</tr>
+		</tbody>
+	</table>
+	<aside class="notes">
+		<p>"Before we look at the tools available, it's worth pausing on how you work with them — because the style of collaboration matters as much as the tool you pick."</p>
+		<p>Vibe coding — a term popularised by Andrej Karpathy in early 2025 — means describing what you want in loose, natural language and iterating until something clicks. It's a genuinely useful mode for exploration and learning. But it produces inconsistent results when the target environment has strict constraints — and Forge is exactly that kind of environment.</p>
+		<p>Forge has a declarative manifest, a fixed set of module types, a permission scope model, and a sandboxed runtime. When you vibe-code a Forge app, the agent fills in the gaps with its training data — and that data may be stale or simply wrong. You end up with a manifest that references deprecated modules, missing scopes, or a permissions model that doesn't reflect what the app actually does.</p>
+		<p>Specification-based coding flips this: you write down what the app should do (a brief spec, a README, or even a Jira ticket), and the agent implements against that spec. The output is more predictable, easier to review, and easier to hand off to a teammate or revisit in six months.</p>
+		<ul>
+			<li>The resources folder contains a worked example of a Forge app specification — <code>resources/app-specification-example/</code> — showing what a good spec looks like in practice</li>
+			<li>Vibe coding and spec-based coding are not mutually exclusive: a common pattern is to vibe-code a spike to explore the idea, then write a spec and regenerate properly before committing</li>
+			<li>Transition: "So that's how you work with agents. Now let's look at which agents are available and how they're categorised."</li>
+		</ul>
+	</aside>
+</section>
+
 <!-- SLIDE 6: Four categories -->
 <section>
 	<h3>Four categories of AI development tools</h3>
@@ -685,6 +732,14 @@
 			<li><strong>TWG CLI</strong> — the right choice if your agent runs commands in a terminal or shell. Broader product coverage (15+ Atlassian products) but requires CLI installation.</li>
 			<li><strong>Important caveat:</strong> if both are configured in the same agent session, selection is non-deterministic — the agent picks based on tool descriptions in context. Avoid configuring both simultaneously; if you must, explicitly instruct the agent which to use in your prompt or AGENTS.md.</li>
 			<li>The teams are actively working to align these two surfaces so the distinction becomes less confusing over time.</li>
+		</ul>
+		<p><strong>Reference documentation:</strong></p>
+		<ul>
+			<li><strong>Atlassian Rovo MCP Server — Getting Started:</strong> <a href="https://support.atlassian.com/atlassian-rovo-mcp-server/docs/getting-started-with-the-atlassian-remote-mcp-server/">support.atlassian.com — Getting started with the Atlassian Remote MCP Server</a></li>
+			<li><strong>Atlassian Rovo MCP Server — Setup Guide:</strong> <a href="https://support.atlassian.com/atlassian-rovo-mcp-server/docs/set-up-atlassian-rovo-mcp-server/">support.atlassian.com — Set up the Atlassian Rovo MCP Server</a> (OAuth 2.1, API token auth, supported clients)</li>
+			<li><strong>TWG CLI — Developer Docs:</strong> <a href="https://developer.atlassian.com/platform/teamwork-graph/twg-cli/">developer.atlassian.com — TWG CLI</a> (canonical technical reference)</li>
+			<li><strong>TWG CLI — GitHub Repo:</strong> <a href="https://github.com/atlassian/twg-cli">github.com/atlassian/twg-cli</a> (releases, agent skills, issue tracking)</li>
+			<li><strong>TWG CLI — Support Docs:</strong> <a href="https://support.atlassian.com/organization-administration/docs/what-is-twg-cli/">support.atlassian.com — What is TWG CLI?</a> (installation and setup for admins)</li>
 		</ul>
 	</aside>
 </section>
