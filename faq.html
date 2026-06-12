@@ -318,6 +318,23 @@
 			<p class="note">Both tools can access the Teamwork Graph. Neither is ranked above the other — they suit different agent runtimes.</p>
 		</div>
 	</details>
+
+	<details>
+		<summary><span class="q-number">Q13c</span> If an AI agent has been configured to use both the Atlassian Rovo MCP Server and the TWG CLI, how does it choose which to use?</summary>
+		<div class="answer">
+			<p>The short answer: <strong>it doesn't automatically choose — and this is a known problem.</strong></p>
+			<p>If both are configured and you don't specify which to use, the agent will make its own judgement based on the tool descriptions it sees in context and which seems most relevant to the prompt. This is non-deterministic and can produce inconsistent results — the agent may default to one surface regardless of which would be more appropriate.</p>
+			<p>The official guidance is explicit: <em>"If multiple are installed, explicitly instruct the agent which surface to use (e.g., 'Use MCP' vs 'Use TWG CLI'), otherwise the agent may default to one and results can be inconsistent."</em></p>
+			<p><strong>Recommended approaches:</strong></p>
+			<ul>
+				<li><strong>Pick one per environment</strong> — e.g. MCP-only for IDE work, TWG CLI-only for terminal work</li>
+				<li><strong>Explicit instructions in prompts</strong> — e.g. <em>"Using TWG CLI, summarise my work this week"</em></li>
+				<li><strong>Set defaults in agent config</strong> — add preferences to your <code>AGENTS.md</code> or <code>claude.md</code> so the agent always knows which surface to prefer</li>
+				<li><strong>Use separate profiles</strong> — if your agent supports it, create MCP-only vs CLI-only configurations</li>
+			</ul>
+			<p class="note">This is a recognised issue. The MCP and TWG CLI teams are actively working on aligning the tool layers to make this less confusing over time.</p>
+		</div>
+	</details>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ -->
