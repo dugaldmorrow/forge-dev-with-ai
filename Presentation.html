@@ -393,34 +393,19 @@
 	</aside>
 </section>
 
-<!-- SLIDE 12: Rovo Dev differentiators -->
+<!-- SLIDE 12b: MCP Servers and Skills -->
 <section>
-	<h3>Rovo Dev vs MCP-connected agents</h3>
-	<ul>
-		<li>🕸️ <strong>Teamwork Graph intelligence</strong> — graph traversal MCP doesn't support</li>
-		<li>🧠 <strong>Memory fused with Teamwork Graph</strong> — no manual prompting per session</li>
-		<li>🔍 <strong>Long-tail completeness</strong> — catches what MCP silently misses</li>
-		<li>🔗 <strong>Dual-layer context</strong> — org graph + personal workspace</li>
-		<li>⚡ <strong>Zero-config</strong> — no OAuth or MCP setup required</li>
-	</ul>
+	<h3>MCP Servers and Skills</h3>
+	<img src="images/mcp-and-skills-flow.png" alt="Diagram showing an AI agent loading skills and querying MCP servers before sending an enriched query to the LLM" style="max-height: 55vh; display: block; margin: 0 auto;" />
 	<aside class="notes">
-		<p>Both Rovo Dev and external agents using the Atlassian Rovo MCP Server connect to the same underlying Atlassian infrastructure — same products (Jira, Confluence, Bitbucket, JSM, Compass), same permission model. The difference is depth and continuity of context, not access. See <a href="research/RovoDevResearch.md">RovoDevResearch.md</a> for full research notes.</p>
-		<ul>
-			<li><strong>Teamwork Graph intelligence:</strong> Rovo Dev gets multi-hop graph traversals, relationship inference, and collaboration patterns — e.g. "who worked on what together", tracing project → issue → commit → repo. These aren't exposed through the MCP Server's tool surface; external agents get basic Jira/Confluence read/write, but not the graph intelligence layer.</li>
-			<li><strong>Memory fused with Teamwork Graph:</strong> Persistent memory files (AGENTS.md etc.) are a general pattern any agent can use — the Rovo Dev-specific advantage is that memory is automatically fused with live Teamwork Graph data in the same context window, with no explicit prompting required. An external agent with an equivalent memory file can achieve similar results, but must manually trigger MCP calls each session to pull in live Atlassian context.</li>
-			<li><strong>Long-tail completeness:</strong> Internal testing showed Rovo Dev catches things MCP-connected agents silently miss — stale tickets, slipped PRDs, cross-product links like a CVE linked to a Bitbucket PR. External agents with MCP "look authoritative when they're missing risks."</li>
-			<li><strong>Dual-layer context:</strong> Rovo Dev combines the Teamwork Graph (organisational layer) with personal skills, memory, and workspace context (individual layer). External agents only get what MCP tools return per-query — no accumulated personal layer.</li>
-			<li><strong>Zero-config integration:</strong> Rovo Dev auto-connects to the Atlassian MCP server with native Jira/Confluence/Bitbucket actions built in. External agents require explicit MCP server configuration and OAuth setup — a meaningful barrier for teams adopting at scale.</li>
-			<li>Internal benchmarks: 44% better answer quality with 48% fewer tokens when grounded in Teamwork Graph data. Where MCP-in-IDE wins: deliverable depth — applicable diffs, build/test execution, code-level output.</li>
-			<li>Note: The Atlassian Rovo MCP Server added getTeamworkGraphContext and getTeamworkGraphObject tools in open beta (May 2026) — this is closing the gap for external agents, but persistent memory and zero-config remain Rovo Dev–only advantages.</li>
-		</ul>
+		<p>Before we look at MCP Servers and Agent Skills individually, here's the big picture. The agent sits in the middle: it loads skills from local files to get instructions and workflow knowledge, queries MCP servers to get live data and capabilities from external systems, then sends an enriched prompt to the LLM. Neither MCP nor skills alone is sufficient — together they give the agent both the knowledge of how to work and the tools to act.</p>
 	</aside>
 </section>
 
 <!-- SLIDE 13: MCP universal adapter -->
 <section>
 	<h3>MCP connects any agent to any tool</h3>
-	<img src="images/mcp-illustration.svg" alt="Diagram showing an MCP Client box inside an AI Agent box, with arrows from the MCP Client to three MCP Server boxes: Forge MCP Server, Atlassian Rovo MCP Server, and GitHub MCP Server." style="max-height: 65vh; width: auto;" />
+	<img src="images/mcp-illustration.svg" alt="Diagram showing an MCP Client box inside an AI Agent box, with arrows from the MCP Client to three MCP Server boxes: Forge MCP Server, Atlassian Rovo MCP Server, and GitHub MCP Server." style="max-height: 65vh; width: auto; display: block; margin: 0 auto;" />
 	<aside class="notes">
 		<p>MCP is the universal connector for AI tools — like USB-C for devices. Before MCP, every AI integration was custom-built. MCP means implement the client once, implement the server once, and any combination works. Three primitives: Tools (actions the agent can execute), Resources (data the agent can read), and Prompts (reusable instruction templates).</p>
 		<ul>
@@ -474,7 +459,7 @@
 
 <!-- SLIDE 16: Add Forge MCP Server config -->
 <section>
-	<h3>Add the Forge MCP Server in one block</h3>
+	<h3>Setup the Forge MCP Server</h3>
 	<pre><code class="language-json">{
   "mcpServers": {
     "forge": {
@@ -654,6 +639,53 @@
 	<aside class="notes">
 		<p>The local/remote distinction is the clearest mental model for the skills vs MCP question. Skills are files on disk — they travel with your repo, they're version-controlled, and they load into the agent's context when the task matches. MCP servers are running processes that connect to external systems in real time: the Forge MCP Server, the Atlassian Rovo MCP, your database, your CI system. Neither is sufficient alone. Without a skill, the agent has to decide on its own whether to call the MCP — and it may not. Without the MCP, the skill's instruction to "look up the current module catalog" falls back to stale training data. Skills can also include executable scripts, so "local capabilities" covers more than just instructions — they can run commands on your machine too.</p>
 		<p>Transition: "MCP invocation isn't guaranteed — let's look at what that means in practice."</p>
+	</aside>
+</section>
+
+<!-- SLIDE 21c: Rovo Dev differentiators -->
+<section>
+	<h3>Rovo Dev vs MCP-connected agents</h3>
+	<ul>
+		<li>🕸️ <strong>Teamwork Graph intelligence</strong> — graph traversal MCP doesn't support</li>
+		<li>🧠 <strong>Memory fused with Teamwork Graph</strong> — no manual prompting per session</li>
+		<li>🔍 <strong>Long-tail completeness</strong> — catches what MCP silently misses</li>
+		<li>🔗 <strong>Dual-layer context</strong> — org graph + personal workspace</li>
+		<li>⚡ <strong>Zero-config</strong> — no OAuth or MCP setup required</li>
+	</ul>
+	<aside class="notes">
+		<p>Both Rovo Dev and external agents using the Atlassian Rovo MCP Server connect to the same underlying Atlassian infrastructure — same products (Jira, Confluence, Bitbucket, JSM, Compass), same permission model. The difference is depth and continuity of context, not access. See <a href="research/RovoDevResearch.md">RovoDevResearch.md</a> for full research notes.</p>
+		<ul>
+			<li><strong>Teamwork Graph intelligence:</strong> Rovo Dev gets multi-hop graph traversals, relationship inference, and collaboration patterns — e.g. "who worked on what together", tracing project → issue → commit → repo. These aren't exposed through the MCP Server's tool surface; external agents get basic Jira/Confluence read/write, but not the graph intelligence layer.</li>
+			<li><strong>Memory fused with Teamwork Graph:</strong> Persistent memory files (AGENTS.md etc.) are a general pattern any agent can use — the Rovo Dev-specific advantage is that memory is automatically fused with live Teamwork Graph data in the same context window, with no explicit prompting required. An external agent with an equivalent memory file can achieve similar results, but must manually trigger MCP calls each session to pull in live Atlassian context.</li>
+			<li><strong>Long-tail completeness:</strong> Internal testing showed Rovo Dev catches things MCP-connected agents silently miss — stale tickets, slipped PRDs, cross-product links like a CVE linked to a Bitbucket PR. External agents with MCP "look authoritative when they're missing risks."</li>
+			<li><strong>Dual-layer context:</strong> Rovo Dev combines the Teamwork Graph (organisational layer) with personal skills, memory, and workspace context (individual layer). External agents only get what MCP tools return per-query — no accumulated personal layer.</li>
+			<li><strong>Zero-config integration:</strong> Rovo Dev auto-connects to the Atlassian MCP server with native Jira/Confluence/Bitbucket actions built in. External agents require explicit MCP server configuration and OAuth setup — a meaningful barrier for teams adopting at scale.</li>
+			<li>Internal benchmarks: 44% better answer quality with 48% fewer tokens when grounded in Teamwork Graph data. Where MCP-in-IDE wins: deliverable depth — applicable diffs, build/test execution, code-level output.</li>
+			<li>Note: The Atlassian Rovo MCP Server added getTeamworkGraphContext and getTeamworkGraphObject tools in open beta (May 2026) — this is closing the gap for external agents, but persistent memory and zero-config remain Rovo Dev–only advantages.</li>
+		</ul>
+	</aside>
+</section>
+
+<!-- SLIDE 21d: Rovo MCP vs TWG CLI -->
+<section>
+	<h3>Choose Rovo MCP or TWG CLI based on your agent's runtime</h3>
+	<table>
+		<thead><tr><th></th><th>Atlassian Rovo MCP Server</th><th>Teamwork Graph CLI</th></tr></thead>
+		<tbody>
+			<tr><td><strong>Runtime</strong></td><td>MCP protocol client (Rovo Dev, Claude Code, Cursor)</td><td>Terminal / shell agent</td></tr>
+			<tr><td><strong>Configuration</strong></td><td>Add URL to MCP config file</td><td>Install CLI, add to PATH</td></tr>
+			<tr><td><strong>Data access</strong></td><td>Jira, Confluence, Teamwork Graph</td><td>Jira, Confluence, Bitbucket, JSM, Assets, Goals, Teams, + Teamwork Graph</td></tr>
+			<tr><td><strong>Relationship</strong></td><td colspan="2" style="text-align:center">Complementary — both access the Teamwork Graph; pick based on runtime</td></tr>
+		</tbody>
+	</table>
+	<aside class="notes">
+		<p>A common question after the previous slide: "if I'm using Claude Code or Cursor rather than Rovo Dev, which Atlassian surface should I use?" The answer is: it depends on how your agent runs — not on what data you need. Both the Rovo MCP Server and the TWG CLI can access Jira, Confluence, and the Teamwork Graph. Neither is ranked above the other.</p>
+		<ul>
+			<li><strong>Rovo MCP Server</strong> — the right choice if your agent speaks MCP protocol: add <code>mcp.atlassian.com</code> to your MCP config and you're done. Works with any MCP-compatible agent.</li>
+			<li><strong>TWG CLI</strong> — the right choice if your agent runs commands in a terminal or shell. Broader product coverage (15+ Atlassian products) but requires CLI installation.</li>
+			<li><strong>Important caveat:</strong> if both are configured in the same agent session, selection is non-deterministic — the agent picks based on tool descriptions in context. Avoid configuring both simultaneously; if you must, explicitly instruct the agent which to use in your prompt or AGENTS.md.</li>
+			<li>The teams are actively working to align these two surfaces so the distinction becomes less confusing over time.</li>
+		</ul>
 	</aside>
 </section>
 
