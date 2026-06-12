@@ -1,4 +1,4 @@
 # Metadata
 
-**Version:** 2.10.1
-**Date:** 12-Jun-2026, 23:30 AEST
+**Version:** 2.10.2
+**Date:** 13-Jun-2026, 09:11 AEST

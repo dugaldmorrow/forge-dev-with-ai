@@ -756,7 +756,7 @@
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>"Here's something that catches a lot of people out: just because an MCP server is configured doesn't mean the agent will use it. The agent weighs its own confidence against the cost of making a tool call — and if it thinks it already knows the answer, it skips the call. For Forge this is particularly risky, because Forge APIs and module types change frequently."</p>
+		<p>"Here's something that catches a lot of people out: just because an MCP server is configured doesn't mean the agent will use it. The agent weighs its own confidence against the cost of making a tool call — and if it thinks it already knows the answer, it skips the call."</p>
 	</aside>
 </section>
 
@@ -773,7 +773,8 @@
 	</table>
 	<aside class="notes">
 		<p>These are the three most common failure patterns for Forge development. In each case the agent gave a fluent, confident answer — but it was wrong because it skipped the tool call.</p>
-		<ul>
+		<hr/>
+    <ul>
 			<li>Tell-tale sign: agent gives a fluent, confident answer about a Forge module or API that doesn't exist or has changed</li>
 			<li>How to spot it in Rovo Dev: check the tool call log — if <code>forge-development-guide</code> or <code>search-forge-docs</code> were not called during a Forge scaffolding task, the agent answered from memory</li>
 		</ul>
