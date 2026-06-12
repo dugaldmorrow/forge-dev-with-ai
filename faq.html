@@ -301,6 +301,23 @@
 			<p>That said, very new features may take a short period to surface in the MCP Server. For cutting-edge capabilities, cross-check with the Forge changelog at <code>developer.atlassian.com/platform/forge/</code>.</p>
 		</div>
 	</details>
+
+	<details>
+		<summary><span class="q-number">Q13b</span> Are both the Teamwork Graph CLI and Atlassian Rovo MCP Server both for connecting to Atlassian data?</summary>
+		<div class="answer">
+			<p>Yes — and they are <strong>complementary, not interchangeable</strong>. Both access Atlassian data, and both can access the Teamwork Graph. The real distinction is about <strong>runtime and workflow pattern</strong>, not about which data they can reach.</p>
+			<ul>
+				<li><strong>Atlassian Rovo MCP Server</strong> (<code>mcp.atlassian.com</code>) is designed for <strong>hosted MCP clients</strong> — agents like Rovo Dev, Claude Code, or Cursor that connect via the MCP protocol. It covers Jira, Confluence, and Teamwork Graph tools, and is configured via your agent's MCP config file.</li>
+				<li><strong>Teamwork Graph CLI (TWG)</strong> is designed for <strong>terminal/shell runtimes</strong> — agents or workflows that run commands locally. It wraps 15+ Atlassian products (Jira, Confluence, Bitbucket, JSM, Assets, Goals, Teams, Talent, and more) plus Teamwork Graph relationships, and is invoked as a CLI command.</li>
+			</ul>
+			<p>Choose based on where your agent runs and how it calls tools:</p>
+			<ul>
+				<li>If your agent uses <strong>MCP protocol</strong> (e.g. Rovo Dev, Cursor) → use the <strong>Rovo MCP Server</strong></li>
+				<li>If your agent runs in a <strong>terminal or shell</strong> → use the <strong>TWG CLI</strong></li>
+			</ul>
+			<p class="note">Both tools can access the Teamwork Graph. Neither is ranked above the other — they suit different agent runtimes.</p>
+		</div>
+	</details>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ -->
