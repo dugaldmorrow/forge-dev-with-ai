@@ -23,6 +23,7 @@ The first part of the speaker notes contains the text the speaker is intended to
 - Capture the key narrative point(s) of the slide
 - Include any transition phrase that bridges to the next slide
 - **Never include code syntax, brackets, backticks, or technical notation** — these are impossible to read aloud naturally. If referencing a filename or path, use the name as written if it reads naturally (e.g. "AGENTS.md", "SKILL.md") rather than expanding it phonetically.
+- **Avoid em dashes (—) in spoken text** — they create an awkward pause when read aloud. Use a full stop or "and" or "which" instead to create a natural spoken break.
 - **Be concise and crisp** — every sentence should earn its place. Remove filler, hedging, and redundant phrasing. The spoken text should feel punchy and confident when delivered aloud.
 
 ### 2. Horizontal rule

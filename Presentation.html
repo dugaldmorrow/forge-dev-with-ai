@@ -922,7 +922,7 @@ Load and follow the forge-app-builder skill.</code></pre>
             └── AGENTS.local.md  ← Local override (gitignored, personal only)</code></pre>
 	<blockquote><em>Including an AGENTS.md reduced agent task completion time by 28% in a controlled study (ETH Zurich, 2025).</em></blockquote>
 	<aside class="notes">
-		<p>AGENTS.md is the "always-on" layer of agent configuration — as opposed to skills, which are "on-demand". Put in it: project overview, directory structure, build and test commands, coding standards, and agent boundaries (e.g. "never commit without explicit request").</p>
+		<p>AGENTS.md is the "always-on" layer of agent configuration — as opposed to skills, which are "on-demand". You can create a hierarchy of these files but you probably shouldn't go overboard since it will fill up your agent context quickly leading to attention dilution and more tokens being consumed.</p>
 		<hr/>
 		<p>The hierarchy works by <strong>accumulation, not override</strong>: the agent reads all applicable AGENTS.md files from the outermost level inward, and concatenates them into a single brief. The global file (~/.rovodev/AGENTS.md) applies to every project on your machine — personal preferences, default tools, your name and role. The repo-level file (./AGENTS.md) is committed to source control and shared with the whole team — project overview, build commands, coding standards, agent boundaries. A subdirectory file (./src/AGENTS.md) adds specialist rules for that area only — e.g. "all code in this directory must use the payments API client, never raw fetch". The local override (AGENTS.local.md) is gitignored and personal — use it for machine-specific paths or experimental instructions you don't want to share. When all four exist, the agent sees all four, with inner files taking precedence on any conflicting instruction.</p>
 		<ul>
@@ -952,7 +952,7 @@ Large files shown collapsed (signatures only) → expand on demand
       ▼
 Acts on relevant content only</code></pre>
 	<aside class="notes">
-		<p>This is counterintuitive for developers used to IDEs that index the entire project upfront. Agents work selectively — they list the directory, open only the files they need, and expand large files on demand. Launch from the most specific relevant directory, not the monorepo root.</p>
+		<p>This is counterintuitive for developers used to IDEs that index the entire project upfront. Agents work selectively — they list the directory, open only the files they need, and expand large files on demand. One practical tip: if you're working on one part of a large codebase, you can launch the agent from that subdirectory rather than the root. This gives it a smaller, more focused view and avoids wasting tokens navigating irrelevant code.</p>
 		<hr/>
 		<ul>
 			<li>Rovo Dev: files opened on demand via <code>open_files</code>, <code>grep</code>, <code>expand_code_chunks</code>, <code>expand_folder</code>; large files shown collapsed until explicitly expanded</li>
