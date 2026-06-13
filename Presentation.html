@@ -802,9 +802,9 @@
 	<aside class="notes">
 		<p>Here are some common failure patterns.</p>
 		<ul>
-			<li><strong>Row 1 — Forge MCP Server skipped:</strong> Agent uses a stale module type from training data — app fails at deploy with a manifest validation error.</li>
-			<li><strong>click to show row</strong> — <strong>Row 2 — Forge App Review skill skipped:</strong> Missing OAuth scope or unsanitised input goes undetected — caught only at security audit or Marketplace review.</li>
-			<li><strong>click to show row</strong> — <strong>Row 3 — Atlassian Rovo MCP Server skipped:</strong> Agent reads stale ticket data from context rather than fetching live status — confidently wrong.</li>
+			<li><strong>Row 1 — Forge MCP Server skipped:</strong> The agent applies incorrect module settings causing the app to fail to deploy with a manifest validation error.</li>
+			<li><strong>Click to show row 2</strong> — <strong>Forge App Review skill skipped:</strong> The agent omits an OAuth scope or unsanitised input.</li>
+			<li><strong>Click to show row 3</strong> — <strong>Atlassian Rovo MCP Server skipped:</strong> In the third case, the agent fixes a confabulated Jira work item.</li>
 		</ul>
 		<hr/>
 		<ul>
@@ -822,6 +822,23 @@
 	</aside>
 </section>
 
+<!-- SLIDE 22d: Skills inject critical rules into session context -->
+<section>
+	<h3>Tip: Craft skills to continuously inject critical rules into the session context</h3>
+	<p>Commit skill example</p>
+	<blockquote>"These changes have been committed. Future changes will only be committed when explicitly requested."</blockquote>
+	<aside class="notes">
+		<p>The commit skill in this presentation's repository specifies that the agent must always end its confirmation message with "These changes have been committed. Future changes will only be committed when explicitly requested." Every time the agent commits, it restates this rule — reinforcing the critical rule, without the user having to remember to ask.</p>
+		<p>Before I added this, the agent would sometimes commit changes without me asking when I had previously committed changes in the same session.</p>
+		<hr/>
+		<ul>
+			<li>The skill enforces this by including the exact sentence verbatim in the instructions, marked as mandatory — the agent cannot complete the commit workflow without saying it</li>
+			<li>This is the skill-as-guardrail pattern: use the closing step of a skill to re-anchor a rule that would otherwise drift over a long session</li>
+			<li>Audience members can view the full commit skill at <a href=".agents/skills/commit/SKILL.md"><code>.agents/skills/commit/SKILL.md</code></a> in this presentation's repository</li>
+		</ul>
+	</aside>
+</section>
+
 <!-- SLIDE 23: Prompt explicitly -->
 <section>
 	<h3>Five techniques to improve tool invocation reliability</h3>
@@ -836,7 +853,7 @@
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>Explicit per-prompt instructions ("consult the MCP server before proceeding") work but are an antipattern — they defeat the design intent where the agent routes intelligently. The two principled solutions are skill-enforced invocation (bake the requirement into SKILL.md once) and AGENTS.md standing rules (write it once, enforced every session). Source verification is a useful diagnostic habit. Direct addressing is the escape hatch for one-off cases. Model choice also matters — Claude models tend to be more disciplined about tool use than GPT-family models.</p>
+		<p>Explicit per-prompt instructions such as "consult the MCP server before proceeding" work, but are an antipattern since they defeat the design intent where the agent routes intelligently. The two principled solutions are skill-enforced invocation (bake the requirement into SKILL.md once) and AGENTS.md standing rules (write it once, enforced every session). Source verification is a useful diagnostic habit. Direct addressing is the escape hatch for one-off cases. Model choice also matters — Claude models tend to be more disciplined about tool use than GPT-family models.</p>
 		<hr/>
 		<ul>
 			<li>Skill-enforced example: <code>## Step 2: Select the Module — You MUST call the Forge MCP Server tool `forge-development-guide` now. Do not proceed based on prior knowledge.</code></li>
