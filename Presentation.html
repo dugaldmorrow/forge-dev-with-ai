@@ -853,7 +853,7 @@
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>Explicit per-prompt instructions such as "consult the MCP server before proceeding" work, but are an antipattern since they defeat the design intent where the agent routes intelligently. The two principled solutions are skill-enforced invocation (bake the requirement into SKILL.md once) and AGENTS.md standing rules (write it once, enforced every session). Source verification is a useful diagnostic habit. Direct addressing is the escape hatch for one-off cases. Model choice also matters — Claude models tend to be more disciplined about tool use than GPT-family models.</p>
+		<p>Explicit per-prompt instructions such as "consult the MCP server before proceeding" work, but are an antipattern since they defeat the design intent where the agent routes intelligently. The two principled solutions are skill-enforced invocation — baking the requirement into your skill file once — and standing rules in your AGENTS.md file, written once and enforced every session. Source verification is a useful diagnostic habit. Direct addressing should be thought of as an escape hatch for one-off cases. Model choice also matters — some models may be more disciplined about tool use than others.</p>
 		<hr/>
 		<ul>
 			<li>Skill-enforced example: <code>## Step 2: Select the Module — You MUST call the Forge MCP Server tool `forge-development-guide` now. Do not proceed based on prior knowledge.</code></li>
@@ -864,8 +864,7 @@
 
 <!-- SLIDE 24: @-mentions -->
 <section>
-	<h3>Use @-mentions to force tool invocation</h3>
-	<p>Some agents allow you to <code>@</code>-mention an MCP server or skill directly in the prompt, forcing invocation:</p>
+	<h3>@-mentions syntax varies</h3>
 	<table>
 		<thead><tr><th>Agent</th><th>Syntax</th></tr></thead>
 		<tbody>
@@ -878,10 +877,13 @@
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>Direct addressing via <code>@</code> or <code>#</code> bypasses the agent's confidence heuristic entirely — the tool call is forced, not inferred. This is the most immediate technique for one-off queries where you know exactly which MCP server or skill you need.</p>
+		<p>The syntax for direct addressing varies by agent — check the docs for your specific tool.</p>
 		<hr/>
 		<ul>
-			<li>Syntax varies by agent — worth checking the docs for your specific tool</li>
+			<li>Cursor and Windsurf both use <code>@mcp-server-name</code></li>
+			<li>Claude Code and Codex use <code>@tool-name</code> or the @ button to browse available tools</li>
+			<li>GitHub Copilot uses <code>#tool-name</code></li>
+			<li>Rovo Dev and Rovo CLI use <code>@skill-name</code> or <code>/skill</code></li>
 		</ul>
 	</aside>
 </section>
