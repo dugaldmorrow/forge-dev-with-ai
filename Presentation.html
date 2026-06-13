@@ -800,10 +800,14 @@
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>These are the three most common failure patterns for Forge development. In each case the agent gave a fluent, confident answer — but it was wrong because it skipped the tool call.</p>
+		<p>Here are some common failure patterns.</p>
+		<ul>
+			<li><strong>Row 1 — Forge MCP Server skipped:</strong> Agent uses a stale module type from training data — app fails at deploy with a manifest validation error.</li>
+			<li><strong>click to show row</strong> — <strong>Row 2 — Forge App Review skill skipped:</strong> Missing OAuth scope or unsanitised input goes undetected — caught only at security audit or Marketplace review.</li>
+			<li><strong>click to show row</strong> — <strong>Row 3 — Atlassian Rovo MCP Server skipped:</strong> Agent reads stale ticket data from context rather than fetching live status — confidently wrong.</li>
+		</ul>
 		<hr/>
-		<hr/>
-    <ul>
+		<ul>
 			<li>Tell-tale sign: agent gives a fluent, confident answer about a Forge module or API that doesn't exist or has changed</li>
 			<li>How to spot it in Rovo Dev: check the tool call log — if <code>forge-development-guide</code> or <code>search-forge-docs</code> were not called during a Forge scaffolding task, the agent answered from memory</li>
 		</ul>
