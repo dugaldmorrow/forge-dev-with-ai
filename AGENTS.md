@@ -13,6 +13,24 @@ The research will be presented in public to professional and aspiring software d
 
 You must load and use the skills in the [.agents/skills/](./.agents/skills) directory and subdirectories.
 
+### Presentation Best Practices Skill
+
+Always load the [presentation-best-practices skill](./.agents/skills/presentation-best-practices/SKILL.md) when:
+
+- Creating, editing, reviewing, or critiquing any slide content in `Presentation.html`
+- Adding new slides or restructuring the presentation narrative
+- Assessing slide titles, visual design, or pacing
+
+### Speaker Notes Skill
+
+Always load the speaker-notes skill by opening `.agents/skills/speaker-notes/SKILL.md` directly (do **not** use `get_skill` — this skill is not in the global registry and will not be found that way). Load it when:
+
+- Creating or editing speaker notes for any slide in `Presentation.html`
+- Reviewing whether existing speaker notes comply with the required structure
+- Any task that mentions "speaker notes" or "notes"
+
+The speaker-notes skill defines the mandatory structure for all speaker notes: spoken text before the `<hr/>`, supporting bullets after, and optional references last. All speaker notes must comply with this structure.
+
 ### Quiz Skill
 
 The [quiz skill](./.agents/skills/quiz/SKILL.md) tests the user's understanding of the presentation content. It is **opt-in only** — load it when:
