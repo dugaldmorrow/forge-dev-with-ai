@@ -1063,7 +1063,7 @@ You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre
 
 <!-- SLIDE 30: Global skills -->
 <section>
-	<h3>Global skills follow you — except in Cursor</h3>
+	<h3>Most agents support global skills</h3>
 	<table>
 		<thead><tr><th>Tool</th><th>Global / personal skills directory</th></tr></thead>
 		<tbody>
@@ -1071,39 +1071,43 @@ You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre
 			<tr><td><strong>Claude Code</strong></td><td><code>~/.claude/skills/</code></td></tr>
 			<tr><td><strong>Codex CLI</strong></td><td><code>~/.codex/skills/</code></td></tr>
 			<tr><td><strong>GitHub Copilot</strong></td><td>Via <code>~/.agent.md</code> reference</td></tr>
-			<tr><td><strong>Cursor</strong></td><td>❌ No global skills — project-level only</td></tr>
-			<tr><td><strong>Windsurf</strong></td><td>Via global <code>AGENTS.md</code> reference</td></tr>
+			<tr><td><strong>Cursor</strong></td><td>User Rules in Cursor Settings (not a file path)</td></tr>
+			<tr><td><strong>Windsurf</strong></td><td><code>~/.windsurf/rules/</code> (or <code>~/.devin/rules/</code>)</td></tr>
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>Global skills are personal — not committed to the repo, not shared with teammates. They follow you across all projects on your machine. Good candidates: your preferred commit message format, PR conventions, and personal coding style preferences.</p>
+		<p>Most agents support global or personal skills that follow you across all projects on your machine. Good candidates are your preferred commit message format, PR conventions, and personal coding style preferences.</p>
 		<hr/>
 		<ul>
-			<li>Cursor is the notable exception — no global skills; everything is project-scoped; a deliberate design choice to keep configurations explicit per-project</li>
+			<li>Rovo Dev, Claude Code, and Codex CLI all use a dedicated global skills directory under your home folder</li>
+			<li>GitHub Copilot uses a global ~/.agent.md file as a reference for personal preferences</li>
+			<li>Cursor supports global User Rules configured in Cursor Settings — not a file on disk, so not version-controllable, but they apply across all projects</li>
+			<li>Windsurf supports global rules at ~/.windsurf/rules/ (or ~/.devin/rules/ following the recent rebrand) — personal preferences that apply to every project you open in Windsurf</li>
 		</ul>
 	</aside>
 </section>
 
 <!-- SLIDE 31: Forge as AI build target -->
 <section>
-	<h3>Forge's constraints make it ideal for AI</h3>
+	<h3>Forge's declarative architecture makes it ideal for AI</h3>
 	<table>
 		<thead><tr><th>Forge characteristic</th><th>Why AI agents love it</th></tr></thead>
 		<tbody>
-			<tr><td><strong>Declarative manifest</strong></td><td>Agent knows exactly what to generate (YAML schema); no guessing</td></tr>
-			<tr><td><strong>Module system</strong></td><td>Finite, well-documented set of extension points; fewer hallucinations</td></tr>
-			<tr><td><strong>UI Kit</strong></td><td>Constrained component set with clear props; agent can't invent non-existent components</td></tr>
-			<tr><td><strong>Serverless FaaS</strong></td><td>No server config to hallucinate; agent focuses on business logic only</td></tr>
-			<tr><td><strong>Built-in auth &amp; permissions</strong></td><td>Agent doesn't need to implement OAuth or permission models from scratch</td></tr>
-			<tr><td><strong>Rich documentation</strong></td><td>Forge MCP Server provides up-to-date, structured docs — ground truth for the agent</td></tr>
+			<tr><td><strong>Declarative manifest</strong></td><td>Agent generates structured YAML against a known schema — predictable, reviewable output</td></tr>
+			<tr><td><strong>Declarative module system</strong></td><td>Extension points are declared, not coded — agent picks the right module type from a well-defined catalog</td></tr>
+			<tr><td><strong>Declarative UI Kit</strong></td><td>UI is composed from named components with typed props — agent describes the interface, platform renders it</td></tr>
+			<tr><td><strong>Serverless FaaS</strong></td><td>Infrastructure is declared, not provisioned — agent focuses entirely on business logic</td></tr>
+			<tr><td><strong>Built-in auth &amp; permissions</strong></td><td>OAuth and scopes are declared in the manifest — no implementation required</td></tr>
+			<tr><td><strong>Forge MCP Server</strong></td><td>Provides current schemas and docs as ground truth — agent generates against reality, not training data</td></tr>
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>Constraints are a feature, not a limitation, when working with AI agents. The more constrained the problem space, the more reliably the agent operates. Forge's declarative architecture — finite modules, structured manifest, constrained UI Kit — is exactly what AI agents need to avoid hallucinating non-existent APIs.</p>
+		<p>Forge is a declarative platform from top to bottom. The manifest, the module system, the UI Kit, the permission model. All declared, not coded. For an AI agent, this is ideal. The agent describes what the app should do and the platform takes care of the rest.</p>
 		<hr/>
 		<ul>
-			<li>The Forge MCP Server is the critical enabler: it gives the agent ground truth about current Forge APIs, module types, and manifest syntax</li>
-			<li>Without the Forge MCP Server, the agent relies on training data that may be months out of date</li>
+			<li>The manifest is a YAML schema. The agent generates against a known structure, making output predictable and easy to review</li>
+			<li>UI Kit is declarative by design. Components have typed props and the platform handles rendering</li>
+			<li>The Forge MCP Server grounds the agent in current schemas and documentation. Without it, the agent falls back on training data that may be months out of date</li>
 		</ul>
 	</aside>
 </section>
