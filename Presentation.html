@@ -1121,7 +1121,6 @@ You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre
 		<li>Rovo builds the app: selects modules, generates UI Kit code, wires backend + permissions</li>
 		<li>One-click deploy to your Atlassian site</li>
 	</ol>
-	<blockquote>Production app in under 20 minutes. Enterprise governance built-in. Mostly free for internal/single-site apps.</blockquote>
 	<aside class="notes">
 		<p>App Studio is the zero-code path to a deployed Forge app in under 20 minutes — worth a live demo if time allows. Describe the app, review the spec, and deploy. Governance is built-in: Atlassian admins control which apps can be installed; enterprise customers get approval workflows before deployment.</p>
 		<hr/>
@@ -1134,50 +1133,50 @@ You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre
 
 <!-- SLIDE 33: Ideal Forge + AI setup -->
 <section>
-	<h3>The ideal setup: agent, two MCPs, skills</h3>
+	<h3>An extreme agent workflow</h3>
 	<pre><code>Developer gives goal: "Build a Jira issue panel — see PROJ-123"
         │
         ▼
-   AI Agent (Rovo Dev / Claude Code / Cursor)
+   AI Agent (Rovo Dev / Claude Code / ...)
    ├── reads PROJ-123 via Atlassian Rovo MCP Server
    ├── selects jira:issuePanel module via Forge MCP Server
    ├── scaffolds UI Kit components (ADS-accurate)
    ├── writes resolver + manifest with correct API scopes
    ├── runs forge tunnel → reads errors → iterates
    ├── Forge App Review skill → security + perf checklist
-   └── forge deploy + forge install → marks PROJ-123 Done
+   └── forge deploy + forge install (development environment)
         │
         ▼
- Deployed Forge app — developer reviewed, not wrote</code></pre>
-	<blockquote>💡 Any editor works alongside this stack — the agent lives in the terminal, not the IDE.</blockquote>
+ Developer review</code></pre>
 	<aside class="notes">
-		<p>"Let's put it all together. Configure once: Forge MCP and Atlassian Rovo MCP in your agent config, plus the Forge AI Plugin where your host supports it — or the manual forge-skills fallback where it does not. From there, a developer who's never touched Forge before can be productive on day one — because the agent handles all the platform knowledge. You focus on the business logic."</p>
+		<p>This is what a fully configured agent workflow could look like for Forge development. There's really no part the agent can't do.</p>
 		<hr/>
 		<ul>
-			<li>The agent handles: module selection, manifest syntax, API scopes, UI Kit patterns, forge tunnel iteration</li>
-			<li>The developer focuses on: business logic, requirements, review, and deployment approval</li>
+			<li>Each step maps to a specific tool: Atlassian Rovo MCP for the ticket, Forge MCP for module selection and manifest guidance, Forge App Review skill for the security checklist, and the agent's shell access for forge tunnel, forge deploy, and forge install</li>
+			<li>This is "extreme" in the sense that it requires the full stack to be configured: both MCPs plus the review skill. Most developers will use a subset of this</li>
+			<li>The developer's role is requirements, review, and approval. Not scaffolding.</li>
 		</ul>
 	</aside>
 </section>
 
 <!-- SLIDE 34: Forge and Atlassian Rovo MCP -->
 <section>
-	<h3>Two MCP servers open Atlassian to any agent</h3>
+	<h3>Atlassian is open to any agent</h3>
 	<table>
-		<thead><tr><th>Server</th><th>GA Date</th><th>What it provides</th><th>Auth</th></tr></thead>
+		<thead><tr><th></th><th>What it opens</th><th>Examples</th></tr></thead>
 		<tbody>
-			<tr><td>🔶 <strong>Forge MCP Server</strong></td><td>Feb 2026</td><td>Forge how-to guides, module catalogs, manifest guidance, doc search</td><td>None (public docs)</td></tr>
-			<tr><td>🔷 <strong>Atlassian Rovo MCP Server</strong></td><td>Feb 2026</td><td>Jira, Confluence, Compass, Bitbucket (Apr 2026) read/write</td><td>OAuth 2.1</td></tr>
-			<tr><td>🎨 <strong>ADS MCP Server</strong></td><td>2026</td><td>ADS components, design tokens, icons, WCAG 2.1 AA accessibility</td><td>None (public)</td></tr>
+			<tr><td>🔌 <strong>MCP Servers</strong></td><td>Data and platform access</td><td>Forge MCP Server, Atlassian Rovo MCP Server, ADS MCP Server</td></tr>
+			<tr><td>📖 <strong>Skills</strong></td><td>Forge expertise and best practices</td><td>Forge App Builder, Forge App Review, Forge Debugger</td></tr>
 		</tbody>
 	</table>
-	<blockquote>Atlassian's strategy: "Use whatever AI tool you want — we'll connect it to your data securely." An ecosystem play, not a lock-in.</blockquote>
+
 	<aside class="notes">
-		<p>"Atlassian's strategy here is worth noting: use whatever AI tool you want — they'll connect it to your data securely. The Forge MCP Server needs no auth at all — it's public documentation. The Atlassian Rovo MCP Server uses OAuth 2.1, so the agent inherits your existing Jira and Confluence permissions — it can only read and write what you can."</p>
+		<p>Atlassian's strategy is to be open to any agent you want to use. MCP servers connect your agent to Atlassian's data and platform. Skills give your agent Atlassian's expertise. Together, they mean a developer using Claude Code or Cursor gets the same quality of Forge guidance as a Rovo Dev user.</p>
 		<hr/>
 		<ul>
-			<li>Atlassian Rovo MCP Server: 20+ supported AI clients — Claude Desktop, Cursor, VS Code, GitHub Copilot, Windsurf, and more</li>
-			<li>ADS MCP Server: particularly valuable for Custom UI apps — agent knows which component and token to use before writing a line of code</li>
+			<li>MCP servers: Forge MCP (public docs, no auth), Atlassian Rovo MCP (Jira, Confluence, Compass, Bitbucket via OAuth 2.1), ADS MCP (design tokens and components)</li>
+			<li>Skills: Forge App Builder guides scaffolding, Forge App Review runs a security and performance checklist, Forge Debugger diagnoses errors</li>
+			<li>The key message: you don't have to switch to Rovo Dev to benefit from Atlassian's investment in AI tooling</li>
 		</ul>
 	</aside>
 </section>
