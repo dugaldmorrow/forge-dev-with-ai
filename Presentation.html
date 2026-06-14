@@ -1036,7 +1036,7 @@ You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre
 
 <!-- SLIDE 29: Project skills directory -->
 <section>
-	<h3>Use <code>.agents/skills/</code> — the standard location</h3>
+	<h3>Project skills directory varies by tool</h3>
 	<table>
 		<thead><tr><th>Tool</th><th>Project skills directory</th></tr></thead>
 		<tbody>
@@ -1045,15 +1045,18 @@ You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre
 			<tr><td><strong>GitHub Copilot</strong></td><td><code>.agents/skills/</code> (via AGENTS.md reference)</td></tr>
 			<tr><td><strong>Codex CLI</strong></td><td><code>.agents/skills/</code></td></tr>
 			<tr><td><strong>Cursor</strong></td><td><code>.cursor/rules/</code> (MDC format)</td></tr>
-			<tr><td><strong>Windsurf</strong></td><td><code>.windsurf/rules/</code></td></tr>
+			<tr><td><strong>Windsurf</strong></td><td><code>.devin/rules/</code> (was <code>.windsurf/rules/</code>)</td></tr>
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>Project-level skills live inside your repository. When a teammate pulls, they immediately have all team skills. Use <code>.agents/skills/</code> as the source of truth — it's recognised natively by Rovo Dev, Codex CLI, and GitHub Copilot, and works for others via AGENTS.md references.</p>
+		<p>Where you put your skills depends on which agent you're using. Most agents that follow the AGENTS.md convention use .agents/skills/. Cursor and Windsurf have their own dedicated directories, and Cursor also uses a slightly different file format called MDC.</p>
 		<hr/>
 		<ul>
-			<li>Cursor uses MDC format in <code>.cursor/rules/</code> — slightly different syntax but the same concept</li>
-			<li>Portability play: maintain skills in <code>.agents/skills/</code> and reference from tool-specific locations to minimise duplication</li>
+			<li>Rovo Dev, Codex CLI, and GitHub Copilot all recognise .agents/skills/ natively or via AGENTS.md reference</li>
+			<li>Claude Code supports both .claude/skills/ and .agents/skills/</li>
+			<li>Cursor uses .cursor/rules/ with MDC format — same concept, different syntax; worth checking the Cursor docs if migrating skills from another agent. Cursor also now supports AGENTS.md in the project root and subdirectories</li>
+			<li>Windsurf recently rebranded its rules directory from .windsurf/rules/ to .devin/rules/ — the old path still works as a fallback for backward compatibility</li>
+			<li>Portability tip: maintain skills in .agents/skills/ as the source of truth and reference or symlink from tool-specific locations to minimise duplication</li>
 		</ul>
 	</aside>
 </section>
