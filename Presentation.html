@@ -1205,53 +1205,6 @@ You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre
 	</aside>
 </section>
 
-<!-- SLIDE 35: Reduce hallucinations -->
-<section>
-	<h3>Reduce hallucinations with MCP, skills, and review</h3>
-	<table>
-		<thead><tr><th>Failure mode</th><th>Cause</th><th>Prevention</th></tr></thead>
-		<tbody>
-			<tr><td>Wrong Forge module type</td><td>Training data predates current module catalog</td><td>Forge MCP Server + explicit prompting</td></tr>
-			<tr><td>Missing API scope in manifest</td><td>Agent guesses rather than looks up</td><td>Forge App Review skill pre-deploy</td></tr>
-			<tr><td>Deprecated UI Kit component</td><td>Component renamed/removed since training</td><td>ADS MCP Server for live component catalog</td></tr>
-			<tr><td>Incorrect Jira API call</td><td>REST API version mismatch</td><td>Atlassian Rovo MCP Server + version pinning</td></tr>
-			<tr><td>Security misconfiguration</td><td>Agent skips permission checks</td><td>Forge App Review skill + human review</td></tr>
-		</tbody>
-	</table>
-	<blockquote>Review agent-generated code before deploying — especially manifest changes. The Forge App Review skill is your pre-flight checklist.</blockquote>
-	<aside class="notes">
-		<p>"I know some of you are thinking — yeah, but AI agents make mistakes. You're right. They do. The answer isn't blind trust — it's the combination of MCP for live docs, skills for encoded best practices, and human review as the final gate. Always review agent-generated code before deploying, especially manifest changes."</p>
-		<hr/>
-		<ul>
-			<li>Forge's constrained architecture helps: the agent can't invent non-existent modules when the Forge MCP Server provides the authoritative list</li>
-			<li>The Forge App Review skill is your pre-flight checklist — it encodes the most common failure modes as mandatory checks</li>
-		</ul>
-	</aside>
-</section>
-
-<!-- SLIDE 36: Atlassian internal tools -->
-<section>
-	<h3>Atlassian's internal AI tools signal what's next</h3>
-	<table>
-		<thead><tr><th>Tool</th><th>What it does</th></tr></thead>
-		<tbody>
-			<tr><td>🏗️ <strong>App Studio / Rovo Studio</strong></td><td>Describe your app → Rovo selects modules and deploys; production app in under 20 minutes <em>(Open Beta Mar 2026)</em></td></tr>
-			<tr><td>🔬 <strong>Socrates MCP Server</strong></td><td>Internal data platform with an MCP interface — Atlassian's own MCP-first tooling</td></tr>
-			<tr><td>🎨 <strong>ADS MCP Server</strong></td><td>Atlassian Design System as an MCP server — live components, design tokens, accessibility</td></tr>
-			<tr><td>⚡ <strong>Volt Studio</strong></td><td>AI-assisted rapid prototyping for internal tools on the Atlassian stack</td></tr>
-		</tbody>
-	</table>
-	<aside class="notes">
-		<p>"Everything we've talked about so far — Atlassian uses internally too. The Socrates MCP Server is their own data platform with an MCP interface. The ADS MCP Server started as an internal tool for Atlassian designers, then went public. The pattern isn't just something Atlassian recommends — it's what they actually build with."</p>
-		<hr/>
-		<ul>
-			<li>App Studio: zero-code path to a deployed Forge app in under 20 minutes; open beta March 2026</li>
-			<li>ADS MCP: built for internal Atlassian designers first, then made publicly available</li>
-			<li>Volt Studio: AI-assisted rapid prototyping for internal tools on the Atlassian stack</li>
-		</ul>
-	</aside>
-</section>
-
 <!-- SLIDE 37: Complete workflow -->
 <section>
 	<h3>Agent + MCP + skills = complete workflow</h3>
