@@ -1205,58 +1205,26 @@ You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre
 	</aside>
 </section>
 
-<!-- SLIDE 37: Complete workflow -->
-<section>
-	<h3>Agent + MCP + skills = complete workflow</h3>
-	<pre><code>Developer: "Build a Jira issue panel — see PROJ-123"
-    │
-    ▼
-Agent reads PROJ-123 via Atlassian Rovo MCP
-    │
-    ▼
-Forge App Builder skill activates
-    │  ├── calls Forge MCP → selects jira:issuePanel module
-    │  ├── scaffolds manifest + resolver + UI Kit components
-    │  └── runs forge tunnel → reads errors → iterates
-    │
-    ▼
-Forge App Review skill → security + perf checklist
-    │
-    ▼
-forge deploy + forge install
-    │
-    ▼
-Atlassian Rovo MCP → marks PROJ-123 Done</code></pre>
-	<aside class="notes">
-		<p>"Here's the complete picture. The developer gives a goal — 'Build a Jira issue panel, see PROJ-123.' The agent reads the ticket, selects the right Forge module, scaffolds the code, runs forge tunnel, iterates on errors, runs the review skill, deploys, and marks the ticket done. The developer reviewed — they didn't write."</p>
-		<hr/>
-		<ul>
-			<li>Skills in play: Forge App Builder · Forge App Review · Commit · Changelog</li>
-			<li>A developer new to Forge can be productive on day one</li>
-		</ul>
-	</aside>
-</section>
-
 <!-- SLIDE 37b: How I AI -->
 <section>
-	<h3>My workflow: how I build Forge apps with AI</h3>
+	<h3>My spec-first agent-built vibe workflow</h3>
 	<ol>
-		<li>🔨 <strong>Scaffold with the Forge CLI</strong> — <code>forge create</code> generates the correct app structure; the agent starts from a known-good foundation, not a blank file</li>
-		<li>📄 <strong>Write a <code>Requirements.md</code></strong> — a plain-language spec describing what the app should do; this becomes the agent's source of truth for every feature</li>
-		<li>🤖 <strong>Instruct Rovo Dev (VS Code) + Forge MCP</strong> — in the Rovo Dev VS Code extension, point the agent at <code>Requirements.md</code> and ask it to build each feature; the Forge MCP Server keeps module, manifest, and API decisions grounded in live docs</li>
-		<li>🔁 <strong>Review → refine the spec, not just the code</strong> — when the output is wrong, the fix goes into <code>Requirements.md</code> first; clearer requirements prevent the same mistake from recurring</li>
+		<li>🔨 <strong><code>forge create</code></strong> — known-good scaffold; agent never guesses boilerplate</li>
+		<li>📄 <strong>Write <code>Requirements.md</code></strong> — plain-language spec; agent's source of truth</li>
+		<li>🤖 <strong>Rovo Dev + Forge MCP</strong> — agent builds each feature against live docs</li>
+		<li>🔁 <strong>Fix the spec, not just the code</strong> — ambiguity in output = ambiguity in spec</li>
 	</ol>
-	<blockquote>💡 The spec improves every iteration — by the time the app ships, <code>Requirements.md</code> is accurate documentation of what was built and why.</blockquote>
+	<blockquote>By ship date, <code>Requirements.md</code> is the app's documentation.</blockquote>
 	<aside class="notes">
-		<p>This is the presenter's personal workflow — not a prescription, but a concrete example of how the tools in this presentation fit together in practice. The key insight is that the Requirements.md file serves a dual purpose: it's the agent's instruction set during development, and it becomes the app's living documentation after it ships.</p>
+		<p>"I called this my vibe workflow deliberately — because it does start with vibes. I have a rough idea. I vibe with the agent. But I vibe with a spec, not just a feeling. That's the distinction."</p>
 		<hr/>
 		<ul>
-			<li>Step 1 — forge create: scaffolding with the CLI gives the agent a valid starting point (correct directory structure, package.json, manifest.yml) so it never has to guess the boilerplate. This is where the Forge App Builder skill is particularly useful.</li>
-			<li>Step 2 — Requirements.md: a structured plain-language spec. Sections typically include: what the app does, which Atlassian product it targets, which Forge module it uses, what data it reads/writes, and any UI/UX notes. Not a PRD — just enough for the agent to make correct decisions.</li>
-			<li>Step 3 — Rovo Dev in VS Code + Forge MCP: the Rovo Dev VS Code extension brings the agent into the editor so you can reference open files directly. The Forge MCP Server ensures the agent uses current module types and API scopes, not training data that may be months out of date.</li>
-			<li>Step 4 — spec-first debugging: when the agent produces something wrong, resist the urge to just fix the code. Ask: why did the agent make this decision? Usually the spec was ambiguous. Fix the ambiguity in Requirements.md, then re-run. This prevents the same issue resurfacing in the next feature.</li>
-			<li>The compounding benefit: after ten features, Requirements.md is a comprehensive, accurate spec that a new developer (or a new AI agent session) can use to understand the app immediately.</li>
-			<li>Transition: "That's how I do it — but it doesn't have to be all or nothing. Here are three levels of adoption you can use to ramp up at your own pace."</li>
+			<li>forge create first — never start from a blank file. The scaffold gives the agent a known-good structure: correct directories, package.json, manifest.yml. The Forge App Builder skill is particularly useful at this step.</li>
+			<li>Requirements.md is the spec. Not a PRD — just enough for the agent to make correct decisions: what the app does, which Forge module it uses, what data it reads and writes. One page, plain English.</li>
+			<li>Rovo Dev in VS Code + Forge MCP: point the agent at Requirements.md and ask it to build. The Forge MCP Server keeps every module and API decision grounded in live docs, not stale training data.</li>
+			<li>When output is wrong, resist fixing the code directly. Ask: why did the agent make that decision? The answer is almost always an ambiguity in the spec. Fix Requirements.md first, then re-run — same mistake won't recur.</li>
+			<li>The compounding benefit: after ten features, Requirements.md is a complete, accurate record of what was built and why. A new developer — or a new agent session — can pick it up immediately.</li>
+			<li>Transition: "That's my approach — but you don't have to adopt all of this at once. Here are three levels of adoption you can use to ramp up at your own pace."</li>
 		</ul>
 	</aside>
 </section>

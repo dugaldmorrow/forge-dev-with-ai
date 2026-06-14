@@ -151,21 +151,7 @@ Axes must start at zero for bar charts. Truncated axes distort perception. Alway
 
 ## 5. Speaker Notes
 
-### What to include
-Speaker notes complement the slide — they do not repeat it. Good speaker notes contain:
-- The key talking point(s) for this slide in natural spoken language
-- Statistics, quotes, or examples too detailed for the slide itself
-- Transition cues ("This brings us to the next point...")
-- Prompts for stories or audience interaction
-- Context for co-presenters or anyone presenting the deck without you
-
-### What to avoid
-- Word-for-word transcripts of what you plan to say (these become a crutch)
-- Repetition of exactly what is written on the slide
-- Jargon or abbreviations you might misread under pressure
-
-### Length
-Aim for **3–8 sentences or bullet points** per slide. Long enough to be useful; short enough to scan quickly while presenting.
+Whenever you need to write, edit, or review speaker notes, open and follow the **speaker notes skill** at `.agents/skills/speaker-notes/SKILL.md`. That skill defines the required structure, content conventions, and HTML template for all speaker notes in this presentation. The guidance in this section is superseded by that skill.
 
 ---
 
