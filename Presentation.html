@@ -952,7 +952,7 @@ Large files shown collapsed (signatures only) → expand on demand
       ▼
 Acts on relevant content only</code></pre>
 	<aside class="notes">
-		<p>This is counterintuitive for developers used to IDEs that index the entire project upfront. Agents work selectively — they list the directory, open only the files they need, and expand large files on demand. One practical tip: if you're working on one part of a large codebase, you can launch the agent from that subdirectory rather than the root. This gives it a smaller, more focused view and avoids wasting tokens navigating irrelevant code.</p>
+		<p>This may be counterintuitive for developers used to IDEs that index the entire project upfront. Agents work selectively — they list the directory, open only the files they need, and expand large files on demand. One practical tip: if you're working on one part of a large codebase, you can launch the agent from that subdirectory rather than the root. This gives it a smaller, more focused view and avoids wasting tokens navigating irrelevant code.</p>
 		<hr/>
 		<ul>
 			<li>Rovo Dev: files opened on demand via <code>open_files</code>, <code>grep</code>, <code>expand_code_chunks</code>, <code>expand_folder</code>; large files shown collapsed until explicitly expanded</li>
@@ -971,10 +971,15 @@ Acts on relevant content only</code></pre>
 		<li class="fragment">Add instructions to <code>AGENTS.md</code>: <em>Ignore the files and directories identified by the patterns in <code>.agentignore</code>.</em></li>
 	</ul>
 	<aside class="notes">
-		<p>Not all agents support a native ignore file, but all agents respect instructions in AGENTS.md. The two-step pattern works universally: define the patterns in a <code>.agentignore</code> file (same syntax as <code>.gitignore</code>), then instruct the agent in AGENTS.md to honour those patterns. Agents that natively support <code>.agentignore</code> will pick it up automatically; others will follow the AGENTS.md instruction.</p>
+		<p>There are three ways to tell an agent to ignore files.</p>
+		<ul>
+			<li><strong>Click to show item 1</strong> — The most portable option is an .agentignore file, which uses the same syntax as .gitignore.</li>
+			<li><strong>Click to show item 2</strong> — Some agents support agent-specific ignore files. Rovo Dev, for example, will respect a .rovoignore file.</li>
+			<li><strong>Click to show item 3</strong> — The most universal option is to add an instruction directly to AGENTS.md telling the agent to honour the patterns in your .agentignore file. Every agent reads AGENTS.md, so this works even when native ignore file support is absent.</li>
+		</ul>
 		<hr/>
 		<ul>
-			<li>Common candidates: <code>node_modules/</code>, <code>build/</code>, <code>dist/</code>, <code>.next/</code>, <code>target/</code>, large binary assets, generated files, and test fixtures with large data sets</li>
+			<li>Common candidates to ignore: node_modules, build and dist directories, large binary assets, generated files, and test fixtures with large data sets</li>
 			<li>Ignoring irrelevant files reduces context noise and speeds up codebase navigation</li>
 		</ul>
 	</aside>
@@ -982,7 +987,7 @@ Acts on relevant content only</code></pre>
 
 <!-- SLIDE 28: SKILL.md file structure -->
 <section>
-	<h3>Skills are version-controlled markdown files</h3>
+	<h3>Skills are markdown files with frontmatter</h3>
 	<pre><code class="language-markdown">---
 name: forge-app-builder
 description: Guides scaffolding a new Forge app from prompt
@@ -997,13 +1002,34 @@ Ask the developer what Atlassian product the app targets...
 
 ## Step 2: Select the Right Module
 You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre>
-	<blockquote>Stored in <code>.agents/skills/forge-app-builder/SKILL.md</code> — committed to git, no build step, no runtime.</blockquote>
 	<aside class="notes">
-		<p>Skills are just markdown — no special runtime, no build step, no deployment. The YAML frontmatter (name + description) is what gets loaded at startup; the body loads only when the task matches. Commit them to git and teammates immediately get the same version.</p>
+		<p>A skill is just a markdown file with a YAML frontmatter block at the top. The frontmatter declares a name and description. That's what the agent reads at startup to decide whether the skill is relevant. The body of the file is only loaded when the task matches, which keeps startup token costs low.</p>
 		<hr/>
 		<ul>
-			<li>The <code>references/</code> subdirectory holds supporting files the skill can instruct the agent to load — module patterns, architectural decisions, team conventions</li>
-			<li>~100 tokens per skill at startup (name + description only); body is loaded on demand</li>
+			<li>The frontmatter name and description are loaded at every session startup — roughly 100 tokens per skill; keep descriptions concise</li>
+			<li>The skill body is loaded on demand only — this is what makes skills token-efficient compared to putting everything in AGENTS.md</li>
+			<li>A skill can instruct the agent to load supporting files from a references/ subdirectory — useful for module patterns, architectural decisions, or team conventions</li>
+		</ul>
+	</aside>
+</section>
+
+<!-- SLIDE 28b: Advanced skill capabilities -->
+<section>
+	<h3>Skills can do more than you think</h3>
+	<ul>
+		<li class="fragment">📁 <strong>References</strong> — link supporting files the agent loads on demand</li>
+		<li class="fragment">🖥️ <strong>Scripts</strong> — run shell commands on the local machine</li>
+		<li class="fragment">🤖 <strong>Agent-specific instructions</strong> — target behaviour for a specific agent</li>
+		<li class="fragment">🔗 <strong>Skill chaining</strong> — instruct one skill to invoke another</li>
+	</ul>
+	<aside class="notes">
+		<p>Skills aren't just static instructions. They can load supporting reference files, run shell scripts locally, target specific agents, and chain into other skills.</p>
+		<hr/>
+		<ul>
+			<li><strong>References:</strong> a references/ subdirectory can hold module patterns, ADRs, or team conventions — the skill instructs the agent to load them when needed</li>
+			<li><strong>Scripts:</strong> a skill can instruct the agent to run a bash or shell script — useful for validation, build checks, or pre-deploy gates</li>
+			<li><strong>Agent-specific instructions:</strong> a skill can include sections that apply only when running in a specific agent (e.g. Rovo Dev vs Claude Code)</li>
+			<li><strong>Skill chaining:</strong> a skill can instruct the agent to load and follow another skill — useful for composing complex workflows from smaller reusable pieces</li>
 		</ul>
 	</aside>
 </section>
