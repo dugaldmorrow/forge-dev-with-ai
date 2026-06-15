@@ -270,20 +270,19 @@
 
 <!-- SLIDE 7: Six major agents -->
 <section>
-	<h3>Six major AI coding agents compared</h3>
+	<h3>Five major AI coding agents compared</h3>
 	<table>
 		<thead><tr><th>Agent</th><th>Creator</th><th>Distinctive Feature</th></tr></thead>
 		<tbody>
 			<tr><td><strong>Rovo Dev / Rovo CLI</strong></td><td>Atlassian</td><td>Atlassian Teamwork Graph — Jira, Confluence, Bitbucket, Compass context; IDE extension (VS Code + compatible); ADS-accurate UI generation</td></tr>
 			<tr><td><strong>Claude Code</strong></td><td>Anthropic</td><td>Agent View + /goal; supervisor Claude verifies results</td></tr>
 			<tr><td><strong>Codex</strong></td><td>OpenAI</td><td>Available as a desktop app, CLI, IDE plugin, and web app — same agent, multiple surfaces</td></tr>
-			<tr><td><strong>Google Antigravity 2.0</strong></td><td>Google</td><td>Multi-model routing; launched May 19 2026 at Google I/O</td></tr>
 			<tr><td><strong>Devin</strong></td><td>Cognition AI</td><td>First "autonomous AI software engineer"; Interactive Planning; from $20/mo</td></tr>
 			<tr><td><strong>Cline</strong></td><td>Community (MIT)</td><td>Bring your own API key; fully open source</td></tr>
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>"Here are six tools providing fully agentic coding capabilities. Each of them have distinctintive features which orients them towards different kinds of situations.
+		<p>"Here are five tools providing fully agentic coding capabilities. Each of them have distinctive features which orients them towards different kinds of situations.
     </p>
     <p>
       Rovo Dev is the obvious choice if you're already on Atlassian Cloud because it has built in access to interacting with Atlassian apps such as Jira, Confluence and Bitbucket. 
@@ -296,7 +295,6 @@
 			<li>Rovo Dev: only agent with native Teamwork Graph access — reads cross-product context (Jira + Confluence + Bitbucket + Compass) without MCP configuration; also available as an IDE extension built into the Atlassian for VS Code extension, supporting VS Code and compatible editors</li>
 			<li>Claude Code: the supervisor Claude verification step is a meaningful reliability differentiator — catches errors before surfacing results</li>
 			<li>Codex: the multi-surface story is its clearest differentiator — CLI for terminal-first developers, desktop app for managing parallel agent threads, IDE extension for pairing inside VS Code or Cursor, and web for cloud-delegated tasks; all share the same ChatGPT account and model</li>
-			<li>Google Antigravity 2.0: multi-model routing means it selects the best model for each sub-task; still early days for community adoption</li>
 			<li>Devin: pricing starts at $20/mo but scales to consumption-based at higher tiers; best for well-scoped, isolated tasks</li>
 			<li>Cline: MIT licence, fully auditable; popular in enterprises with strict data governance requirements because the code never leaves your machine</li>
 		</ul>
@@ -354,22 +352,25 @@
 
 <!-- SLIDE 10: AI-native IDEs -->
 <section>
-	<h3>AI-Native IDEs are rebuilt around AI</h3>
+	<h3>Local AI-Native IDEs</h3>
 	<table>
 		<thead><tr><th>IDE</th><th>Creator</th><th>LLMs</th></tr></thead>
 		<tbody>
 			<tr><td><strong>Cursor</strong></td><td>Anysphere</td><td>Claude, GPT, Gemini, Grok + proprietary Composer</td></tr>
 			<tr><td><strong>Windsurf</strong></td><td>Codeium / Cognition</td><td>Proprietary SWE-1.5/1.6, Claude, GPT + BYOK</td></tr>
+			<tr><td><strong>Google Antigravity</strong></td><td>Google</td><td>Gemini 3.1 Pro, Claude, GPT-OSS-120B; agent-first; Manager + Editor views</td></tr>
 			<tr><td><strong>Replit</strong></td><td>Replit Inc.</td><td>Managed (not user-selectable)</td></tr>
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>AI-Native IDEs differ from AI Coding Assistants because AI is baked into the core architecture, not bolted on. Both Cursor and Windsurf work excellently with the Forge MCP Server. Cursor leads on model flexibility and community; Windsurf on speed and compliance for regulated industries.</p>
+		<p>Alternatively, you can use AI-native IDEs which have AI baked into their user experience. Any of these IDEs can be used for Forge development.</p>
 		<hr/>
 		<ul>
 			<li>Cursor: $2B ARR in February 2026 (reportedly fastest-growing SaaS in history); $29.3B valuation after Series D; 2M+ users; 50% Fortune 500 adoption</li>
 			<li>Windsurf: acquired by Cognition AI; Cascade agent tracks your actions to infer intent; FedRAMP, HIPAA, ITAR compliant</li>
-			<li>Both ~$20/mo · 200K token context · multi-file agentic editing</li>
+			<li>Google Antigravity: announced November 2025 alongside Gemini 3; built on a VS Code fork (with Windsurf team DNA); features an Editor View (familiar IDE experience) and a Manager View (orchestrate multiple parallel agents); supports Gemini 3.1 Pro, Claude Sonnet/Opus 4.6, and GPT-OSS-120B; free for individuals in public preview</li>
+			<li>Replit: managed (not user-selectable) — cloud-native; best for rapid prototyping and sharing</li>
+			<li>Note: Antigravity 2.0 (launched Google I/O May 2026) also ships as a standalone desktop app separate from the IDE — it acts as a mission control for orchestrating agents across any editor</li>
 		</ul>
 	</aside>
 </section>
@@ -388,7 +389,8 @@
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>"All five of these platforms now support MCP, so any of them can connect to the Forge MCP Server for Forge-aware generation. But App Studio is the one to highlight for this audience: it's Forge-native, which means you sidestep the Technical Cliff, the point where vibe-coded apps look great but fall apart at production auth, hosting, and scaling. Forge handles all of that automatically."</p>
+		<p>"Autonomous dev platforms take natural language descriptions of intent and autonomously generates, deploys and hosts working apps for testing. The developer doesn't have to manage the underlying environment for development and testing."</p>
+    <p>"As you can see, there are a number to choose from."</p>
 		<hr/>
 		<ul>
 			<li>App Studio: open beta March 2026, auto-rolled out May 2026</li>
@@ -410,7 +412,8 @@
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>The "Technical Cliff" is the point at which a vibe-coded app hits the realities of production deployment. For general-purpose platforms like Lovable, Bolt.new, or v0.dev, the AI generates the app code, but everything else is left to the developer: setting up OAuth, provisioning hosting, managing scaling, wiring in Atlassian permission scopes, and handling deployment pipelines.</p>
+		<p>"However, with each autonomoous dev platform, be aware of potential technical cliffs that may occur after the prototyping stage. "</p>
+		<p>"This is one area where App Studio stands out because it knows exactly where and how the generated app will run."</p>
 		<hr/>
 		<ul>
 			<li>For a professional developer this is routine. For someone who used an Autonomous Dev Platform precisely because they wanted to avoid that complexity, it's a cliff edge: the moment the tool stops helping and the hard work begins.</li>
