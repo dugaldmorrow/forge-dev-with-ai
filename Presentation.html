@@ -588,9 +588,7 @@
 			<li>Transition: "Now let's make that concrete with the Forge AI Plugin."</li>
 		</ul>
 		<ul>
-			<li><a href="https://code.claude.com/docs/en/plugins#create-your-first-plugin">Claude Code — Create your first plugin</a> — how to define skills, MCP config, and host metadata for Claude Code plugins</li>
-			<li><a href="https://developers.openai.com/codex/plugins/build">Codex — Build a plugin</a> — plugin definition format for OpenAI Codex agents</li>
-			<li><a href="https://cursor.com/docs/plugins#creating-plugins">Cursor — Creating plugins</a> — plugin structure and host metadata for Cursor</li>
+			<li><a href="https://code.claude.com/docs/en/plugins">Claude Code — Plugins documentation</a> — how Claude Code discovers, installs, and indexes AI plugins including skills and MCP config</li>
 			<li><a href="https://docs.anythingllm.com/agent/custom/plugin-json">AnythingLLM — Plugin JSON reference</a> — the plugin.json metadata format that tells the host where skills and MCP config live</li>
 		</ul>
 	</aside>
@@ -628,19 +626,20 @@
 <section>
 	<h3>Installing skills with <code>npx</code></h3>
 	<pre><code>npx skills add atlassian/forge-skills
-  → Downloads repo · detects installed agents · copies SKILL.md files · creates skills-lock.json</code></pre>
-	<table>
-		<thead><tr><th>Also needed</th><th>How</th></tr></thead>
-		<tbody>
-			<tr><td>Forge MCP Server</td><td>Add JSON config to your agent's MCP config file manually</td></tr>
-			<tr><td>Skills — check for updates</td><td><code>npx skills check</code></td></tr>
-			<tr><td>Skills — update all</td><td><code>npx skills update</code></td></tr>
-		</tbody>
-	</table>
-	<aside class="notes">
-    <p>"If your host doesn;t support AI plugins or if you want to install additional skills, you can use the npx utility. "</p>
+  → Downloads repo
+  → Detects installed agents
+  → Copies SKILL.md files
+  → Creates skills-lock.json
 
-		<p>When you're on the manual path, there are two distinct steps: install the skills with npx skills, then configure the Forge MCP Server separately. npx skills copies the SKILL.md files into your agent's skills directory. It does not touch your MCP config. You still need to add the Forge MCP Server JSON block to your agent's config file by hand, then restart the agent. Both are needed — skills without MCP means the agent has the workflow instructions but no live access to Forge docs.</p>
+# Check for updates
+npx skills check
+
+# Update all skills
+npx skills update
+</code></pre>
+	<aside class="notes">
+    <p>"If your host doesn't support AI plugins or if you want to install additional skills, you can use the npx utility as shown here."</p>
+    <p>"Since skills are downloaded, you need to manually update them in order to ensure you're using the latest version. Updates to Forge skills are announced in the Atlassian developer changelog."</p>
 		<hr/>
 		<ul>
       <li>NPX: Node Package Execute</li>
@@ -666,7 +665,8 @@
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>The answer to "should I use an MCP server or a skill?" is almost always: both, for different reasons. MCP gives the agent capabilities: access to Jira, Forge docs, the web. Skills give the agent knowledge: your commit format, your pre-deploy checklist, your team's Forge patterns. They work best together. A skill can instruct the agent to consult an MCP server, combining static workflow knowledge with live data.</p>
+    <p>"MCP servers are necessary when integrating with a third party system. They are also advantages when they provide information thhat changes frequently since they don't rely oin the developer updating versions."</p>
+    <p>"Skillls are optimate for providing relatively static expertise such as guidelines. They are also easier to create."</p>
 		<hr/>
 		<ul>
 			<li>Token cost: skills are much cheaper for encoding static knowledge; if information changes frequently or requires live data, use MCP instead</li>
@@ -678,15 +678,17 @@
 <section>
 	<h3>Skills = Local; MCP = Remote</h3>
 	<ul>
-		<li class="fragment"><span style="color:#1b91ff">Skills</span> provide <span style="color:#1b91ff">local</span> knowledge and capabilities</li>
-		<li class="fragment"><span style="color:#17ff2e">MCP</span> provides <span style="color:#17ff2e">remote</span> knowledge and capabilities</li>
-		<li class="fragment"><span style="color:#1b91ff">Skills</span> can be used to help ensure <span style="color:#17ff2e">MCP</span> is utilised reliably</li>
+		<li><span style="color:#1b91ff">Skills</span> provide <span style="color:#1b91ff">local</span> knowledge and capabilities</li>
+		<li><span style="color:#17ff2e">MCP</span> provides <span style="color:#17ff2e">remote</span> knowledge and capabilities</li>
+		<li><span style="color:#1b91ff">Skills</span> can be used to help ensure <span style="color:#17ff2e">MCP</span> is utilised reliably</li>
 	</ul>
 	<aside class="notes">
-		<p>The local/remote distinction is the clearest mental model for the skills vs MCP question. Skills are files on disk. They travel with your repo, they're version-controlled, and they load into the agent's context when the task matches. MCP servers are running processes that connect to external systems in real time: the Forge MCP Server, the Atlassian Rovo MCP, your database, your CI system. Neither is sufficient alone. Without a skill, the agent has to decide on its own whether to call the MCP, and it may not. Without the MCP, the skill's instruction to look up the current module catalog falls back to stale training data.</p>
+    <p>"Although MCP servers and skills are very different ways of being implemented, they can also provide similar and complementary functionality and can be used to complement each other. This is why Atlassian provides both the Forge MCP server and various Forge skills."</p>
 		<hr/>
 		<ul>
-			<li>Skills can also include executable scripts, so "local capabilities" covers more than just instructions. They can run commands on your machine too.</li>
+			<li>Skills live in your repo: version-controlled, portable, shared with the team</li>
+			<li>MCP servers are processes: the Forge MCP Server, the Atlassian Rovo MCP, your database, your CI system</li>
+			<li>Skills can also include executable scripts, so "local capabilities" covers more than just instructions</li>
 			<li>Transition: "MCP invocation isn't guaranteed. Let's look at what that means in practice."</li>
 		</ul>
 	</aside>
@@ -694,7 +696,7 @@
 
 <!-- SLIDE 21c: Rovo Dev differentiators -->
 <section>
-	<h3>Rovo Dev vs MCP-connected agents</h3>
+	<h3>Rovo Dev goes deeper than Rovo MCP alone</h3>
 	<ul>
 		<li>🕸️ <strong>Teamwork Graph intelligence</strong> — graph traversal MCP doesn't support</li>
 		<li>🧠 <strong>Memory fused with Teamwork Graph</strong> — no manual prompting per session</li>
@@ -703,34 +705,58 @@
 		<li>⚡ <strong>Zero-config</strong> — no OAuth or MCP setup required</li>
 	</ul>
 	<aside class="notes">
-		<p>Both Rovo Dev and external agents using the Atlassian Rovo MCP Server connect to the same underlying Atlassian infrastructure: same products (Jira, Confluence, Bitbucket, JSM, Compass), same permission model. The difference is depth and continuity of context, not access. See RovoDevResearch.md for full research notes.</p>
+    <p>"Rovo Dev and the Atlassian Rovo MCP server provide similar capabilities. They can both read from and write to Atlassian apps such as Jira and Confluence, but Rovo Dev is able to connect in a more native way which provides a number of advantages."</p>
 		<hr/>
 		<ul>
-			<li><strong>Teamwork Graph intelligence:</strong> Rovo Dev gets multi-hop graph traversals, relationship inference, and collaboration patterns — e.g. "who worked on what together", tracing project → issue → commit → repo. These aren't exposed through the MCP Server's tool surface; external agents get basic Jira/Confluence read/write, but not the graph intelligence layer.</li>
-			<li><strong>Memory fused with Teamwork Graph:</strong> Persistent memory files (AGENTS.md etc.) are a general pattern any agent can use — the Rovo Dev-specific advantage is that memory is automatically fused with live Teamwork Graph data in the same context window, with no explicit prompting required. An external agent with an equivalent memory file can achieve similar results, but must manually trigger MCP calls each session to pull in live Atlassian context.</li>
-			<li><strong>Long-tail completeness:</strong> Internal testing showed Rovo Dev catches things MCP-connected agents silently miss — stale tickets, slipped PRDs, cross-product links like a CVE linked to a Bitbucket PR. External agents with MCP "look authoritative when they're missing risks."</li>
-			<li><strong>Dual-layer context:</strong> Rovo Dev combines the Teamwork Graph (organisational layer) with personal skills, memory, and workspace context (individual layer). External agents only get what MCP tools return per-query — no accumulated personal layer.</li>
-			<li><strong>Zero-config integration:</strong> Rovo Dev auto-connects to the Atlassian MCP server with native Jira/Confluence/Bitbucket actions built in. External agents require explicit MCP server configuration and OAuth setup — a meaningful barrier for teams adopting at scale.</li>
-			<li>Internal benchmarks: 44% better answer quality with 48% fewer tokens when grounded in Teamwork Graph data. Where MCP-in-IDE wins: deliverable depth — applicable diffs, build/test execution, code-level output.</li>
-			<li>Note: The Atlassian Rovo MCP Server added getTeamworkGraphContext and getTeamworkGraphObject tools in open beta (May 2026) — this is closing the gap for external agents, but persistent memory and zero-config remain Rovo Dev–only advantages.</li>
+			<li><strong>Teamwork Graph intelligence:</strong> multi-hop graph traversals and relationship inference, e.g. tracing project to issue to commit to repo. Not exposed through the MCP Server's tool surface.</li>
+			<li><strong>Memory fused with Teamwork Graph:</strong> memory files like AGENTS.md are a general pattern any agent can use. Rovo Dev's advantage is that memory is automatically fused with live Teamwork Graph data in the same context window, with no manual prompting required.</li>
+			<li><strong>Long-tail completeness:</strong> internal testing showed Rovo Dev catches things MCP-connected agents silently miss, such as stale tickets, slipped PRDs, and cross-product links.</li>
+			<li><strong>Zero-config integration:</strong> Rovo Dev auto-connects with no OAuth or MCP setup. External agents require explicit configuration, which is a barrier for teams adopting at scale.</li>
+			<li>Internal benchmarks: 44% better answer quality with 48% fewer tokens when grounded in Teamwork Graph data.</li>
+			<li>Note: The Atlassian Rovo MCP Server added Teamwork Graph tools in open beta (May 2026), closing the gap for external agents, but persistent memory and zero-config remain Rovo Dev-only advantages.</li>
+		</ul>
+	</aside>
+</section>
+
+<!-- SLIDE 21d-intro: What is the TWG CLI? -->
+<section>
+	<h3>Teamwork Graph CLI</h3>
+	<ul>
+		<li>🖥️ <strong>What it is</strong> — a command-line tool from Atlassian that exposes Atlassian data through a shell-friendly interface</li>
+		<li>📦 <strong>What it covers</strong> — Jira, Confluence, Bitbucket, JSM, Assets, Goals, Teams, and the Teamwork Graph</li>
+		<li>⚙️ <strong>How it works</strong> — install the CLI and then any agent that can run shell commands can use it</li>
+	</ul>
+	<aside class="notes">
+		<p>"The Teamwork Graph CLI is another way to connect agents to Atlassian apps and the Teamwork Graph."</p>
+		<p>"As it's name suggests, it provides a comman line interface so agents need to be able to invoke shell commands to use it."</p>
+		<hr/>
+		<ul>
+			<li>TWG = Teamwork Graph — Atlassian's cross-product knowledge graph connecting issues, pages, repos, goals, teams, and people</li>
+			<li>The CLI wraps the Teamwork Graph API in a shell-friendly interface — install, authenticate, and the agent calls it like any other command</li>
+			<li>Coverage advantage: the TWG CLI currently reaches 15+ Atlassian products, including JSM, Assets, Goals, and Teams — products the Rovo MCP Server doesn't yet expose</li>
+			<li>The Atlassian skills repository (<code>atlassian/forge-skills</code>) includes a TWG CLI skill that coaches agents on how to use it effectively</li>
+		</ul>
+		<ul>
+			<li><a href="https://developer.atlassian.com/platform/teamwork-graph/twg-cli/">developer.atlassian.com — TWG CLI</a> — canonical technical reference and installation guide</li>
+			<li><a href="https://github.com/atlassian/twg-cli">github.com/atlassian/twg-cli</a> — releases, agent skills, and issue tracking</li>
 		</ul>
 	</aside>
 </section>
 
 <!-- SLIDE 21d: Rovo MCP vs TWG CLI -->
 <section>
-	<h3>Choose Rovo MCP or TWG CLI based on your agent's runtime</h3>
+	<h3>Rovo MCP vs Teamwork Graph</h3>
 	<table>
 		<thead><tr><th></th><th>Atlassian Rovo MCP Server</th><th>Teamwork Graph CLI</th></tr></thead>
 		<tbody>
 			<tr><td><strong>Runtime</strong></td><td>MCP protocol client (Rovo Dev, Claude Code, Cursor)</td><td>Terminal / shell agent</td></tr>
 			<tr><td><strong>Configuration</strong></td><td>Add URL to MCP config file</td><td>Install CLI, add to PATH</td></tr>
 			<tr><td><strong>Data access</strong></td><td>Jira, Confluence, Teamwork Graph</td><td>Jira, Confluence, Bitbucket, JSM, Assets, Goals, Teams, + Teamwork Graph</td></tr>
-			<tr><td><strong>Relationship</strong></td><td colspan="2" style="text-align:center">Complementary — both access the Teamwork Graph; pick based on runtime</td></tr>
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>A common question after the previous slide: "if I'm using Claude Code or Cursor rather than Rovo Dev, which Atlassian surface should I use?" The answer is: it depends on how your agent runs, not on what data you need. Both the Rovo MCP Server and the TWG CLI can access Jira, Confluence, and the Teamwork Graph. Neither is ranked above the other.</p>
+    <p>"It's possible to have both the Teamwork Graph CLI and Rovo MCP server installed in the same time. It's up to the agent which tool it will invoke."</p>
+    <p>"Of the two, the Teamwork Graph CLI rovides broader and deeper Atlassian context."</p>
 		<hr/>
 		<ul>
 			<li><strong>Rovo MCP Server</strong> — the right choice if your agent speaks MCP protocol: add mcp.atlassian.com to your MCP config and you're done. Works with any MCP-compatible agent.</li>
@@ -782,15 +808,17 @@
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>Here are some common failure patterns.</p>
-		<hr/>
+		<p>"Here are some common failure patterns."</p>
 		<ul>
-			<li><strong>Row 1 — Forge MCP Server skipped:</strong> The agent applies incorrect module settings causing the app to fail to deploy with a manifest validation error.</li>
-			<li><strong>Click to show row 2</strong> — <strong>Forge App Review skill skipped:</strong> The agent omits an OAuth scope or unsanitised input.</li>
-			<li><strong>Click to show row 3</strong> — <strong>Atlassian Rovo MCP Server skipped:</strong> In the third case, the agent fixes a confabulated Jira work item.</li>
+			<li><strong>Row 1 (Forge MCP Server skipped)</strong>: "The first problematic scenario involves the agent applying incorrect module settings causing the app to fail to deploy with a manifest validation error."</li>
+			<li><strong>Click to show row 2</strong> <strong>(Forge App Review skill skipped)</strong>: "The second type of issue that can occur is when the agent omits an OAuth scope or doesn't sanitise input."</li>
+			<li><strong>Click to show row 3</strong> <strong>(Atlassian Rovo MCP Server skipped)</strong>: "In the third case, the agent fixes a confabulated Jira work item."</li>
+		</ul>
+		<hr/>
+    <ul>
 			<li>Tell-tale sign: agent gives a fluent, confident answer about a Forge module or API that doesn't exist or has changed</li>
 			<li>How to spot it in Rovo Dev: check the tool call log — if <code>forge-development-guide</code> or <code>search-forge-docs</code> were not called during a Forge scaffolding task, the agent answered from memory</li>
-		</ul>
+    </ul>
 	</aside>
 </section>
 
@@ -798,7 +826,7 @@
 <section>
 	<h3>⚠️ Presence in the config is not the same as guaranteed invocation. The agent's internal confidence is the deciding factor.</h3>
 	<aside class="notes">
-		<p>This is the most important thing to remember about MCP and skills. Configuring a tool doesn't mean the agent will use it. The agent makes its own judgement. If it believes it already knows the answer, it'll skip the tool call entirely. The only reliable mitigations are: direct addressing (forcing the call explicitly), skill-enforced invocation (baking the requirement into the SKILL.md), and asking the agent to cite its source.</p>
+		<p>"This is the most important thing to remember about MCP and skills. Configuring a tool doesn't mean the agent will use it. The agent makes its own judgement. If it believes it already knows the answer, it'll skip the tool call entirely. The only reliable mitigations are: direct addressing (forcing the call explicitly), skill-enforced invocation (baking the requirement into the SKILL.md), and asking the agent to cite its source."</p>
 		<hr/>
 		<ul>
 			<li>Direct addressing: use @forge-mcp or @skill-name in the prompt to force the agent to route through that tool</li>
