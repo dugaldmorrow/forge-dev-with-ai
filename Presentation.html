@@ -42,6 +42,24 @@
 	</aside>
 </section>
 
+<!-- SLIDE 2: About this presentation -->
+<section>
+	<h3>About this presentation</h3>
+	<ul>
+		<li>📤 <strong>Slides will be shared</strong> — a link to this deck will be made available after the session</li>
+		<li>🤖 <strong>AI-assisted content</strong> — this presentation was researched and drafted with the help of AI; verify anything critical before acting on it</li>
+		<li>⚡ <strong>This space moves fast</strong> — AI tooling is evolving rapidly; details may already have changed by the time you read this</li>
+	</ul>
+	<aside class="notes">
+		<p>A quick note before we get started. You don't need to take notes. The slides will be shared with you after the session. The content was put together with AI assistance, so it's accurate to the best of our knowledge, but this is a fast-moving space and things can change week to week. If something sounds off, check the source.</p>
+		<hr/>
+		<ul>
+			<li>The presentation repository is publicly available — the QR code at the end of the deck links directly to it</li>
+			<li>If the audience asks about a specific tool or version detail, it's fine to say "check the current docs" — this is genuinely a space where training data goes stale fast</li>
+		</ul>
+	</aside>
+</section>
+
 <!-- SLIDE 3: The AI revolution -->
 <section>
 	<h3>AI is reshaping software development first</h3>
@@ -163,7 +181,7 @@
 
 <!-- SLIDE 5d: Abstraction demands autonomy -->
 <section>
-	<h3>Higher abstraction demands higher autonomy</h3>
+	<h3>Higher abstraction demands higher tool autonomy</h3>
 	<table>
 		<thead>
 			<tr>
@@ -191,61 +209,13 @@
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>Higher levels of abstraction and increasing levels of autonomy go hand in hand. For example, if you say "build me an app", the tool assumes a certain level of autonomy because it needs to make decisions you didn't specify.</p>
+		<p>Higher levels of abstraction and increasing levels of autonomy go hand in hand. For example, if you say "build me an app that prioritises Jira work items", the tool needs a certain level of autonomy in order to make decisions you didn't specify. Often these decisions involve the tool interpreting the developer's intent.</p>
 		<hr/>
 		<ul>
 			<li>The converse is equally true: a low-abstraction tool like autocomplete doesn't need high autonomy. It is completing your thought, not replacing your judgment. The developer is still fully in control.</li>
 			<li>This is why the star ratings on the next slide are a reliable shorthand: they measure how high up the abstraction ladder each category operates</li>
 			<li>It also explains boundary cases: Cursor and Windsurf sit at ★★★☆ because in agent mode they operate at the task/file level — not as high as a full AI Dev Agent operating at goal/feature level</li>
 			<li>Transition: "So with that in mind, let's look at how the market has organised around these four abstraction levels."</li>
-		</ul>
-	</aside>
-</section>
-
-<!-- SLIDE 5e: Vibe coding vs specification-based coding -->
-<section>
-	<h3>Specification beats vibes — especially for Forge</h3>
-	<table>
-		<thead>
-			<tr>
-				<th></th>
-				<th>🎵 Vibe Coding</th>
-				<th>📋 Specification-Based Coding</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><strong>How you start</strong></td>
-				<td>Describe a feeling or rough idea; iterate freely</td>
-				<td>Write a spec first; agent implements against it</td>
-			</tr>
-			<tr>
-				<td><strong>Best for</strong></td>
-				<td>Exploration, prototyping, learning</td>
-				<td>Production apps, team handoffs, repeatable builds</td>
-			</tr>
-			<tr>
-				<td><strong>Risk</strong></td>
-				<td>Drift, inconsistency, hard to reproduce</td>
-				<td>More upfront effort — but predictable results</td>
-			</tr>
-			<tr>
-				<td><strong>With Forge</strong></td>
-				<td>Fine for spikes; risky for manifests &amp; scopes</td>
-				<td>✅ Recommended — Forge's constraints reward precision</td>
-			</tr>
-		</tbody>
-	</table>
-	<aside class="notes">
-		<p>"Before we look at the tools available, it's worth pausing on how you work with them. The style of collaboration matters as much as the tool you pick."</p>
-		<hr/>
-		<ul>
-			<li>Vibe coding, a term popularised by Andrej Karpathy in early 2025, means describing what you want in loose, natural language and iterating until something clicks. It's a genuinely useful mode for exploration and learning. But it produces inconsistent results when the target environment has strict constraints, and Forge is exactly that kind of environment.</li>
-			<li>Forge has a declarative manifest, a fixed set of module types, a permission scope model, and a sandboxed runtime. When you vibe-code a Forge app, the agent fills in the gaps with its training data, and that data may be stale or simply wrong. You end up with a manifest that references deprecated modules, missing scopes, or a permissions model that doesn't reflect what the app actually does.</li>
-			<li>Specification-based coding flips this: you write down what the app should do (a brief spec, a README, or even a Jira ticket), and the agent implements against that spec. The output is more predictable, easier to review, and easier to hand off to a teammate or revisit in six months.</li>
-			<li>The resources folder contains a worked example of a Forge app specification — <code>resources/app-specification-example/</code> — showing what a good spec looks like in practice</li>
-			<li>Vibe coding and spec-based coding are not mutually exclusive: a common pattern is to vibe-code a spike to explore the idea, then write a spec and regenerate properly before committing</li>
-			<li>Transition: "So that's how you work with agents. Now let's look at which agents are available and how they're categorised."</li>
 		</ul>
 	</aside>
 </section>
@@ -275,7 +245,7 @@
 			<tr>
 				<td><strong>AI Dev Agents</strong></td>
 				<td>★★★★<br/><em>Fully agentic</em></td>
-				<td>Terminal or web — you hand off a goal and review the result</td>
+				<td>Terminal, IDE extension, or web — you hand off a goal and review the result</td>
 			</tr>
 			<tr>
 				<td><strong>Autonomous Dev Platforms</strong></td>
@@ -285,10 +255,10 @@
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>"There are four categories of AI dev tools, and the key dimension to understand them is autonomy. How much of the work does the AI do independently? The spectrum runs from 'AI helps me type' at one end, all the way to 'AI does the complete task while I review the result' at the other."</p>
+		<p>"We can categorise AI dev tools in line with autonomy levels. The spectrum ranges from helping the developer to type to coding and testing entire tasks just like a human would."</p>
 		<hr/>
 		<ul>
-			<li>One thing worth flagging up front: autonomy and deployment model are two different things. Autonomous Dev Platforms like App Studio are at the same autonomy level as standalone agents. The difference is where the environment lives, not how capable the AI is. And you'll often see Cursor and Rovo Dev listed side by side, but Cursor is an AI-Native IDE while Rovo Dev is an AI Dev Agent that runs in your terminal. A different relationship with the tool entirely.</li>
+			<li>One thing worth flagging up front: autonomy and deployment model are two different things. Autonomous Dev Platforms like App Studio are at the same autonomy level as standalone agents. The difference is where the environment lives, not how capable the AI is. And you'll often see Cursor and Rovo Dev listed side by side, but Cursor is an AI-Native IDE while Rovo Dev is an AI Dev Agent available in your terminal, as an IDE extension in VS Code, and via Rovo CLI. A different relationship with the tool entirely.</li>
 			<li>AI Dev Agents: fully agentic — the agent plans, executes, runs tests, and iterates with minimal human involvement per step; you review the output, not every action</li>
 			<li>AI-Native IDEs: strong agent mode built into the core architecture (not bolted on as a plugin), but the human is still in the editor making decisions; Cursor is a fork of VS Code rebuilt entirely around AI</li>
 			<li>AI Coding Assistants: most conservative option — keep your existing IDE, add AI as a plugin; GitHub Copilot has grown from autocomplete into agent mode, but the baseline experience is still assisted coding</li>
@@ -304,19 +274,26 @@
 	<table>
 		<thead><tr><th>Agent</th><th>Creator</th><th>Distinctive Feature</th></tr></thead>
 		<tbody>
-			<tr><td><strong>Rovo Dev / Rovo CLI</strong></td><td>Atlassian</td><td>Atlassian Teamwork Graph — Jira, Confluence, Bitbucket, Compass context; ADS-accurate UI generation</td></tr>
+			<tr><td><strong>Rovo Dev / Rovo CLI</strong></td><td>Atlassian</td><td>Atlassian Teamwork Graph — Jira, Confluence, Bitbucket, Compass context; IDE extension (VS Code + compatible); ADS-accurate UI generation</td></tr>
 			<tr><td><strong>Claude Code</strong></td><td>Anthropic</td><td>Agent View + /goal; supervisor Claude verifies results</td></tr>
 			<tr><td><strong>Codex</strong></td><td>OpenAI</td><td>Available as a desktop app, CLI, IDE plugin, and web app — same agent, multiple surfaces</td></tr>
 			<tr><td><strong>Google Antigravity 2.0</strong></td><td>Google</td><td>Multi-model routing; launched May 19 2026 at Google I/O</td></tr>
 			<tr><td><strong>Devin</strong></td><td>Cognition AI</td><td>First "autonomous AI software engineer"; Interactive Planning; from $20/mo</td></tr>
-			<tr><td><strong>Cline</strong></td><td>Community (MIT)</td><td>5M+ installs; bring your own API key; fully open source</td></tr>
+			<tr><td><strong>Cline</strong></td><td>Community (MIT)</td><td>Bring your own API key; fully open source</td></tr>
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>"Let's walk through the six major agents quickly. Rovo Dev is the obvious choice if you're already on Atlassian Cloud. It reads Jira tickets, Confluence pages, and Bitbucket PRs as part of every task. Claude Code is the strongest option outside the Atlassian ecosystem. The supervisor model means it double-checks its own work. Codex is OpenAI's answer, and unlike the others it's available across four surfaces: a CLI for terminal-native workflows, a desktop app for supervising multiple agent threads in parallel, an IDE extension for editor-centred pairing, and a web app at chatgpt.com/codex for cloud-delegated tasks. Same underlying agent, same ChatGPT account, different interface depending on how you work. Google Antigravity 2.0 is the newest, launched May 2026 at Google I/O, so the community is still forming around it. Devin is the most hands-off: give it a GitHub issue and walk away. Cline is the open-source wildcard: bring your own API key, full control, 5 million installs."</p>
+		<p>"Here are six tools providing fully agentic coding capabilities. Each of them have distinctintive features which orients them towards different kinds of situations.
+    </p>
+    <p>
+      Rovo Dev is the obvious choice if you're already on Atlassian Cloud because it has built in access to interacting with Atlassian apps such as Jira, Confluence and Bitbucket. 
+    </p>
+    <p>
+      As we'll see later, the other tools also allow access to Atlassian context <span style="display:none">via the Atlassian Rovo MCP Server</span> so they are all good options to use for your Forge development."
+    </p>
 		<hr/>
 		<ul>
-			<li>Rovo Dev: only agent with native Teamwork Graph access — reads cross-product context (Jira + Confluence + Bitbucket + Compass) without MCP configuration</li>
+			<li>Rovo Dev: only agent with native Teamwork Graph access — reads cross-product context (Jira + Confluence + Bitbucket + Compass) without MCP configuration; also available as an IDE extension built into the Atlassian for VS Code extension, supporting VS Code and compatible editors</li>
 			<li>Claude Code: the supervisor Claude verification step is a meaningful reliability differentiator — catches errors before surfacing results</li>
 			<li>Codex: the multi-surface story is its clearest differentiator — CLI for terminal-first developers, desktop app for managing parallel agent threads, IDE extension for pairing inside VS Code or Cursor, and web for cloud-delegated tasks; all share the same ChatGPT account and model</li>
 			<li>Google Antigravity 2.0: multi-model routing means it selects the best model for each sub-task; still early days for community adoption</li>
@@ -328,48 +305,49 @@
 
 <!-- SLIDE 8: LLM configurability -->
 <section>
-	<h3>LLM (model) configurability varies</h3>
+	<h3>LLM model configurability</h3>
 	<table>
 		<thead><tr><th>Agent</th><th>LLMs</th><th>Configurable?</th></tr></thead>
 		<tbody>
 			<tr><td><strong>Rovo Dev / Rovo CLI</strong></td><td>GPT, Claude, Gemini + open-source</td><td>Limited (switch with /model)</td></tr>
-			<tr><td><strong>Claude Code</strong></td><td>Claude only (Opus/Sonnet/Haiku)</td><td>Yes (/model command)</td></tr>
+			<tr><td><strong>Claude Code</strong></td><td>Claude only natively; any model via gateway proxy (Bifrost, LiteLLM, OpenRouter)</td><td>Limited — Claude tiers only without a proxy</td></tr>
 			<tr><td><strong>Codex CLI</strong></td><td>GPT-5.x series; local via Ollama</td><td>Yes (/model command)</td></tr>
 			<tr><td><strong>Google Antigravity 2.0</strong></td><td>Gemini (default), Claude, GPT-OSS</td><td>Yes</td></tr>
-			<tr><td><strong>Devin</strong></td><td>Proprietary SWE-1 / SWE-1.5</td><td>❌ No</td></tr>
+			<tr><td><strong>Devin</strong></td><td>Claude, GPT, Gemini, Kimi, GLM + open-source</td><td>Yes</td></tr>
 			<tr><td><strong>Cline</strong></td><td>200+ models (Claude, GPT, Gemini, Ollama…)</td><td>Yes — fully</td></tr>
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>"LLM choice is a real decision. But for Forge development, it matters less than how well you configure MCP and skills. A smaller model with the Forge MCP Server configured often outperforms a frontier model answering from training data alone."</p>
+		<p>"Most tools allow the LMM model to be configured. This is important if you or the organisation you work for has an agreement with a provider."</p>
 		<hr/>
 		<ul>
 			<li>Cline: most flexible — bring your own API key for 200+ models; ideal for cost-conscious teams</li>
-			<li>Claude Code: locked to Anthropic models — a constraint if your org requires model diversity</li>
-			<li>Devin: no configurability — Cognition's proprietary SWE model only</li>
+			<li>Claude Code: locked to Anthropic's API natively — the /model command switches between Claude tiers only (Opus, Sonnet, Haiku); OpenAI, Gemini, and other models require a gateway proxy such as Bifrost, LiteLLM, or OpenRouter to translate the Anthropic API format</li>
+			<li>Devin: supports Anthropic, OpenAI, Google, and Cognition models, typically within minutes of launch, plus open-source models including Kimi and GLM</li>
 		</ul>
 	</aside>
 </section>
 
 <!-- SLIDE 9: IDE extensions -->
 <section>
-	<h3>AI Coding Assistants add AI with zero friction</h3>
+	<h3>IDE extensions add AI with zero friction</h3>
 	<table>
-		<thead><tr><th>Extension</th><th>Creator</th><th>LLMs</th><th>LLM Configurable?</th></tr></thead>
+		<thead><tr><th>Extension</th><th>Creator</th><th>LLMs</th></tr></thead>
 		<tbody>
-			<tr><td><strong>GitHub Copilot</strong></td><td>Microsoft / GitHub</td><td>GPT-5.5, GPT-5.4, Claude Sonnet 4.6, Claude Haiku 4.5</td><td>Yes — user or admin selectable</td></tr>
-			<tr><td><strong>JetBrains AI Assistant</strong></td><td>JetBrains</td><td>Claude (Anthropic), Gemini, GPT via BYOK; proprietary Mellum for completions</td><td>Yes — BYOK supported</td></tr>
-			<tr><td><strong>Tabnine</strong></td><td>Tabnine</td><td>Privacy-first; multiple models; self-hosted / air-gapped available</td><td>Yes — enterprise model config</td></tr>
+			<tr><td><strong>Rovo Dev</strong></td><td>Atlassian</td><td>Built into the Atlassian for VS Code extension; VS Code and compatible editors; full Teamwork Graph access</td></tr>
+			<tr><td><strong>GitHub Copilot</strong></td><td>Microsoft / GitHub</td><td>GPT-5.5, GPT-5.4, Claude Sonnet 4.6, Claude Haiku 4.5</td></tr>
+			<tr><td><strong>JetBrains AI Assistant</strong></td><td>JetBrains</td><td>Claude (Anthropic), Gemini, GPT via BYOK; proprietary Mellum for completions</td></tr>
+			<tr><td><strong>Tabnine</strong></td><td>Tabnine</td><td>Privacy-first; multiple models; self-hosted / air-gapped available</td></tr>
 		</tbody>
 	</table>
-	<blockquote>💡 Copilot has evolved well beyond autocomplete: agentic PR creation and code review, and GitHub Spark (natural language app building) — now moving to token-based billing in mid-2026.</blockquote>
 	<aside class="notes">
-		<p>IDE extensions are the lowest-friction path to AI-assisted development. Keep your existing editor and add AI capabilities. GitHub Copilot has evolved well beyond autocomplete into agent mode and agentic PR creation.</p>
+		<p>IDE extensions are the lowest-friction path to AI-assisted development. They allow you to keep your existing editor whilst adding AI capabilities.</p>
 		<hr/>
 		<ul>
 			<li>GitHub Copilot: most widely adopted globally; moving to token-based billing mid-2026; GitHub Spark enables natural language app building</li>
 			<li>JetBrains AI Assistant: natural choice for Java/Kotlin/Python developers; Junie (Jan 2026) is their autonomous full-task agent</li>
 			<li>Tabnine: the privacy-first option; zero code retention; self-hosted/air-gapped deployment available for regulated industries</li>
+			<li>Rovo Dev: the IDE extension surface runs inside VS Code and compatible editors via the Atlassian for VS Code extension; brings the same Teamwork Graph intelligence as the terminal agent, without leaving the editor</li>
 		</ul>
 	</aside>
 </section>
@@ -378,11 +356,11 @@
 <section>
 	<h3>AI-Native IDEs are rebuilt around AI</h3>
 	<table>
-		<thead><tr><th>IDE</th><th>Creator</th><th>LLMs</th><th>LLM Configurable?</th></tr></thead>
+		<thead><tr><th>IDE</th><th>Creator</th><th>LLMs</th></tr></thead>
 		<tbody>
-			<tr><td><strong>Cursor</strong></td><td>Anysphere</td><td>Claude, GPT, Gemini, Grok + proprietary Composer</td><td>Yes — per-conversation</td></tr>
-			<tr><td><strong>Windsurf</strong></td><td>Codeium / Cognition</td><td>Proprietary SWE-1.5/1.6, Claude, GPT + BYOK</td><td>Yes — dropdown in Cascade</td></tr>
-			<tr><td><strong>Replit</strong></td><td>Replit Inc.</td><td>Managed (not user-selectable)</td><td>❌ No</td></tr>
+			<tr><td><strong>Cursor</strong></td><td>Anysphere</td><td>Claude, GPT, Gemini, Grok + proprietary Composer</td></tr>
+			<tr><td><strong>Windsurf</strong></td><td>Codeium / Cognition</td><td>Proprietary SWE-1.5/1.6, Claude, GPT + BYOK</td></tr>
+			<tr><td><strong>Replit</strong></td><td>Replit Inc.</td><td>Managed (not user-selectable)</td></tr>
 		</tbody>
 	</table>
 	<aside class="notes">
@@ -1209,6 +1187,59 @@ You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre
 			<li>Use the tool logs as evidence: the agent should be able to show which MCP server or source it used for Forge-specific decisions</li>
 			<li>Review manifest changes especially carefully: scopes, storage, egress permissions, product modules, and installation effects</li>
 			<li>Transition: "Those gates are how we turn hallucination risk into something manageable."</li>
+		</ul>
+	</aside>
+</section>
+
+<!-- SLIDE 5e: Vibe coding vs specification-based coding -->
+<section>
+	<h3>Vibe vs Spec Coding</h3>
+	<table>
+		<thead>
+			<tr>
+				<th></th>
+				<th>🎵 Vibe Coding</th>
+				<th>📋 Specification-Based Coding</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><strong>Abstraction level</strong></td>
+				<td>Lower</td>
+				<td>Higher</td>
+			</tr>
+			<tr>
+				<td><strong>How you start</strong></td>
+				<td>Describe a rough idea; iterate freely</td>
+				<td>Write a spec first; agent implements against it</td>
+			</tr>
+			<tr>
+				<td><strong>Best for</strong></td>
+				<td>Exploration, prototyping, learning</td>
+				<td>Production apps, team handoffs, repeatable builds</td>
+			</tr>
+			<tr>
+				<td><strong>Risk</strong></td>
+				<td>Drift, inconsistency, hard to reproduce</td>
+				<td>More upfront effort — but predictable results</td>
+			</tr>
+			<tr>
+				<td><strong>With Forge</strong></td>
+				<td>Fine for spikes; risky for manifests &amp; scopes</td>
+				<td>✅ Recommended — Forge's constraints reward precision</td>
+			</tr>
+		</tbody>
+	</table>
+	<aside class="notes">
+		<p>"Both styles work — but they're not equal for every situation. Vibe coding is great for exploration: describe a feeling, iterate freely, see what sticks. But it falls apart when the target environment has strict constraints, and Forge is exactly that environment. Forge has a declarative manifest, fixed module types, a permission scope model, and a sandboxed runtime. Vibe-code a Forge app and the agent fills the gaps with training data that may be stale or flat-out wrong. Spec-based coding flips this: write down what the app should do, and the agent implements against that. More predictable, easier to review, and much easier to hand off."</p>
+		<hr/>
+		<ul>
+			<li>Vibe coding: term coined by Andrej Karpathy in early 2025; genuinely useful for spikes, prototypes, and learning — the danger is drift and inconsistency when the environment is strict</li>
+			<li>Forge failure modes from vibe coding: deprecated module references, missing OAuth scopes, permissions model that doesn't match what the app actually does</li>
+			<li>Spec-based coding: the spec can be as lightweight as a README or a Jira ticket — the point is the agent has something to implement against rather than guessing intent</li>
+			<li>The two aren't mutually exclusive: a common pattern is to vibe-code a spike first, then write a spec and regenerate properly before committing to production</li>
+			<li>The resources folder contains a worked example: resources/app-specification-example/ shows what a good Forge app spec looks like in practice</li>
+			<li>Transition: "Here's how I personally combine both approaches."</li>
 		</ul>
 	</aside>
 </section>
