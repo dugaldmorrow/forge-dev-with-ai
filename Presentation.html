@@ -581,11 +581,17 @@
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>"A plugin is just a packaging layer. It doesn't magically make the model smarter. It gives the host a bundle it can install: skills to expose, MCP servers to configure, metadata that tells the host where things live, and prompts you can use to verify everything is active."</p>
+		<p>"An AI plugin is just a packaging mechanism. It doesn't magically make the model smarter. It gives the host a bundle it can install such as skills, MCP servers and metadata that tells the host where things live, and prompts you can use to verify everything is active."</p>
 		<hr/>
 		<ul>
 			<li>This answers the common question: if skills normally live in a directory, how does a plugin expose them? The host indexes the plugin's bundled skills directory using the plugin metadata.</li>
 			<li>Transition: "Now let's make that concrete with the Forge AI Plugin."</li>
+		</ul>
+		<ul>
+			<li><a href="https://code.claude.com/docs/en/plugins#create-your-first-plugin">Claude Code — Create your first plugin</a> — how to define skills, MCP config, and host metadata for Claude Code plugins</li>
+			<li><a href="https://developers.openai.com/codex/plugins/build">Codex — Build a plugin</a> — plugin definition format for OpenAI Codex agents</li>
+			<li><a href="https://cursor.com/docs/plugins#creating-plugins">Cursor — Creating plugins</a> — plugin structure and host metadata for Cursor</li>
+			<li><a href="https://docs.anythingllm.com/agent/custom/plugin-json">AnythingLLM — Plugin JSON reference</a> — the plugin.json metadata format that tells the host where skills and MCP config live</li>
 		</ul>
 	</aside>
 </section>
@@ -606,7 +612,7 @@
 	</table>
 	<p style="font-size:0.5em; margin-top:0.5em;">📖 <a href="https://developer.atlassian.com/platform/forge/ai-development-toolkit/forge-ai-plugin/">developer.atlassian.com/platform/forge/ai-development-toolkit/forge-ai-plugin/</a></p>
 	<aside class="notes">
-		<p>The Forge AI Plugin (atlassian/forge-skills) is the official Atlassian-published plugin bundle, not a community project. It ships Forge skills under a skills directory, MCP configuration in a dot-mcp-dot-json file, and per-host plugin metadata. The host makes the agent aware of the skills by indexing the plugin's bundled skills directory after install or restart.</p>
+		<p>"The Forge AI Plugin is the official Atlassian plugin bundle. It includes Forge skills, the Forge MCP server configuration and plugin metadata for various hosts."</p>
 		<hr/>
 		<li><strong>Path 1: Plugin-aware hosts</strong> — use the host-specific plugin install command. For Claude Code, Cursor, Gemini CLI, and GitHub Copilot CLI, each has its own install command. The plugin path is lower friction because skills, MCP wiring, and host metadata install together.</li>
 			<li><strong>Path 2: Manual fallback</strong> — use this for Rovo Dev, and for any host where plugin install is not supported yet. The Forge Skills repo currently lists OpenAI Codex support as coming soon, so treat Codex as manual until current docs say otherwise. Run npx skills add atlassian/forge-skills, then configure Forge MCP and ADS MCP. For Rovo Dev, run acli rovodev mcp to edit MCP config. Restart the host so skills and MCP become available.</li>
@@ -620,24 +626,28 @@
 
 <!-- SLIDE 20: npx skills package manager -->
 <section>
-	<h3><code>npx skills</code> is the manual fallback</h3>
+	<h3>Installing skills with <code>npx</code></h3>
 	<pre><code>npx skills add atlassian/forge-skills
   → Downloads repo · detects installed agents · copies SKILL.md files · creates skills-lock.json</code></pre>
 	<table>
-		<thead><tr><th>Need</th><th>Command</th></tr></thead>
+		<thead><tr><th>Also needed</th><th>How</th></tr></thead>
 		<tbody>
-			<tr><td>Check for updates</td><td><code>npx skills check</code></td></tr>
-			<tr><td>Update all skills</td><td><code>npx skills update</code></td></tr>
-			<tr><td>Update one skill</td><td><code>npx skills update forge-skills</code></td></tr>
+			<tr><td>Forge MCP Server</td><td>Add JSON config to your agent's MCP config file manually</td></tr>
+			<tr><td>Skills — check for updates</td><td><code>npx skills check</code></td></tr>
+			<tr><td>Skills — update all</td><td><code>npx skills update</code></td></tr>
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>npx skills is the manual fallback when the Forge AI Plugin isn't supported by your host. It's to agent skills what npm is to JavaScript packages. Skills are static files on disk. Unlike MCP servers which are always live, skills are a snapshot. Run npx skills update periodically to get improvements.</p>
+    <p>"If your host doesn;t support AI plugins or if you want to install additional skills, you can use the npx utility. "</p>
+
+		<p>When you're on the manual path, there are two distinct steps: install the skills with npx skills, then configure the Forge MCP Server separately. npx skills copies the SKILL.md files into your agent's skills directory. It does not touch your MCP config. You still need to add the Forge MCP Server JSON block to your agent's config file by hand, then restart the agent. Both are needed — skills without MCP means the agent has the workflow instructions but no live access to Forge docs.</p>
 		<hr/>
 		<ul>
+      <li>NPX: Node Package Execute</li>
 			<li>GitHub is the registry: <code>atlassian/forge-skills</code> maps directly to <code>github.com/atlassian/forge-skills</code></li>
-			<li>Rovo Dev path: use <code>npx skills add atlassian/forge-skills</code>, add MCP config via <code>acli rovodev mcp</code>, then restart Rovo Dev</li>
-			<li>Common confusion: "why is the agent giving outdated Forge module advice?" — answer: your skills are stale; run <code>npx skills update</code></li>
+			<li>Rovo Dev path: <code>npx skills add atlassian/forge-skills</code> for skills, then <code>acli rovodev mcp</code> to add the Forge MCP Server config, then restart Rovo Dev</li>
+			<li>Common confusion: treating <code>npx skills</code> as a complete setup — it only handles skills; the MCP config step is always manual on this path</li>
+			<li>Skills are a snapshot; run <code>npx skills update</code> periodically to pick up improvements</li>
 		</ul>
 	</aside>
 </section>
