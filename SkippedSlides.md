@@ -38,3 +38,50 @@ The good news: "LLMflation" — the a16z term for the rapid decline in inference
 For Forge developers: when using AI agents to build Forge apps, you will consume tokens. Understanding this helps you choose the right model (cheaper models for simple tasks, frontier models for complex reasoning) and use skills to avoid re-explaining context every session.
 
 </details>
+
+---
+
+### App Studio deploys Forge apps from plain language
+
+1. Generates a feature spec outlining what the app does, where it lives, how it behaves
+2. Developer reviews and approves the spec
+3. Rovo builds the app: selects modules, generates UI Kit code, wires backend + permissions
+4. One-click deploy to your Atlassian site
+
+#### Speaker notes
+
+<details>
+<summary>Speaker notes</summary>
+
+"App Studio is the zero-code path to a deployed Forge app. Worth a live demo if time allows. Describe the app, review the spec, and deploy. Governance is built-in: Atlassian admins control which apps can be installed and enterprise customers get approval workflows before deployment."
+
+- The agent calls the Forge MCP Server to select the correct module type and scopes
+- Current limitation: best for simpler apps; complex custom UI or resolver logic may still require a developer's hand
+
+</details>
+
+---
+
+### Four categories — choose by abstraction level
+
+| Category | Abstraction Level | Best For |
+|---|---|---|
+| **AI Coding Assistants** | Token / line | AI in your existing editor; lowest switching cost |
+| **AI-Native IDEs** | Task / file | AI-first editing with you still in control |
+| **AI Dev Agents** | Goal / feature | Multi-step coding tasks; hand off and review |
+| **Autonomous Dev Platforms** | Intent / product | No-code / low-code to production; no environment to configure |
+
+#### Speaker notes
+
+<details>
+<summary>Speaker notes</summary>
+
+"To summarise the landscape: four categories, each sitting at a different level on the abstraction ladder. The higher you go, the less you specify how and the more you specify what. Choose based on where your team sits today on that ladder."
+
+- AI Coding Assistants (token/line): the developer is still coding — the AI accelerates keystrokes, not decisions
+- AI-Native IDEs (task/file): the developer directs; the AI executes a bounded piece of work within the session
+- AI Dev Agents (goal/feature): the developer delegates; the AI plans, iterates, and reports back
+- Autonomous Dev Platforms (intent/product): the developer describes the outcome; the AI handles architecture, implementation, and deployment
+- Cursor and Rovo Dev often get compared but sit in different categories: Cursor is an AI-Native IDE (task/file level), Rovo Dev is an AI Dev Agent (goal/feature level)
+
+</details>

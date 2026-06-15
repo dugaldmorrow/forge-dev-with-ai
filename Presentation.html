@@ -826,7 +826,8 @@ npx skills update
 <section>
 	<h3>⚠️ Presence in the config is not the same as guaranteed invocation. The agent's internal confidence is the deciding factor.</h3>
 	<aside class="notes">
-		<p>"This is the most important thing to remember about MCP and skills. Configuring a tool doesn't mean the agent will use it. The agent makes its own judgement. If it believes it already knows the answer, it'll skip the tool call entirely. The only reliable mitigations are: direct addressing (forcing the call explicitly), skill-enforced invocation (baking the requirement into the SKILL.md), and asking the agent to cite its source."</p>
+    <p>"So an important thing to remember about MCP servers and skills is that configuring them doesn't mean the agent will use them. "</p>
+    <p>"The agent makes its own judgement. If it believes it already knows the answer, it'll likely skip the tool call entirely."</p>
 		<hr/>
 		<ul>
 			<li>Direct addressing: use @forge-mcp or @skill-name in the prompt to force the agent to route through that tool</li>
@@ -842,7 +843,8 @@ npx skills update
 	<p>Commit skill example</p>
 	<blockquote>"These changes have been committed. Future changes will only be committed when explicitly requested."</blockquote>
 	<aside class="notes">
-		<p>The commit skill in this presentation's repository specifies that the agent must always end its confirmation message with "These changes have been committed. Future changes will only be committed when explicitly requested." Every time the agent commits, it restates this rule, reinforcing the critical rule without the user having to remember to ask.</p>
+    <p>"One technique that I've learnt is to craft skills so that they re-inject critical rules into the session context after each time they are invoked."</p>
+    <p>"For example, I have a commit skill which guides the way the agent commits changes to git. The skill instruct the agent to add a reminder message saying 'Future changes will only be committed when explicitly requested' since with out, the agent sometimes forgets and auto commits if there is a prior commit request in the session."</p>
 		<hr/>
 		<ul>
 			<li>The skill enforces this by including the exact sentence verbatim in the instructions, marked as mandatory — the agent cannot complete the commit workflow without saying it</li>
@@ -858,7 +860,7 @@ npx skills update
 	<table>
 		<thead><tr><th>Technique</th><th>How</th><th>Effectiveness</th></tr></thead>
 		<tbody>
-			<tr><td><strong>AGENTS.md standing rules</strong></td><td>Write the rule once: <code>Always call Forge MCP before selecting a module type</code> — loaded at session start, always in context</td><td>⭐⭐⭐ Highest</td></tr>
+			<tr><td><strong>AGENTS.md standing rules</strong></td><td>Write the rule once: <code>Always call Forge MCP before selecting a module type</code> — loaded at session start, always in context</td><td>⭐⭐⭐⭐ Highest</td></tr>
 			<tr><td><strong>Use domain terminology</strong></td><td>Phrase requests using skill trigger words (e.g. <em>"Forge module"</em>, <em>"forge deploy"</em>) — routing depends on semantic matching against skill descriptions</td><td>⭐⭐⭐ High</td></tr>
 			<tr><td><strong>Skill-enforced invocation</strong></td><td>Add <code>You MUST call forge-development-guide</code> inside SKILL.md — fires when the skill is activated</td><td>⭐⭐⭐ High</td></tr>
 			<tr><td><strong>Source verification</strong></td><td>Ask <em>"Which source did you use?"</em> after a Forge decision — forces the agent to confirm or redo the call</td><td>⭐⭐ Good</td></tr>
@@ -866,7 +868,9 @@ npx skills update
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>Explicit per-prompt instructions such as "consult the MCP server before proceeding" work, but are an antipattern since they defeat the design intent where the agent routes intelligently. The two principled solutions are skill-enforced invocation, baking the requirement into your skill file once, and standing rules in your AGENTS.md file, written once and enforced every session. Source verification is a useful diagnostic habit. Direct addressing should be thought of as an escape hatch for one-off cases. Model choice also matters, as some models may be more disciplined about tool use than others.</p>
+    <p>"There are a number of techniques that can be used to improve the reliability of tool invocation by agents."</p>
+    <p>"I've ordered them here in terms of effectiveness which is a combination of reliability and convenience."</p>
+    <p>"Most of the time you should be fine with just the first two techniques. "</p>
 		<hr/>
 		<ul>
 			<li>Skill-enforced example: <code>## Step 2: Select the Module — You MUST call the Forge MCP Server tool `forge-development-guide` now. Do not proceed based on prior knowledge.</code></li>
@@ -890,7 +894,7 @@ npx skills update
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>The syntax for direct addressing varies by agent. Check the docs for your specific tool.</p>
+    <p>"I've never found the need to explicitly address tools, but if you do, you'll need to be aware of the syntax to use for your agent."</p>
 		<hr/>
 		<ul>
 			<li>Cursor and Windsurf both use <code>@mcp-server-name</code></li>
@@ -913,7 +917,8 @@ Load and follow the forge-app-builder skill.</code></pre>
 	<p>Now <code>@fab</code> will ensure the forge-app-builder is used:</p>
 	<pre><code>@fab What module should I use for a Jira issue panel?</code></pre>
 	<aside class="notes">
-		<p>The @-mention technique is only useful if developers actually type it. If you find yourself using a skill often, you could create a short alias for it as shown here.</p>
+    <p>"If you find yourself calling a specific tool a lot, you can create a short alias for it by defining another skill as shown here."</p>
+    <p>"This is useful if you're not the author of the skill being aliased."</p>
 		<hr/>
 		<ul>
 			<li>An alias skill is just a SKILL.md file whose body instructs the agent to load the target skill — one line of content</li>
@@ -935,7 +940,8 @@ Load and follow the forge-app-builder skill.</code></pre>
             └── AGENTS.local.md  ← Local override (gitignored, personal only)</code></pre>
 	<blockquote><em>Including an AGENTS.md reduced agent task completion time by 28% in a controlled study (ETH Zurich, 2025).</em></blockquote>
 	<aside class="notes">
-		<p>AGENTS.md is the "always-on" layer of agent configuration, as opposed to skills which are "on-demand". You can create a hierarchy of these files but you probably shouldn't go overboard since it will fill up your agent context quickly, leading to attention dilution and more tokens being consumed.</p>
+    <p>"Whilst skills are loaded only on demands, AGENTS.md files are the 'always-on' layer of agent configuration."</p>
+    <p>"You can create a hierarchy of AGENT.md files but you probably shouldn't go overboard since it will fill up your agent context quickly, leading to attention dilution and more tokens being consumed."</p>
 		<hr/>
 		<ul>
 				<li>The hierarchy works by <strong>accumulation, not override</strong>: the agent reads all applicable AGENTS.md files from the outermost level inward and concatenates them into a single brief. The global file applies to every project on your machine. The repo-level file is committed to source control and shared with the whole team. A subdirectory file adds specialist rules for that area only. The local override is gitignored and personal. When all four exist, the agent sees all four, with inner files taking precedence on any conflicting instruction.</li>
@@ -967,7 +973,9 @@ Large files shown collapsed (signatures only) → expand on demand
       ▼
 Acts on relevant content only</code></pre>
 	<aside class="notes">
-		<p>This may be counterintuitive for developers used to IDEs that index the entire project upfront. Agents work selectively. They list the directory, open only the files they need, and expand large files on demand. One practical tip: if you're working on one part of a large codebase, you can launch the agent from that subdirectory rather than the root. This gives it a smaller, more focused view and avoids wasting tokens navigating irrelevant code.</p>
+    <p>"For developers used to IDEs that index the entire project upfront, the selective loading of files by agents may be counterintuitive."</p>
+    <p>"Agents list the directory, but only read the files they need to."</p>
+    <p>"One practical tip: if you're working on one part of a large codebase, you can launch the agent from that subdirectory rather than the root. This gives it a smaller, more focused view and avoids wasting tokens navigating irrelevant code."</p>
 		<hr/>
 		<ul>
 			<li>Rovo Dev: files opened on demand via <code>open_files</code>, <code>grep</code>, <code>expand_code_chunks</code>, <code>expand_folder</code>; large files shown collapsed until explicitly expanded</li>
@@ -986,12 +994,14 @@ Acts on relevant content only</code></pre>
 		<li class="fragment">Add instructions to <code>AGENTS.md</code>: <em>Ignore the files and directories identified by the patterns in <code>.agentignore</code>.</em></li>
 	</ul>
 	<aside class="notes">
-		<p>There are three ways to tell an agent to ignore files.</p>
+    <p>"There are a few ways to tell an agent to ignore files."</p>
+		<ul>
+			<li><strong>Click to show item 1</strong>: "The most portable option is an .agentignore file, which uses the same syntax as .gitignore files."</li>
+			<li><strong>Click to show item 2</strong>: "Some agents support agent-specific ignore files. Rovo Dev, for example, will respect a .rovoignore file."</li>
+			<li><strong>Click to show item 3</strong>: "The most universal option is to add an instruction directly to AGENTS.md telling the agent to honour the patterns in your .agentignore file. Every agent reads AGENTS.md, so this works even when native ignore file support is absent."</li>
+		</ul>
 		<hr/>
 		<ul>
-			<li><strong>Click to show item 1</strong> — The most portable option is an .agentignore file, which uses the same syntax as .gitignore.</li>
-			<li><strong>Click to show item 2</strong> — Some agents support agent-specific ignore files. Rovo Dev, for example, will respect a .rovoignore file.</li>
-			<li><strong>Click to show item 3</strong> — The most universal option is to add an instruction directly to AGENTS.md telling the agent to honour the patterns in your .agentignore file. Every agent reads AGENTS.md, so this works even when native ignore file support is absent.</li>
 			<li>Common candidates to ignore: node_modules, build and dist directories, large binary assets, generated files, and test fixtures with large data sets</li>
 			<li>Ignoring irrelevant files reduces context noise and speeds up codebase navigation</li>
 		</ul>
@@ -1016,7 +1026,9 @@ Ask the developer what Atlassian product the app targets...
 ## Step 2: Select the Right Module
 You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre>
 	<aside class="notes">
-		<p>A skill is just a markdown file with a YAML frontmatter block at the top. The frontmatter declares a name and description. That's what the agent reads at startup to decide whether the skill is relevant. The body of the file is only loaded when the task matches, which keeps startup token costs low.</p>
+    <p>"A skill is just a markdown file with a YAML frontmatter block at the top."</p>
+    <p>"The frontmatter declares a name and description. That's what the agent reads at startup to decide whether the skill is relevant."</p>
+    <p>"The body of the file is only loaded when the task matches, which keeps startup token costs low."</p>
 		<hr/>
 		<ul>
 			<li>The frontmatter name and description are loaded at every session startup — roughly 100 tokens per skill; keep descriptions concise</li>
@@ -1030,13 +1042,13 @@ You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre
 <section>
 	<h3>Skills can do more than you think</h3>
 	<ul>
-		<li class="fragment">📁 <strong>References</strong> — link supporting files the agent loads on demand</li>
-		<li class="fragment">🖥️ <strong>Scripts</strong> — run shell commands on the local machine</li>
-		<li class="fragment">🤖 <strong>Agent-specific instructions</strong> — target behaviour for a specific agent</li>
-		<li class="fragment">🔗 <strong>Skill chaining</strong> — instruct one skill to invoke another</li>
+		<li>📁 <strong>References</strong> — link supporting files the agent loads on demand</li>
+		<li>🖥️ <strong>Scripts</strong> — run shell commands on the local machine</li>
+		<li>🤖 <strong>Agent-specific instructions</strong> — target behaviour for a specific agent</li>
+		<li>🔗 <strong>Skill chaining</strong> — instruct one skill to invoke another</li>
 	</ul>
 	<aside class="notes">
-		<p>Skills aren't just static instructions. They can load supporting reference files, run shell scripts locally, target specific agents, and chain into other skills.</p>
+    <p>"Skills aren't just static instructions. They can load supporting reference files, run shell scripts locally, target specific agents, and chain into other skills."</p>
 		<hr/>
 		<ul>
 			<li><strong>References:</strong> a references/ subdirectory can hold module patterns, ADRs, or team conventions — the skill instructs the agent to load them when needed</li>
@@ -1062,7 +1074,7 @@ You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>Where you put your skills depends on which agent you're using. Most agents that follow the AGENTS.md convention use .agents/skills/. Cursor and Windsurf have their own dedicated directories, and Cursor also uses a slightly different file format called MDC.</p>
+    <p>"Where you put your skills depends on which agent you're using. Most agents that follow the AGENTS.md convention use .agents/skills/. Cursor and Windsurf have their own dedicated directories, and Cursor also uses a slightly different file format called MDC."</p>
 		<hr/>
 		<ul>
 			<li>Rovo Dev, Codex CLI, and GitHub Copilot all recognise .agents/skills/ natively or via AGENTS.md reference</li>
@@ -1089,7 +1101,8 @@ You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>Most agents support global or personal skills that follow you across all projects on your machine. Good candidates are your preferred commit message format, PR conventions, and personal coding style preferences.</p>
+    <p>"Most agents support global or personal skills that follow you across all projects on your machine. "</p>
+    <p>"Good candidates for these are your preferred commit message format, PR conventions, and personal coding style preferences."</p>
 		<hr/>
 		<ul>
 			<li>Rovo Dev, Claude Code, and Codex CLI all use a dedicated global skills directory under your home folder</li>
@@ -1115,31 +1128,14 @@ You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>Forge is a declarative platform from top to bottom. The manifest, the module system, the UI Kit, the permission model. All declared, not coded. For an AI agent, this is ideal. The agent describes what the app should do and the platform takes care of the rest.</p>
+    <p>"Forge is a declarative platform from top to bottom. The manifest, the module system, UI Kit, the permission model, etc. "</p>
+    <p>"For an AI agent, this is ideal because the agent describes what the app should do and the platform takes care of the lower level concerns."</p>
+    <p>"Conversely, an imperative platform would require the agent to choose or make assumptions about infrastructure, authentication schemes and other kinds of platform concerns."</p>
 		<hr/>
 		<ul>
 			<li>The manifest is a YAML schema. The agent generates against a known structure, making output predictable and easy to review</li>
 			<li>UI Kit is declarative by design. Components have typed props and the platform handles rendering</li>
 			<li>The Forge MCP Server grounds the agent in current schemas and documentation. Without it, the agent falls back on training data that may be months out of date</li>
-		</ul>
-	</aside>
-</section>
-
-<!-- SLIDE 32: App Studio -->
-<section>
-	<h3>App Studio deploys Forge apps from plain language</h3>
-	<ol>
-		<li>Generates a feature spec outlining what the app does, where it lives, how it behaves</li>
-		<li>Developer reviews and approves the spec</li>
-		<li>Rovo builds the app: selects modules, generates UI Kit code, wires backend + permissions</li>
-		<li>One-click deploy to your Atlassian site</li>
-	</ol>
-	<aside class="notes">
-		<p>App Studio is the zero-code path to a deployed Forge app in under 20 minutes. Worth a live demo if time allows. Describe the app, review the spec, and deploy. Governance is built-in: Atlassian admins control which apps can be installed and enterprise customers get approval workflows before deployment.</p>
-		<hr/>
-		<ul>
-			<li>The agent calls the Forge MCP Server to select the correct module type and scopes</li>
-			<li>Current limitation: best for simpler apps; complex custom UI or resolver logic may still require a developer's hand</li>
 		</ul>
 	</aside>
 </section>
@@ -1162,7 +1158,8 @@ You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre
         ▼
  Developer review</code></pre>
 	<aside class="notes">
-		<p>This is what a fully configured agent workflow could look like for Forge development. There's really no part the agent can't do.</p>
+    <p>"This is what a fully configured agent workflow could look like for Forge development. "</p>
+    <p>"There's really no part of the software development workflow that the agent can't do."</p>
 		<hr/>
 		<ul>
 			<li>Each step maps to a specific tool: Atlassian Rovo MCP for the ticket, Forge MCP for module selection and manifest guidance, Forge App Review skill for the security checklist, and the agent's shell access for forge tunnel, forge deploy, and forge install</li>
@@ -1184,7 +1181,10 @@ You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre
 	</table>
 
 	<aside class="notes">
-		<p>Atlassian's strategy is to be open to any agent you want to use. MCP servers connect your agent to Atlassian's data and platform. Skills give your agent Atlassian's expertise. Together, they mean a developer using Claude Code or Cursor gets the same quality of Forge guidance as a Rovo Dev user.</p>
+    <p>"Atlassian's strategy is to be open to any agent you want to use. "</p>
+    <p>"Use the Atlassian Rovo MCP server to connect your agent to Atlassian's data and platform. "</p>
+    <p>"And skills give your agent Atlassian's expertise."</p>
+    <p>"Together, they mean a developer using Claude Code or Cursor gets the same quality of Forge guidance as a Rovo Dev user."</p>
 		<hr/>
 		<ul>
 			<li>MCP servers: Forge MCP (public docs, no auth), Atlassian Rovo MCP (Jira, Confluence, Compass, Bitbucket via OAuth 2.1), ADS MCP (design tokens and components)</li>
@@ -1258,7 +1258,9 @@ You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>"Both styles work — but they're not equal for every situation. Vibe coding is great for exploration: describe a feeling, iterate freely, see what sticks. But it falls apart when the target environment has strict constraints, and Forge is exactly that environment. Forge has a declarative manifest, fixed module types, a permission scope model, and a sandboxed runtime. Vibe-code a Forge app and the agent fills the gaps with training data that may be stale or flat-out wrong. Spec-based coding flips this: write down what the app should do, and the agent implements against that. More predictable, easier to review, and much easier to hand off."</p>
+		<p>"Andrej Karpathy coined the term vibe coding, but as agents have become more sophsticated, spec-based coding has become common."</p>
+		<p>"It's not a matter of one being right and the other being wrong. You need to be aware of when to use each approach."</p>
+		<p>"Vibe coding is great for exploration whilst specifications are great when the requirements are well known in advance."</p>
 		<hr/>
 		<ul>
 			<li>Vibe coding: term coined by Andrej Karpathy in early 2025; genuinely useful for spikes, prototypes, and learning — the danger is drift and inconsistency when the environment is strict</li>
@@ -1282,7 +1284,8 @@ You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre
 	</ol>
 	<blockquote>By ship date, <code>Requirements.md</code> is the app's documentation.</blockquote>
 	<aside class="notes">
-		<p>When I'm developing a Forge app that I haven't fully defined up front, I start with a Forge template that provides some of the core functionality, then I draft a brief specification of the app and request the agent to build it. As I test the app and identify changes needed, I ask the agent to enhance both the specification and the app at the same time. My goal is for the specification to be the high-level documentation of the app.</p>
+		<p>"You can also use both approaches in conjunction with one another."</p>
+		<p>"When I'm developing a Forge app that I haven't fully defined up front, I start with a Forge template that provides some of the core functionality, then I draft a brief specification of the app and request the agent to build it. As I test the app and identify changes needed, I ask the agent to enhance both the specification and the app at the same time. My goal is for the specification to be the high-level documentation of the app."</p>
 		<hr/>
 		<ul>
 			<li>The Forge template is step one — it gives the agent a known-good scaffold so it never has to guess boilerplate structure or manifest syntax</li>
@@ -1328,7 +1331,8 @@ See GenericAppRequirements.md for generic app requirements.
 The app must listen to the creation of new comments on Jira
 work items by subscribing to the `avi:jira:commented:issue` event.</code></pre>
 	<aside class="notes">
-		<p>GenericAppRequirements.md is written once and covers the standards that apply to every Forge app in the project. This file can be shared between apps.</p>
+		<p>"I separate out my app specific specifications from my generic Forge app specifications so that I can re-use the generic specifications in multiple apps. "</p>
+		<p>"The snippet here shows how the app specific specification references the generic specifications."</p>
 		<hr/>
 		<ul>
 			<li>The app-specific file (e.g. EmailAddressDetector.md) uses a YAML frontmatter block at the top so the agent and any human reader immediately knows what the app is. It covers the problem statement, solution overview, key definitions, functional requirements, and non-functional requirements. It references GenericAppRequirements.md by name so the agent loads both files as context.</li>
@@ -1342,33 +1346,6 @@ work items by subscribing to the `avi:jira:commented:issue` event.</code></pre>
 </section>
 
 
-
-
-<!-- SLIDE 41: Landscape summary -->
-<section>
-	<h3>Four categories — choose by abstraction level</h3>
-	<table>
-		<thead><tr><th>Category</th><th>Abstraction Level</th><th>Best For</th></tr></thead>
-		<tbody>
-			<tr><td><strong>AI Coding Assistants</strong></td><td>Token / line</td><td>AI in your existing editor; lowest switching cost</td></tr>
-			<tr><td><strong>AI-Native IDEs</strong></td><td>Task / file</td><td>AI-first editing with you still in control</td></tr>
-			<tr><td><strong>AI Dev Agents</strong></td><td>Goal / feature</td><td>Multi-step coding tasks; hand off and review</td></tr>
-			<tr><td><strong>Autonomous Dev Platforms</strong></td><td>Intent / product</td><td>No-code / low-code to production; no environment to configure</td></tr>
-		</tbody>
-	</table>
-
-	<aside class="notes">
-		<p>To summarise the landscape: four categories, each sitting at a different level on the abstraction ladder. The higher you go, the less you specify how and the more you specify what. Choose based on where your team sits today on that ladder.</p>
-		<hr/>
-		<ul>
-			<li>AI Coding Assistants (token/line): the developer is still coding — the AI accelerates keystrokes, not decisions</li>
-			<li>AI-Native IDEs (task/file): the developer directs; the AI executes a bounded piece of work within the session</li>
-			<li>AI Dev Agents (goal/feature): the developer delegates; the AI plans, iterates, and reports back</li>
-			<li>Autonomous Dev Platforms (intent/product): the developer describes the outcome; the AI handles architecture, implementation, and deployment</li>
-			<li>Cursor and Rovo Dev often get compared but sit in different categories: Cursor is an AI-Native IDE (task/file level), Rovo Dev is an AI Dev Agent (goal/feature level)</li>
-		</ul>
-	</aside>
-</section>
 
 
 <!-- SLIDE 43: Final / closing -->
@@ -1385,7 +1362,8 @@ work items by subscribing to the `avi:jira:commented:issue` event.</code></pre>
 	</table>
 
 	<aside class="notes">
-		<p>Forge has always made it easy to build production ready apps, but AI makes it even easier.</p>
+		<p>"Forge has always made it easy to build production ready apps, but AI makes it even easier."</p>
+		<p>"Hopefully this presentation has helped you understand how to utilise AI to build a Forge app today."</p>
 		<hr/>
 		<ul>
 			<li>This is the final slide before Q&amp;A — pause here, invite questions, then close on this slide so the audience's last impression is the call to action, not a random answer</li>
@@ -1407,7 +1385,10 @@ work items by subscribing to the `avi:jira:commented:issue` event.</code></pre>
 	<p style="font-size:1.4em; margin-top: 1em; text-align: center;"><a href="https://go.atlassian.com/forge-dev-with-ai">go.atlassian.com/forge-dev-with-ai</a></p>
 	<p style="text-align: center;"><img src="images/presentation-repo-qr-code.png" alt="QR code linking to go.atlassian.com/forge-dev-with-ai" style="max-height: 300px;" /></p>
 	<aside class="notes">
-		<p>Everything covered today is in this repository: the slide deck, the agent skills, the MCP configuration examples, and the spec-first workflow templates. Scan the link or type it in now.</p>
+    <p>"If you're interested in getting a coy of this presentation, you can by visiting the URL on the screen."</p>
+    <p>"As a bonus, the presentation uses the Reveal.js library which means it's in HTML rather than a proprietry form such as Apple Keynote. The presentation includes all the speaker notes and additional references and information in the speaker notes for each slide. The presentation repository also has a frequently asked questions HTML file and some skills I've used to create the presentation."</p>
+    <p>"This means you can open the presentation project in your IDE and use your AI agent to ask questions about it."</p>
+		<p>"For example, let's ask it 'Is spec-based programminf superior to vibe programming?'."</p>
 		<hr/>
 		<ul>
 			<li>The repository is public — no Atlassian account required to access it</li>
