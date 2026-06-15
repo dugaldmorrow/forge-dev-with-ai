@@ -432,7 +432,8 @@
 	<h3>MCP Servers and Skills</h3>
 	<img src="images/mcp-and-skills-flow.png" alt="Diagram showing an AI agent loading skills and querying MCP servers before sending an enriched query to the LLM" style="max-height: 55vh; display: block; margin: 0 auto;" />
 	<aside class="notes">
-		<p>Before we look at MCP Servers and Agent Skills individually, here's the big picture. The agent sits in the middle: it loads skills from local files to get instructions and workflow knowledge, queries MCP servers to get live data and capabilities from external systems, then sends an enriched prompt to the LLM. Neither MCP nor skills alone is sufficient. Together they give the agent both the knowledge of how to work and the tools to act.</p>
+		<p>"Before we look at MCP Servers and Agent Skills individually, here's the big picture. The agent sits in the middle: it loads skills from local files to get instructions and workflow knowledge, queries MCP servers to get live data and capabilities from external systems, then sends an enriched prompt to the LLM."</p>
+    <p>"It's important to note that the AI agent chooses when to use MCP servers and skills."</p>
 		<hr/>
 		<ul>
 			<li>The diagram shows the flow: skills load into context, MCP servers are queried, the enriched prompt goes to the LLM</li>
@@ -446,7 +447,7 @@
 	<h3>MCP connects any agent to any tool</h3>
 	<img src="images/mcp-illustration.svg" alt="Diagram showing an MCP Client box inside an AI Agent box, with arrows from the MCP Client to three MCP Server boxes: Forge MCP Server, Atlassian Rovo MCP Server, and GitHub MCP Server." style="max-height: 65vh; width: auto; display: block; margin: 0 auto;" />
 	<aside class="notes">
-		<p>MCP is the universal connector for AI tools, like USB-C for devices. Before MCP, every AI integration was custom-built. MCP means implement the client once, implement the server once, and any combination works. Three primitives: Tools (actions the agent can execute), Resources (data the agent can read), and Prompts (reusable instruction templates).</p>
+		<p>MCP is the universal connector for AI agents, like USB-C for devices. Before MCP, every AI integration was custom-built.</p>
 		<hr/>
 		<ul>
 			<li>Created at Anthropic, released November 25, 2024; donated to Linux Foundation December 2025</li>
