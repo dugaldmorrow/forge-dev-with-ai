@@ -470,7 +470,8 @@
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>The Forge MCP Server is the most important one for this audience. GA February 2026, remote with no local install required. Add the URL to your config and the agent immediately gains accurate, up-to-date Forge knowledge.</p>
+		<p>"There are a number of MCP servers that will help you develop Forge apps, but obviously the Forge MCP server is the most important one".</p>
+		<p>"The Atlassian Design System MCP server is particularly important if you are developing Forge apps with interfaces built with Custom UI."</p>
 		<hr/>
 		<ul>
 			<li>ADS MCP Server: critical for Custom UI apps; provides live component catalogs, design tokens, and WCAG 2.1 AA accessibility checks</li>
@@ -482,7 +483,7 @@
 
 <!-- SLIDE 15: MCP servers for context -->
 <section>
-	<h3>MCP servers give agents team context</h3>
+	<h3>MCP servers for team context</h3>
 	<table>
 		<thead><tr><th>MCP Server</th><th>Key Capabilities</th></tr></thead>
 		<tbody>
@@ -491,7 +492,7 @@
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>The Atlassian Rovo MCP Server connects the agent to live Jira requirements, Confluence design docs, Bitbucket PRs, and Compass component data. It can read the spec and update the ticket without leaving the terminal.</p>
+		<p>"Some MCP severs are focussed on providing agents with context about your team or workflow. For example, the Atlassian Rovo MCP Server stands out here if you want your agent to read and update Jira work items. "</p>
 		<hr/>
 		<ul>
 			<li>GA February 2026; Bitbucket added April 2026; OAuth 2.1 — agent inherits the user's existing permissions</li>
@@ -505,19 +506,19 @@
 	<h3>Setup the Forge MCP Server</h3>
 	<pre><code class="language-json">{
   "mcpServers": {
-    "forge": {
+    "forge-knowledge": {
       "url": "https://mcp.atlassian.com/v1/forge/mcp",
       "transport": "http"
     }
   }
 }</code></pre>
-	<blockquote>⚠️ Restart the MCP host, then ask <em>"What Forge modules are available for Jira?"</em> to verify.</blockquote>
+	<blockquote style="display:none">⚠️ Restart the MCP host, then ask <em>"What Forge modules are available for Jira?"</em> to verify.</blockquote>
 	<aside class="notes">
-		<p>"This one config block is all you need. The Forge MCP Server is remote. There's nothing to install locally, the URL is the server. Paste this into your config, fully restart the app, and ask 'What Forge modules are available for Jira?' If you get a structured list, you're connected."</p>
+		<p>"Setting up the Forge MCP server just requires some configuration since it is hosted remotely by Atlassian. There's nothing to install locally."</p>
 		<hr/>
 		<ul>
-			<li>Common gotcha: reloading the window is not enough — fully restart the app for the MCP client to reconnect</li>
-			<li>Second gotcha: a trailing comma in the JSON causes silent failure — the MCP server simply won't appear</li>
+			<li>Common gotcha: reloading the window is not enough — fully restart the MCP host (AI agent) for the MCP client to reconnect</li>
+			<li>Second gotcha: syntax errors such as a trailing comma in the JSON will cause failures that may not be visible</li>
 		</ul>
 	</aside>
 </section>
@@ -532,11 +533,11 @@
 			<tr><td><strong>Cursor</strong></td><td><code>~/.cursor/mcp.json</code></td></tr>
 			<tr><td><strong>Windsurf</strong></td><td><code>~/.codeium/windsurf/mcp_config.json</code></td></tr>
 			<tr><td><strong>VS Code</strong></td><td><code>settings.json</code> → <code>mcp.servers</code> key</td></tr>
-			<tr><td><strong>Rovo Dev / Rovo CLI</strong></td><td><code>acli rovodev mcp</code> (opens config in default editor)</td></tr>
+			<tr><td><strong>Rovo Dev</strong></td><td><code>~/.rovodev/mcp.json</code><br/> <code>acli rovodev mcp</code> (opens config in default editor)</td></tr>
 		</tbody>
 	</table>
 	<aside class="notes">
-		<p>"Config file locations vary by tool. This is the reference slide. If you're on Rovo Dev, you don't need to hunt for the file: just run acli rovodev mcp and it opens in your default editor."</p>
+		<p>"The location of the MCP configuration file varies depending on your agent. The Atlassian CLI includes a handy command to open the MCP configuration file for Rovo Dev in an editor."</p>
 		<hr/>
 		<ul>
 			<li>Atlassian Rovo MCP Server: 20+ supported AI clients; OAuth 2.1; Bitbucket added April 2026</li>
@@ -555,7 +556,9 @@
 		<li><strong>Execute</strong> — agent follows instructions, loads referenced files as needed</li>
 	</ol>
 	<aside class="notes">
-		<p>If an MCP server is like giving the agent a phone to call external services, a skill is like giving the agent your team's runbook: the specific way your team does things. Progressive disclosure keeps costs low: only about 100 tokens per skill at startup, then the full instructions load only when the task matches.</p>
+    <p>"Let's now look at skills."</p>
+		<p>"If an MCP server is like an agent phoning an external service, a skill is like giving the agent your team's runbook."</p>
+    <p>"Skills are loaded in a progressive manner in order to keep costs low. Only the name and description of skills are loaded when a new agent session starts. The details of the skill will load only when the agent determines it is needed."</p>
 		<hr/>
 		<ul>
 			<li>Build a skill once, use it across Claude Code, Codex CLI, GitHub Copilot, and Rovo Dev — without modification</li>
@@ -564,24 +567,6 @@
 	</aside>
 </section>
 
-<!-- SLIDE 18b: Agent skills — examples -->
-<section>
-	<h3>Skills to cover the Forge workflow</h3>
-	<ul>
-		<li>📋 <strong>Forge App Builder</strong> — module selection, manifest setup, UI Kit patterns, deploy workflow</li>
-		<li>📋 <strong>Forge App Review</strong> — pre-deploy checklist: security, cost efficiency, performance</li>
-		<li>📋 <strong>Commit</strong> — commit message format, what to stage, PR structure</li>
-		<li>📋 <strong>Changelog</strong> — how to record changes in your project's specific format</li>
-	</ul>
-	<aside class="notes">
-		<p>These four skills map directly to the four stages of Forge development: build, review, commit, and record. Together they cover the full loop from scaffolding to shipped. Transition: "Now let's look at where to store these skill files and how to keep them up to date."</p>
-		<hr/>
-		<ul>
-			<li>Forge App Builder and Forge App Review are available in the <code>atlassian/forge-skills</code> bundle</li>
-			<li>Commit and Changelog are generic enough to write yourself in 15 minutes</li>
-		</ul>
-	</aside>
-</section>
 
 <!-- SLIDE 18c: AI plugins package capabilities -->
 <section>
