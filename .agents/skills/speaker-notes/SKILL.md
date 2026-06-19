@@ -1,6 +1,6 @@
 ---
 name: speaker-notes
-description: Defines the required structure and content conventions for speaker notes in the presentation. Load this skill when creating, editing, or reviewing speaker notes for any slide.
+description: Defines the required structure and content conventions for speaker notes in the presentation. Load this skill when creating, editing, or reviewing speaker notes for any slide. Use when user mentions "speaker notes" or "presenter notes".
 ---
 
 # Speaker Notes Skill

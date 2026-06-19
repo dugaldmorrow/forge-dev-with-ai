@@ -1348,6 +1348,63 @@ work items by subscribing to the `avi:jira:commented:issue` event.</code></pre>
 
 
 
+<!-- SLIDE 37d: TypeScript over JavaScript for AI -->
+<section>
+	<h3>TypeScript makes AI significantly more accurate than JavaScript</h3>
+	<table>
+		<thead>
+			<tr>
+				<th>Factor</th>
+				<th>TypeScript</th>
+				<th>JavaScript</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><strong>Code correctness</strong></td>
+				<td>High — over 90% of LLM compilation errors are type failures; constraints let the agent catch its own mistakes</td>
+				<td>Lower — frequent runtime and boundary bugs; AI must guess data structures</td>
+			</tr>
+			<tr>
+				<td><strong>Upfront token cost</strong></td>
+				<td>Higher — type definitions add verbosity to prompts and context</td>
+				<td>Lower — minimal syntax means smaller prompts</td>
+			</tr>
+			<tr>
+				<td><strong>Overall token cost</strong></td>
+				<td>Lower — fewer iteration cycles means less total inference spend</td>
+				<td>Higher — runtime bugs and logical gaps drive repeated back-and-forth</td>
+			</tr>
+			<tr>
+				<td><strong>Development speed</strong></td>
+				<td>Faster for large architectures and complex apps</td>
+				<td>Faster for quick prototypes and simple scripts</td>
+			</tr>
+			<tr>
+				<td><strong>AI "spiraling"</strong></td>
+				<td>Risk of getting stuck in complex generic/type loops</td>
+				<td>Writes fast but leaves logical gaps</td>
+			</tr>
+			<tr>
+				<td><strong>Industry direction</strong></td>
+				<td>✅ Overtaking JavaScript in popularity — largely driven by AI agent efficiency</td>
+				<td>Still dominant for scripts and quick prototypes</td>
+			</tr>
+		</tbody>
+	</table>
+	<aside class="notes">
+		<p>"In general, I recommend using TypeScript over JavaScript for all development because it results in code that is easier to understand and maintain."</p>
+		<p>"This is also true when using AI because TypeScript gives the agent explicit type definitions, interfaces, and schemas to work against. JavaScript causes the agent to guess and make inferences about the code which can lead to assumptions and hallucinations."</p>
+    <p>"TypeScript is likely to also improve overall token efficiency and development speed."</p>
+		<hr/>
+		<ul>
+			<li>The core mechanism: TypeScript's type system acts as a strict guardrail. Over 90% of LLM compilation errors stem from type failures — forcing type constraints lets the AI catch its own mistakes before you see them</li>
+			<li>Contrast: <code>function processUser(user: User): boolean</code> vs <code>function processUser(user)</code> — the first gives the agent a perfect blueprint; the second leaves it blind to the object structure</li>
+			<li><a href="https://www.builder.io/blog/typescript-vs-javascript">Builder.io: TypeScript vs JavaScript</a> — industry adoption data and AI efficiency analysis</li>
+		</ul>
+	</aside>
+</section>
+
 <!-- SLIDE 43: Final / closing -->
 <section>
 	<h3>The tools are ready — start building today</h3>
