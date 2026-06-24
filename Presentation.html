@@ -844,7 +844,7 @@ If you’re using an agent that’s running on your machine, then I recommend us
 	<blockquote>"These changes have been committed. Future changes will only be committed when explicitly requested."</blockquote>
 	<aside class="notes">
     <p>"One technique that I've learnt is to craft skills so that they re-inject critical rules into the session context after each time they are invoked."</p>
-    <p>"For example, I have a commit skill which guides the way the agent commits changes to git. The skill instruct the agent to add a reminder message saying 'Future changes will only be committed when explicitly requested'. Without this reminder message, the agent sometimes forgets and auto commits if there is a prior commit request in the session."</p>
+    <p>"For example, I have a commit skill which guides the way the agent commits changes to git. The skill instructs the agent to add a reminder message saying 'Future changes will only be committed when explicitly requested'. Without this reminder message, the agent sometimes forgets and auto commits if there is a prior commit request in the session."</p>
 		<hr/>
 		<ul>
 			<li>The skill enforces this by including the exact sentence verbatim in the instructions, marked as mandatory — the agent cannot complete the commit workflow without saying it</li>
@@ -941,7 +941,7 @@ Load and follow the forge-app-builder skill.</code></pre>
 	<blockquote><em>Including an AGENTS.md reduced agent task completion time by 28% in a controlled study (ETH Zurich, 2025).</em></blockquote>
 	<aside class="notes">
     <p>"Whilst skills are loaded only on demand, AGENTS.md files are the 'always-on' layer of agent configuration."</p>
-    <p>"You can create a hierarchy of AGENT.md files but you probably shouldn't go overboard since it will fill up your agent context quickly, leading to attention dilution and more tokens being consumed."</p>
+    <p>"You can create a hierarchy of AGENT.md files but you probably shouldn't go overboard since it will fill up your agent context quickly. Filling up your agent context uses more tokens and is therefore more costly. It also leads to attention dilution."</p>
 		<hr/>
 		<ul>
 				<li>The hierarchy works by <strong>accumulation, not override</strong>: the agent reads all applicable AGENTS.md files from the outermost level inward and concatenates them into a single brief. The global file applies to every project on your machine. The repo-level file is committed to source control and shared with the whole team. A subdirectory file adds specialist rules for that area only. The local override is gitignored and personal. When all four exist, the agent sees all four, with inner files taking precedence on any conflicting instruction.</li>
@@ -975,7 +975,7 @@ Acts on relevant content only</code></pre>
 	<aside class="notes">
     <p>"For developers used to IDEs that index the entire project upfront, the selective loading of files by agents may be counterintuitive."</p>
     <p>"Agents list the directory, but only read the files they need to."</p>
-    <p>"One practical tip: if you're working on one part of a large codebase, you can launch the agent from that subdirectory rather than the root. This gives it a smaller, more focused view and avoids wasting tokens navigating irrelevant code."</p>
+    <p>"One practical tip: if you're working on one part of a large codebase, you can launch the agent from that subdirectory rather than the root. This gives it a smaller, more focused view and avoids wasting tokens navigating and loading irrelevant code."</p>
 		<hr/>
 		<ul>
 			<li>Rovo Dev: files opened on demand via <code>open_files</code>, <code>grep</code>, <code>expand_code_chunks</code>, <code>expand_folder</code>; large files shown collapsed until explicitly expanded</li>
@@ -1026,7 +1026,7 @@ Ask the developer what Atlassian product the app targets...
 ## Step 2: Select the Right Module
 You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre>
 	<aside class="notes">
-    <p>"A skill is just a markdown file with a YAML frontmatter block at the top."</p>
+    <p>"A skill is just a markdown file with a frontmatter block at the top."</p>
     <p>"The frontmatter declares the name and description of the skill. That's what the agent reads at startup to decide whether the skill is relevant."</p>
     <p>"The body of the file is only loaded when the task matches, which keeps startup token costs low."</p>
 		<hr/>
@@ -1259,7 +1259,7 @@ You MUST call the Forge MCP Server tool `forge-development-guide`...</code></pre
 	</table>
 	<aside class="notes">
 		<p>"Andrej Karpathy coined the term vibe coding, but as agents have become more sophisticated, spec-based coding has become common."</p>
-		<p>"It's not a matter of one being right and the other being wrong. You need to be aware of when to use each approach."</p>
+		<p>"It's not a matter of one being right and the other , but you should be aware of the pros and cons of each approach."</p>
 		<p>"Vibe coding is great for exploration whilst specifications are great when the requirements are well known in advance."</p>
 		<hr/>
 		<ul>
@@ -1394,7 +1394,7 @@ work items by subscribing to the `avi:jira:commented:issue` event.</code></pre>
 	</table>
 	<aside class="notes">
 		<p>"In general, I recommend using TypeScript over JavaScript for all development because it results in code that's easier to understand and maintain."</p>
-		<p>"This is also true when using AI because TypeScript gives the agent explicit type definitions, interfaces, and schemas to work against. JavaScript causes the agent to guess and make inferences about the code which can lead to assumptions and hallucinations."</p>
+		<p>"This is also true when using AI because TypeScript gives the agent explicit type definitions, interfaces, and schemas to work against. JavaScript causes the agent to guess and make inferences about the code which can lead to assumptions and confabulations."</p>
     <p>"TypeScript is likely to also improve overall token efficiency and development speed."</p>
 		<hr/>
 		<ul>
