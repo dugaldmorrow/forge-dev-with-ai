@@ -448,7 +448,7 @@
 	<h3>MCP connects any agent to any tool</h3>
 	<img src="images/mcp-illustration.svg" alt="Diagram showing an MCP Client box inside an AI Agent box, with arrows from the MCP Client to three MCP Server boxes: Forge MCP Server, Atlassian Rovo MCP Server, and GitHub MCP Server." style="max-height: 65vh; width: auto; display: block; margin: 0 auto;" />
 	<aside class="notes">
-		<p>MCP is the universal connector for AI agents, like USB-C for devices. Before MCP, every AI integration was custom-built.</p>
+		<p>MCP is the universal connector for AI agents, like USB-C is for devices. Before MCP, every AI integration was custom-built.</p>
 		<hr/>
 		<ul>
 			<li>Created at Anthropic, released November 25, 2024; donated to Linux Foundation December 2025</li>
@@ -665,7 +665,7 @@ npx skills update
 		</tbody>
 	</table>
 	<aside class="notes">
-    <p>"MCP servers are necessary when integrating with a third party system. They are also advantageous when they provide information that changes frequently since they don't rely on the developer updating versions."</p>
+    <p>"MCP servers are necessary when integrating with a third party system. They are also advantageous when it is necessary to provide information that changes frequently since they don't rely on the developer updating versions."</p>
     <p>"Skills are optimal for providing relatively static expertise such as guidelines. They are also easier to create."</p>
 		<hr/>
 		<ul>
@@ -810,9 +810,9 @@ If you’re using an agent that’s running on your machine, then I recommend us
 	<aside class="notes">
 		<p>"Here are some common failure patterns."</p>
 		<ul>
-			<li><strong>Row 1 (Forge MCP Server skipped)</strong>: "If the agent skips calling the Forge MCP to look up a module, it may apply incorrect module settings causing the app to fail to deploy with a manifest validation error."</li>
-			<li><strong>Click to show row 2</strong> <strong>(Forge App Review skill skipped)</strong>: "If the agent skips calling the Forge App Review skill, it may omit an OAuth scope or it may skip sanitising input."</li>
-			<li><strong>Click to show row 3</strong> <strong>(Atlassian Rovo MCP Server skipped)</strong>: "In the third case, the agent fixes a confabulated Jira work item."</li>
+			<li><strong>Row 1</strong>: "If the agent skips calling the Forge MCP to look up a module, it may apply incorrect module settings causing the app to fail to deploy with a manifest validation error."</li>
+			<li><strong>Row 2</strong>: "If the agent skips calling the Forge App Review skill, code errors may persist such as omitting an OAuth scope, or not sanitising input."</li>
+			<li><strong>Row 3</strong>: "In the third case, the agent fixes a confabulated Jira work item."</li>
 		</ul>
 		<hr/>
     <ul>
